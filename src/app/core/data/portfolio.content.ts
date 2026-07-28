@@ -193,9 +193,9 @@ export const REQUIREMENT_MATCHES: readonly RequirementMatch[] = [
     weight: 'preferred',
     status: 'strong',
     evidence:
-      'This repository ships a unit-test suite written against the Jest API — the same ' +
-      'describe / it / expect / spy surface — covering services, directives and form validation, ' +
-      'run on the Angular CLI test runner.',
+      'This repository ships a 42-case unit-test suite written against the Jest API — the same ' +
+      'describe / it / expect / spy surface — covering services, directives and contact-form ' +
+      "validation. It runs on the Angular CLI's Vitest runner, which is Jest-API compatible.",
   },
   {
     id: 'storybook',

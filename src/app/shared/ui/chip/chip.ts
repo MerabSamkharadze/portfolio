@@ -22,7 +22,8 @@ const TONE_CLASSES: Readonly<Record<ChipTone, string>> = {
 };
 
 const BASE_CLASSES =
-  'inline-flex items-center gap-1.5 rounded-md border font-mono leading-none transition-colors duration-200';
+  'inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md border font-mono ' +
+  'leading-none transition-colors duration-200';
 
 /**
  * Small mono-spaced label used for technologies, skill levels and statuses.

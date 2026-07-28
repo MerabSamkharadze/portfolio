@@ -1,44 +1,103 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files
 
+# ---------------------------------------------------------------------------
 # Compiled output
+# ---------------------------------------------------------------------------
 /dist
 /tmp
 /out-tsc
 /bazel-out
+*.tsbuildinfo
 
-# Node
+# ---------------------------------------------------------------------------
+# Dependencies — restored from package-lock.json, never committed
+# ---------------------------------------------------------------------------
 /node_modules
-npm-debug.log
-yarn-error.log
+/.pnp
+.pnp.js
 
+# ---------------------------------------------------------------------------
+# Build & tooling caches (the Angular cache alone is ~5 MB of churn)
+# ---------------------------------------------------------------------------
+/.angular
+.sass-cache/
+.cache/
+.parcel-cache/
+.eslintcache
+.stylelintcache
+/.nx/cache
+/.nx/workspace-data
+
+# ---------------------------------------------------------------------------
+# Test & coverage output
+# ---------------------------------------------------------------------------
+/coverage
+/test-results
+/playwright-report
+/blob-report
+__screenshots__/
+testem.log
+
+# ---------------------------------------------------------------------------
+# Logs
+# ---------------------------------------------------------------------------
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+/logs
+
+# ---------------------------------------------------------------------------
+# Secrets & environment — must never reach a public repository
+# ---------------------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+secrets.json
+
+# ---------------------------------------------------------------------------
+# Deployment artefacts
+# ---------------------------------------------------------------------------
+.vercel
+.netlify
+.firebase/
+.wrangler/
+
+# ---------------------------------------------------------------------------
 # IDEs and editors
+# ---------------------------------------------------------------------------
 .idea/
+*.iml
 .project
 .classpath
 .c9/
 *.launch
 .settings/
 *.sublime-workspace
+*.sublime-project
+.history/
+*.swp
+*.swo
+*~
 
-# Visual Studio Code
+# Visual Studio Code — share only the extension recommendation
 .vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
 !.vscode/extensions.json
-!.vscode/mcp.json
-.history/*
 
-# Miscellaneous
-/.angular/cache
-.sass-cache/
-/connect.lock
-/coverage
-/libpeerconnection.log
-testem.log
-/typings
-__screenshots__/
-
-# System files
+# ---------------------------------------------------------------------------
+# OS files
+# ---------------------------------------------------------------------------
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
