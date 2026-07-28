@@ -10,92 +10,81 @@ describe('PortfolioStore', () => {
     store = TestBed.inject(PortfolioStore);
   });
 
-  it('exposes the profile tailored to the target role', () => {
+  it('exposes the profile', () => {
     const profile = store.profile();
 
     expect(profile.name).toBe('Merab Samkharadze');
-    expect(profile.targetRole).toBe('Angular Developer');
+    expect(profile.headline).toBe('Angular Developer');
     expect(profile.email).toContain('@');
   });
 
-  describe('requirement partitioning', () => {
-    it('splits requirements into required and preferred without losing any', () => {
-      const required = store.requiredRequirements();
-      const preferred = store.preferredRequirements();
-
-      expect(required.length).toBeGreaterThan(0);
-      expect(preferred.length).toBeGreaterThan(0);
-      expect(required.length + preferred.length).toBe(store.requirementCount());
-    });
-
-    it('marks every required item as required and nothing else', () => {
-      expect(store.requiredRequirements().every((item) => item.weight === 'required')).toBe(true);
-      expect(store.preferredRequirements().every((item) => item.weight === 'preferred')).toBe(true);
-    });
-
-    it('gives every requirement a unique id', () => {
-      const ids = store.requirements().map((item) => item.id);
+  describe('navigation', () => {
+    it('has a unique id per nav item', () => {
+      const ids = store.navItems().map((item) => item.id);
       expect(new Set(ids).size).toBe(ids.length);
     });
 
-    it('backs every requirement with evidence that is not a restatement', () => {
-      for (const item of store.requirements()) {
-        expect(item.evidence.length).toBeGreaterThan(40);
-        expect(item.evidence).not.toBe(item.requirement);
+    it('never links to the hero, which is reached by the logo instead', () => {
+      expect(store.navItems().some((item) => item.id === 'top')).toBe(false);
+    });
+  });
+
+  describe('skills', () => {
+    it('separates primary from secondary groups without losing any', () => {
+      const primary = store.primarySkillGroups();
+      const secondary = store.secondarySkillGroups();
+
+      expect(primary.every((group) => group.emphasis === 'primary')).toBe(true);
+      expect(secondary.every((group) => group.emphasis === 'secondary')).toBe(true);
+      expect(primary.length + secondary.length).toBe(store.skillGroups().length);
+    });
+
+    it('gives every group a unique id and at least one skill', () => {
+      const ids = store.skillGroups().map((group) => group.id);
+
+      expect(new Set(ids).size).toBe(ids.length);
+      expect(store.skillGroups().every((group) => group.skills.length > 0)).toBe(true);
+    });
+
+    it('never repeats a skill name inside a group', () => {
+      for (const group of store.skillGroups()) {
+        const names = group.skills.map((skill) => skill.name);
+        expect(new Set(names).size).toBe(names.length);
       }
     });
   });
 
-  describe('matchScore', () => {
-    it('produces a percentage between 0 and 100', () => {
-      const score = store.matchScore();
-
-      expect(score).toBeGreaterThan(0);
-      expect(score).toBeLessThanOrEqual(100);
-      expect(Number.isInteger(score)).toBe(true);
-    });
-
-    it('stays below 100 while any requirement is still in progress', () => {
-      const hasGap = store
-        .requirements()
-        .some((item) => item.status === 'growing' || item.status === 'transferable');
-
-      expect(hasGap).toBe(true);
-      expect(store.matchScore()).toBeLessThan(100);
-    });
-
-    it('counts only direct and strong statuses as fully met', () => {
-      const expected = store
-        .requirements()
-        .filter((item) => item.status === 'direct' || item.status === 'strong').length;
-
-      expect(store.fullyMetCount()).toBe(expected);
-      expect(store.fullyMetCount()).toBeLessThanOrEqual(store.requirementCount());
-    });
-  });
-
-  describe('derived collections', () => {
-    it('separates primary from secondary skill groups', () => {
-      expect(store.primarySkillGroups().every((group) => group.emphasis === 'primary')).toBe(true);
-      expect(store.secondarySkillGroups().every((group) => group.emphasis === 'secondary')).toBe(
-        true,
-      );
-      expect(store.primarySkillGroups().length + store.secondarySkillGroups().length).toBe(
-        store.skillGroups().length,
-      );
-    });
-
+  describe('projects', () => {
     it('separates featured from additional projects', () => {
       expect(store.featuredProjects().every((project) => project.featured)).toBe(true);
       expect(store.additionalProjects().every((project) => !project.featured)).toBe(true);
+      expect(store.featuredProjects().length + store.additionalProjects().length).toBe(
+        store.projects().length,
+      );
     });
 
-    it('de-duplicates the technology marquee and omits anything still being learned', () => {
+    it('describes every project with a summary, a stack and at least one highlight', () => {
+      for (const project of store.projects()) {
+        expect(project.summary.length).toBeGreaterThan(40);
+        expect(project.stack.length).toBeGreaterThan(0);
+        expect(project.highlights.length).toBeGreaterThan(0);
+      }
+    });
+  });
+
+  describe('technologyMarquee', () => {
+    it('de-duplicates entries', () => {
+      const marquee = store.technologyMarquee();
+      expect(new Set(marquee).size).toBe(marquee.length);
+    });
+
+    it('shows only what is used in production or known well', () => {
       const marquee = store.technologyMarquee();
 
-      expect(new Set(marquee).size).toBe(marquee.length);
       expect(marquee).toContain('Angular v14 – v21');
-      expect(marquee).not.toContain('Oracle');
+      // 'familiar' and 'working' levels are held back from the strip.
+      expect(marquee).not.toContain('Xcode');
+      expect(marquee).not.toContain('MS SQL / T-SQL');
     });
   });
 
@@ -104,5 +93,10 @@ describe('PortfolioStore', () => {
 
     expect(first.current).toBe(true);
     expect(first.company).toBe('Crocobet');
+  });
+
+  it('orders education newest first', () => {
+    const ids = store.education().map((item) => item.id);
+    expect(ids.indexOf('tbc-react')).toBeLessThan(ids.indexOf('bsc'));
   });
 });

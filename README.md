@@ -1,60 +1,25 @@
-# Merab Samkharadze — Angular Developer Portfolio
+# Merab Samkharadze — Portfolio
 
-A single-page portfolio built in **Angular 21**, written against one specific job posting:
-**Angular Developer, Bank of Georgia**.
+A single-page personal portfolio built in **Angular 21**: who I am, what I work with, what I have
+shipped, where I worked and where I studied.
 
-Its job is not to look like a portfolio. It is to let a reviewer confirm the fit in under a
-minute — and then, if they care how the candidate builds things, to be worth reading as source.
-
----
-
-## The strategy
-
-The vacancy names a short, concrete list of requirements. Every one of them is answered on the
-page in the posting's own vocabulary, with evidence traceable to a line in the CV.
-
-| Vacancy asks for                       | Weight    | Status       | Evidence in the CV                                                  |
-| -------------------------------------- | --------- | ------------ | ------------------------------------------------------------------- |
-| 2–3 years with web technologies        | required  | direct       | Crocobet 07/2025→now, Adaptcore 09/2024–04/2025                     |
-| Excellent Angular                      | required  | direct       | Angular v14+, NgRx, RxJS, lazy loading, OnPush, 100k-user platform  |
-| Excellent JavaScript / latest ES specs | required  | direct       | TypeScript daily + 80h advanced ES6+ (Academy of Digital Industries)|
-| Good HTML and CSS                      | required  | direct       | 50+ responsive components, SCSS/BEM, Flexbox, CSS Grid              |
-| Web dev concepts & methodologies       | required  | direct       | SPA architecture, REST, Git flow, code review, Agile                |
-| Strong OOP                             | required  | strong       | Angular DI + NestJS modules, providers, DTO classes                 |
-| Multiple projects, delivered on time   | required  | direct       | 20+ campaign UIs against fixed marketing launch dates               |
-| Analytical / problem-solving / learner | required  | direct       | −15% post-release bugs, bi-weekly sessions for 4 devs               |
-| IT / CS / Applied Maths degree         | required  | transferable | BSc + MSc Economics (TSU, quantitative) + 2 specialist IT programmes|
-| SQL databases (MS SQL, Oracle)         | preferred | transferable | PostgreSQL/MySQL schema design, joins, indexing → ANSI SQL          |
-| Jest testing                           | preferred | strong       | The 42-case suite in this repository, written against the Jest API  |
-| Storybook                              | preferred | **growing**  | 50+ isolated input-driven components; Storybook itself in progress  |
-| Nrwl Nx workspace                      | preferred | **growing**  | core / shared / features boundaries that map onto Nx libraries      |
-
-The two `growing` rows are labelled honestly on the page rather than hidden. That is deliberate:
-a weighted **90%** with two visible gaps is more persuasive than an unweighted 100% that a
-technical interviewer will puncture in the first five minutes.
-
-The score is computed, not typed in — see `STATUS_WEIGHT` in
-[`portfolio-store.ts`](src/app/core/services/portfolio-store.ts). Change a status in the content
-file and the gauge, the counter and the copy all follow.
-
-**Angle worth keeping:** the Economics BSc/MSc is framed as an asset *for a bank* — quantitative
-training plus fluency in the language business units actually speak — rather than as a missing
-CS degree.
+It is also a working sample of how I structure an Angular application — standalone components,
+signal-based state, zoneless change detection, strict TypeScript and a tested core.
 
 ---
 
 ## Tech stack
 
-| Concern          | Choice                                                              |
-| ---------------- | ------------------------------------------------------------------- |
-| Framework        | Angular 21.2 — standalone components, **zero NgModules**             |
-| Change detection | **Zoneless** (`provideZonelessChangeDetection`), OnPush everywhere   |
-| State            | Signals (`signal` / `computed`), no external store needed            |
-| Styling          | Tailwind CSS v4, CSS-first `@theme` tokens                           |
-| Forms            | Reactive Forms, strictly typed via `nonNullable.group`               |
-| Testing          | Vitest (Jest-compatible API) — 42 cases                              |
-| Types            | TypeScript strict + `strictTemplates`                                |
-| Bundle           | ~80 kB transferred, ~320 kB raw                                      |
+| Concern          | Choice                                                            |
+| ---------------- | ----------------------------------------------------------------- |
+| Framework        | Angular 21.2 — standalone components, **zero NgModules**           |
+| Change detection | **Zoneless** (`provideZonelessChangeDetection`), OnPush everywhere |
+| State            | Signals (`signal` / `computed`), no external store needed          |
+| Styling          | Tailwind CSS v4, CSS-first `@theme` tokens                         |
+| Forms            | Reactive Forms, strictly typed via `nonNullable.group`             |
+| Testing          | Vitest — 42 cases                                                  |
+| Types            | TypeScript strict + `strictTemplates`                              |
+| Bundle           | ~76 kB transferred, ~306 kB raw                                    |
 
 > **Node note:** Angular 22 needs Node ≥ 22.22.3; this machine runs 22.17.0, so the project targets
 > Angular 21.2 — the latest release that runs here. `ng update` handles the jump once Node is upgraded.
@@ -69,7 +34,7 @@ src/app/
 │   ├── models/portfolio.model.ts     # every entity on the page, typed
 │   ├── data/portfolio.content.ts     # ← ALL COPY LIVES HERE
 │   └── services/
-│       ├── portfolio-store.ts        # signal façade + derived views (match score)
+│       ├── portfolio-store.ts        # signal façade + derived views
 │       ├── scroll-spy.ts             # active section, progress, smooth navigation
 │       └── contact-api.ts            # POST when configured, mailto fallback otherwise
 ├── shared/                       # reusable, domain-agnostic
@@ -78,15 +43,14 @@ src/app/
 │   │   └── reveal.ts                 # [appReveal] scroll choreography
 │   └── ui/  icon · chip · section-heading
 ├── layout/   navbar · footer
-└── features/ hero · about · role-fit · skills · projects · experience · education · contact
+└── features/ hero · about · skills · projects · experience · education · contact
 ```
 
 Three rules hold the structure together:
 
-1. **`features` may import `shared` and `core`. Never the reverse, never sideways.** Those are
-   exactly Nx library boundaries — the folders can become libs without moving a line of logic.
-2. **Content is data, not markup.** Editing the CV means editing `portfolio.content.ts`; no
-   template changes, and the compiler catches anything you break.
+1. **`features` may import `shared` and `core`. Never the reverse, never sideways.**
+2. **Content is data, not markup.** Updating the CV means editing `portfolio.content.ts`; no template
+   changes, and the compiler catches anything you break.
 3. **One observer, not sixty.** `RevealObserver` is a root singleton shared by every `[appReveal]`
    element; each element unobserves itself after it has animated in once.
 
@@ -108,22 +72,36 @@ npm run build      # production bundle → dist/portfolio/browser
 
 Everything is in [`src/app/core/data/portfolio.content.ts`](src/app/core/data/portfolio.content.ts).
 
-- **Retargeting to a different vacancy** — change `PROFILE.targetRole` / `targetCompany`, then
-  rewrite `REQUIREMENT_MATCHES` against the new posting. The hero badge, the section lead copy and
-  the match gauge all update from those values.
-- **Adjusting a claim** — each `RequirementMatch` has a `status` of `direct` / `strong` /
-  `transferable` / `growing`. It drives the badge, the card border and the weighted score.
-- **Skills** — each entry carries a `level`; the chip styling follows from it.
+- **Skills** — each entry carries a `level` (`production` / `strong` / `working` / `familiar`) which
+  drives the chip styling and the level legend. Only `production` and `strong` entries appear in the
+  hero marquee.
+- **Projects** — set `featured: false` to drop a project into the compact list at the bottom.
 - **New CV** — replace `public/Merab_Samkharadze_CV.pdf` (keep the filename, or update
   `PROFILE.cvUrl` and the `download` attributes).
 - **Photo** — replace `public/profile.jpg`.
 
+### Theme
+
+The whole identity comes off three numbers at the top of
+[`src/styles.css`](src/styles.css):
+
+```css
+:root {
+  --accent-h: 14;
+  --accent-s: 100%;
+  --accent-l: 58%; /* #ff5d2a */
+}
+```
+
+An 11-step ramp (`--color-primary-50` … `--color-primary-950`) is declared in `@theme`, so
+`bg-primary-300`, `text-primary-700` and friends are available as utilities.
+
 ### Contact form
 
-`CONTACT_ENDPOINT` is empty by default, so the form composes a fully pre-filled `mailto:` and
-hands it to the visitor's mail client — a real, working path with no server. Point that constant
-at a Formspree / Netlify Forms / custom endpoint and it POSTs there instead; the mailto stays as
-the fallback if the request fails.
+`CONTACT_ENDPOINT` is empty by default, so the form composes a fully pre-filled `mailto:` and hands
+it to the visitor's mail client — a real, working path with no server. Point that constant at a
+Formspree / Netlify Forms / custom endpoint and it POSTs there instead; the mailto stays as the
+fallback if the request fails.
 
 ---
 
@@ -136,8 +114,8 @@ npm run build
 # deploy dist/portfolio/browser/** to Netlify, Vercel, GitHub Pages, Cloudflare Pages…
 ```
 
-Configure the host to rewrite unknown paths to `index.html`. `index.html` already carries the
-title, description, Open Graph / Twitter cards and JSON-LD `Person` structured data.
+Configure the host to rewrite unknown paths to `index.html`. `index.html` already carries the title,
+description, Open Graph / Twitter cards and JSON-LD `Person` structured data.
 
 ---
 

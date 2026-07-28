@@ -18,7 +18,7 @@ export class Hero {
 
   protected readonly profile = this.store.profile;
   protected readonly stats = this.store.heroStats;
-  protected readonly matchScore = this.store.matchScore;
+
   /**
    * The list is emitted twice back to back: the CSS animation translates by
    * exactly -50%, so the second copy lands where the first began and the loop

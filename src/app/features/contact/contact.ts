@@ -22,11 +22,7 @@ type SubmitStatus = 'idle' | 'pending' | 'done';
 const MESSAGE_MIN_LENGTH = 20;
 
 /** One-tap subject presets — removes the blank-page pause before writing. */
-const SUBJECT_PRESETS: readonly string[] = [
-  'Interview invitation',
-  'Angular Developer role',
-  'Technical questions',
-];
+const SUBJECT_PRESETS: readonly string[] = ['Job opportunity', 'Freelance project', 'Something else'];
 
 @Component({
   selector: 'app-contact',

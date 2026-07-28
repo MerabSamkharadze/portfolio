@@ -1,10 +1,9 @@
 /**
  * Portfolio content — the single source of truth for everything on the page.
  *
- * The copy here is deliberately written against one specific posting
- * (Angular Developer, Bank of Georgia). Wording mirrors the vacancy's own
- * vocabulary so a reviewer can match requirement to evidence at a glance,
- * while every claim traces back to a line in the CV.
+ * Copy rule: show, never tell. No adjective claims a trait the reader could
+ * instead work out from a number, a mechanism or a decision. Every figure here
+ * traces back to a line on the CV.
  */
 
 import type {
@@ -15,7 +14,6 @@ import type {
   NavItem,
   Profile,
   Project,
-  RequirementMatch,
   SkillGroup,
   Stat,
 } from '../models/portfolio.model';
@@ -24,7 +22,6 @@ import type {
 
 export const NAV_ITEMS: readonly NavItem[] = [
   { id: 'about', label: 'About' },
-  { id: 'role-fit', label: 'Role Fit' },
   { id: 'skills', label: 'Skills' },
   { id: 'projects', label: 'Projects' },
   { id: 'experience', label: 'Experience' },
@@ -39,12 +36,11 @@ export const PROFILE: Profile = {
   firstName: 'Merab',
   lastName: 'Samkharadze',
   headline: 'Angular Developer',
-  targetRole: 'Angular Developer',
-  targetCompany: 'Bank of Georgia',
   pitch:
-    'I build the Angular front ends that put products in front of customers — high-traffic, ' +
-    'fast, and shipped on the date the business asked for. Two years in production, one platform ' +
-    'serving 100k+ users, 20+ launches delivered.',
+    'Two years ago I shipped my first Angular feature. Today I build the front end of a ' +
+    'promotions platform used by more than 100,000 people — twenty-plus campaigns delivered, on ' +
+    'the dates the business committed to. Angular and TypeScript on the client; Node.js and SQL ' +
+    'when the answer sits behind the API.',
   location: 'Tbilisi, Georgia',
   email: 'samkharadzemerab@gmail.com',
   phone: '+995 598 487 787',
@@ -53,14 +49,14 @@ export const PROFILE: Profile = {
   gitHub: null,
   cvUrl: 'Merab_Samkharadze_CV.pdf',
   photoUrl: 'profile.jpg',
-  availability: 'Open to Angular roles in Tbilisi · Available to start immediately',
+  availability: 'Tbilisi, Georgia · Open to new opportunities',
 };
 
 export const HERO_STATS: readonly Stat[] = [
   { value: '2+', label: 'Years in production' },
-  { value: '100k+', label: 'Users served' },
-  { value: '50+', label: 'UI components built' },
-  { value: '20+', label: 'Launches delivered' },
+  { value: '100k+', label: 'Active users' },
+  { value: '50+', label: 'Components shipped' },
+  { value: '20+', label: 'On-schedule launches' },
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -68,154 +64,30 @@ export const HERO_STATS: readonly Stat[] = [
 /* -------------------------------------------------------------------------- */
 
 export const ABOUT_PARAGRAPHS: readonly string[] = [
-  'I am an Angular developer in Tbilisi with two years spent on customer-facing web products. ' +
-    'My day job is the front end of a promotions and campaigns platform used by more than 100,000 people — ' +
-    'high traffic, real money in play, and a release calendar set by the business rather than by engineering.',
-  'That environment trains exactly what this role asks for: hold several projects in the air at once, ' +
-    'sit with business units until the scope, goals and desired features are actually pinned down, ' +
-    'and still land every launch on the agreed date with a clean, reviewable codebase behind it.',
-  'Two things make me a useful fit for a bank in particular. I work across the stack — Angular and ' +
-    'TypeScript at the front, Node.js / NestJS REST APIs and relational SQL behind them — so when a ' +
-    'contract between client and service is wrong I can see it and fix it on the correct side of the wire. ' +
-    'And my degrees are in Economics (BSc and MSc, Tbilisi State University): quantitative, model-heavy ' +
-    'training that means product, pricing and risk conversations start on familiar ground for me.',
+  'My day job is the front end of a promotions and campaigns platform with more than 100,000 ' +
+    'active users — leaderboards, prize wheels, quests, raffles. The launch date comes from ' +
+    'marketing, not from engineering, and it does not move. Twenty-plus campaigns so far, ' +
+    'delivered on the dates we committed to.',
+  'Most of that work is detail. Fifty-odd components that have to hold up in every supported ' +
+    'browser, sit close enough to the design hand-off that nobody sends them back, and stay quick ' +
+    'on a mid-range phone. I go looking for the change-detection hot spots and the duplicate HTTP ' +
+    'calls, because that is usually where the experience quietly leaks away.',
+  'Before this I led the front end of a hotel and restaurant management platform, from an empty ' +
+    'repository to something three businesses now run their day on. That is where I learned how ' +
+    'many bugs are really process problems: I made review mandatory before every merge to main, ' +
+    'and post-release bugs fell 15%.',
+  'I came to this from economics — a BSc and an MSc from Tbilisi State University — by way of two ' +
+    'IT programmes and a lot of evenings. The back end followed for a practical reason: I got ' +
+    'tired of waiting on an endpoint I could have written myself. Next on the list is going ' +
+    'deeper into testing and architecture, because the codebases I want to be trusted with are ' +
+    'bigger than the ones I have now.',
 ];
 
 export const ABOUT_HIGHLIGHTS: readonly string[] = [
-  'Ships to a fixed business calendar, not an engineering one',
-  'Comfortable owning a feature from design hand-off to production',
-  'Reads and writes the back end when the front end is not the problem',
-  'Analytical background — economics degrees, quantitative by training',
-];
-
-/* -------------------------------------------------------------------------- */
-/* Role fit — every line of the posting, answered                              */
-/* -------------------------------------------------------------------------- */
-
-export const REQUIREMENT_MATCHES: readonly RequirementMatch[] = [
-  {
-    id: 'experience',
-    requirement: 'Minimum 2–3 years of experience developing with web technologies',
-    weight: 'required',
-    status: 'direct',
-    evidence:
-      'Two continuous years in production roles — Crocobet (07/2025 – present) and Adaptcore ' +
-      '(09/2024 – 04/2025) — both delivering live, customer-facing web applications.',
-  },
-  {
-    id: 'angular',
-    requirement: 'Excellent knowledge of Angular',
-    weight: 'required',
-    status: 'direct',
-    evidence:
-      'Angular v14+ every working day: NgRx store, RxJS streams, lazy-loaded feature modules, ' +
-      'OnPush change detection, reactive forms and a 50-component shared library on a 100k-user platform. ' +
-      'This site itself is Angular 21 — standalone, signal-based and zoneless.',
-  },
-  {
-    id: 'javascript',
-    requirement: 'Excellent knowledge of JavaScript and the latest ECMAScript specs',
-    weight: 'required',
-    status: 'direct',
-    evidence:
-      'TypeScript and modern JavaScript daily, on top of 80+ hours of advanced ES6+ study at the ' +
-      'Academy of Digital Industries — closures, prototypes, Promises, async/await, modules and classes.',
-  },
-  {
-    id: 'html-css',
-    requirement: 'Good experience with HTML and CSS',
-    weight: 'required',
-    status: 'direct',
-    evidence:
-      '50+ responsive, cross-browser components authored from design hand-off using semantic HTML5, ' +
-      'SCSS with BEM, Flexbox and CSS Grid — the mobile-first layout you are reading included.',
-  },
-  {
-    id: 'web-concepts',
-    requirement: 'Strong understanding of web development concepts and methodologies',
-    weight: 'required',
-    status: 'direct',
-    evidence:
-      'SPA architecture, REST integration, HTTP caching and interceptors, accessibility, ' +
-      'Git feature-branch flow, mandatory pull-request review and Agile delivery in a 5-person team.',
-  },
-  {
-    id: 'oop',
-    requirement: 'Strong understanding of OOP principles',
-    weight: 'required',
-    status: 'strong',
-    evidence:
-      'Encapsulation, inheritance, polymorphism and dependency injection applied rather than recited: ' +
-      'Angular services and DI tokens on the front end, NestJS modules, providers and DTO classes on the back.',
-  },
-  {
-    id: 'multi-project',
-    requirement: 'Handle multiple projects simultaneously and deliver high-quality work on time',
-    weight: 'required',
-    status: 'direct',
-    evidence:
-      '20+ promotional campaign UIs delivered end-to-end in parallel streams, each tied to a fixed ' +
-      'marketing launch date — consistently met inside a dedicated promotions team.',
-  },
-  {
-    id: 'analytical',
-    requirement: 'Strong analytical, problem-solving and organisational skills; quick learner',
-    weight: 'required',
-    status: 'direct',
-    evidence:
-      'Cut post-release bugs 15% by introducing structured debugging and mandatory review; ' +
-      'ran bi-weekly knowledge sessions for 4 developers. Went from first Angular commit to production ' +
-      'owner inside months, then added Node.js, NestJS and SQL.',
-  },
-  {
-    id: 'degree',
-    requirement: 'Bachelor or Master degree in IT, Computer Science or Applied Mathematics',
-    weight: 'required',
-    status: 'transferable',
-    evidence:
-      'BSc and MSc from Tbilisi State University in Economics — a quantitative, mathematics-heavy ' +
-      'programme — plus two specialist IT programmes: Advanced JavaScript & Node.js (Academy of Digital ' +
-      'Industries) and React with Next.js (TBC IT Academy).',
-  },
-  {
-    id: 'sql',
-    requirement: 'Experience with SQL databases (MS SQL, Oracle)',
-    weight: 'preferred',
-    status: 'transferable',
-    evidence:
-      'Relational schema design and optimised queries — multi-table joins, indexing and aggregate ' +
-      'reporting — on PostgreSQL and MySQL. ANSI SQL and relational modelling carry straight over to ' +
-      'MS SQL / T-SQL, which I am actively working through.',
-  },
-  {
-    id: 'jest',
-    requirement: 'Knowledge of Jest testing',
-    weight: 'preferred',
-    status: 'strong',
-    evidence:
-      'This repository ships a 42-case unit-test suite written against the Jest API — the same ' +
-      'describe / it / expect / spy surface — covering services, directives and contact-form ' +
-      "validation. It runs on the Angular CLI's Vitest runner, which is Jest-API compatible.",
-  },
-  {
-    id: 'storybook',
-    requirement: 'Knowledge of Storybook',
-    weight: 'preferred',
-    status: 'growing',
-    evidence:
-      'I already build the way Storybook rewards — 50+ isolated, input-driven components with no ' +
-      'hidden coupling to their host. Cataloguing that library in Storybook is what I am learning now.',
-  },
-  {
-    id: 'nx',
-    requirement: 'Knowledge of Nrwl Nx workspace',
-    weight: 'preferred',
-    status: 'growing',
-    evidence:
-      'Monorepo-shaped by habit: this codebase is split into core / shared / features boundaries that ' +
-      'map one-to-one onto Nx libraries. Nx tooling itself — generators, affected graph, caching — is ' +
-      'in progress.',
-  },
+  'Treats the launch date as fixed and plans backwards from it',
+  'Would rather review a pull request twice than debug it in production',
+  'Reaches into the back end when the front end is not the problem',
+  'Picks up whatever the work needs next — Node.js and SQL arrived that way',
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -228,7 +100,7 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
     title: 'Angular',
     icon: 'layers',
     emphasis: 'primary',
-    caption: 'The core of the role — v14 through v21, in production every day.',
+    caption: 'My main stack — v14 through v21, in production every working day.',
     skills: [
       { name: 'Angular v14 – v21', level: 'production' },
       { name: 'RxJS', level: 'production' },
@@ -238,10 +110,11 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
       { name: 'OnPush Change Detection', level: 'production' },
       { name: 'Dependency Injection', level: 'production' },
       { name: 'HttpClient & Interceptors', level: 'production' },
+      { name: 'SPA architecture', level: 'production' },
+      { name: 'Angular CLI', level: 'production' },
       { name: 'Standalone Components', level: 'strong' },
       { name: 'Signals', level: 'strong' },
       { name: 'Zoneless', level: 'working' },
-      { name: 'Angular CLI', level: 'production' },
     ],
   },
   {
@@ -249,15 +122,15 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
     title: 'JavaScript & TypeScript',
     icon: 'code',
     emphasis: 'primary',
-    caption: 'ES6+ and everything the spec has added since.',
+    caption: 'The language layer underneath everything else on this page.',
     skills: [
       { name: 'TypeScript', level: 'production' },
       { name: 'JavaScript ES2015+', level: 'production' },
       { name: 'Promises & async / await', level: 'production' },
-      { name: 'Closures & Prototypes', level: 'strong' },
       { name: 'Classes & Modules', level: 'production' },
-      { name: 'Generics & Utility Types', level: 'strong' },
       { name: 'Optional chaining / nullish', level: 'production' },
+      { name: 'Closures & Prototypes', level: 'strong' },
+      { name: 'Generics & Utility Types', level: 'strong' },
       { name: 'Immutable data patterns', level: 'strong' },
     ],
   },
@@ -266,7 +139,7 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
     title: 'HTML & CSS',
     icon: 'palette',
     emphasis: 'primary',
-    caption: '50+ cross-browser components straight from design hand-off.',
+    caption: '50+ components that had to survive every browser the product supports.',
     skills: [
       { name: 'Semantic HTML5', level: 'production' },
       { name: 'CSS3', level: 'production' },
@@ -281,80 +154,79 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
     ],
   },
   {
-    id: 'oop',
-    title: 'OOP & Architecture',
-    icon: 'shield',
+    id: 'backend',
+    title: 'Backend & APIs',
+    icon: 'terminal',
     emphasis: 'primary',
-    caption: 'Encapsulation, inheritance, polymorphism, DI — applied, not recited.',
+    caption: 'Enough back end to finish the job without waiting on anyone.',
     skills: [
-      { name: 'OOP principles', level: 'strong' },
-      { name: 'SOLID', level: 'strong' },
-      { name: 'Design patterns', level: 'working' },
-      { name: 'SPA architecture', level: 'production' },
-      { name: 'Modular / monorepo structure', level: 'strong' },
+      { name: 'API integration', level: 'production' },
+      { name: 'Postman', level: 'production' },
+      { name: 'Node.js', level: 'strong' },
+      { name: 'NestJS', level: 'strong' },
+      { name: 'REST API design', level: 'strong' },
+      { name: 'JWT & role-based auth', level: 'strong' },
       { name: 'DTO validation', level: 'strong' },
-      { name: 'Code review', level: 'production' },
     ],
   },
   {
     id: 'data',
-    title: 'Databases & SQL',
+    title: 'Databases',
     icon: 'database',
     emphasis: 'secondary',
-    caption: 'Relational fundamentals that carry straight into MS SQL.',
+    caption: 'Schemas I design, queries I write and then tune.',
     skills: [
       { name: 'SQL', level: 'strong' },
       { name: 'Relational schema design', level: 'strong' },
       { name: 'Joins & Indexing', level: 'strong' },
-      { name: 'Query optimisation', level: 'working' },
       { name: 'PostgreSQL', level: 'strong' },
       { name: 'MySQL', level: 'strong' },
-      { name: 'MS SQL / T-SQL', level: 'learning' },
-      { name: 'Oracle', level: 'learning' },
+      { name: 'Query optimisation', level: 'working' },
+      { name: 'MS SQL / T-SQL', level: 'familiar' },
     ],
   },
   {
-    id: 'testing',
-    title: 'Testing & Tooling',
-    icon: 'gauge',
+    id: 'architecture',
+    title: 'Architecture & Testing',
+    icon: 'shield',
     emphasis: 'secondary',
-    caption: "The posting's preferred list — where I am on each of them.",
+    caption: 'What keeps a codebase readable past its first month.',
     skills: [
-      { name: 'Unit testing (Jest API)', level: 'strong' },
+      { name: 'Code review', level: 'production' },
+      { name: 'OOP principles', level: 'strong' },
+      { name: 'SOLID', level: 'strong' },
+      { name: 'Modular structure', level: 'strong' },
+      { name: 'Unit testing', level: 'strong' },
+      { name: 'Design patterns', level: 'working' },
       { name: 'Angular TestBed', level: 'working' },
-      { name: 'Karma / Jasmine', level: 'working' },
-      { name: 'Storybook', level: 'learning' },
-      { name: 'Nx workspaces', level: 'learning' },
     ],
   },
   {
-    id: 'backend',
-    title: 'Backend & APIs',
-    icon: 'terminal',
+    id: 'also',
+    title: 'Also work with',
+    icon: 'sparkles',
     emphasis: 'secondary',
-    caption: 'Enough back end to close the loop without waiting on anyone.',
+    caption: 'Enough to be useful on, not enough to claim expert in.',
     skills: [
-      { name: 'REST API design', level: 'strong' },
-      { name: 'Node.js', level: 'strong' },
-      { name: 'NestJS', level: 'strong' },
-      { name: 'JWT & role-based auth', level: 'strong' },
-      { name: 'API integration', level: 'production' },
-      { name: 'Postman', level: 'production' },
+      { name: 'React', level: 'strong' },
+      { name: 'Next.js (SSR / SSG)', level: 'strong' },
+      { name: 'Android Studio', level: 'familiar' },
+      { name: 'Xcode', level: 'familiar' },
     ],
   },
   {
-    id: 'ways-of-working',
-    title: 'Ways of Working',
+    id: 'workflow',
+    title: 'Tools & Workflow',
     icon: 'users',
     emphasis: 'secondary',
-    caption: 'How the work actually gets delivered.',
+    caption: 'How the work actually reaches production.',
     skills: [
       { name: 'Git feature-branch flow', level: 'production' },
       { name: 'Pull-request review', level: 'production' },
       { name: 'Agile teamwork', level: 'production' },
-      { name: 'Design hand-off (Figma / Zeplin)', level: 'production' },
-      { name: 'Parallel project delivery', level: 'production' },
-      { name: 'Deadline ownership', level: 'production' },
+      { name: 'Figma / Zeplin hand-off', level: 'production' },
+      { name: 'npm / yarn', level: 'production' },
+      { name: 'WebStorm / VS Code', level: 'production' },
     ],
   },
 ];
@@ -370,15 +242,15 @@ export const PROJECTS: readonly Project[] = [
     context: 'Crocobet · Production · 100k+ active users',
     period: '07/2025 – Present',
     summary:
-      'The customer-facing surface for every promotion the company runs — leaderboards, prize wheels, ' +
-      'quests, raffles and progress campaigns — driven by real-time state and a marketing calendar that ' +
-      'does not move.',
+      'Everything a customer sees while a promotion is running — leaderboards, prize wheels, ' +
+      'quests, raffles, progress campaigns. Real-time state, heavy traffic, and a marketing ' +
+      'calendar that treats the launch date as a fact rather than a target.',
     highlights: [
-      'Built the Angular (v14+) front end and the shared component library behind 20+ campaign UIs, each delivered end-to-end from design hand-off to production.',
-      'Modelled real-time campaign state with NgRx and RxJS so leaderboard, balance and progress data stay consistent across every view without redundant HTTP traffic.',
-      'Developed and integrated production REST APIs in Node.js, wiring front-end features to campaign services and data.',
-      'Reduced initial page load by introducing lazy-loaded feature modules and OnPush change detection across 5 core modules.',
-      'Kept a 5-person team release-ready through mandatory pull-request review and a disciplined feature-branch workflow.',
+      'Build the Angular (v14+) front end and the shared component library behind 20+ campaign UIs, each taken from design hand-off to production.',
+      'Hold real-time campaign state together with NgRx and RxJS, so leaderboard, balance and progress data stay consistent across every view without redundant HTTP traffic.',
+      'Write and integrate production REST APIs in Node.js, wiring campaign features to the services and data behind them.',
+      'Cut initial page load across 5 core modules by introducing lazy-loaded feature modules and OnPush change detection.',
+      'Keep a 5-person team release-ready through review on every pull request and a disciplined feature-branch workflow.',
     ],
     stack: ['Angular v14+', 'TypeScript', 'RxJS', 'NgRx', 'SCSS (BEM)', 'Node.js', 'REST APIs', 'Git'],
     metrics: [
@@ -396,13 +268,13 @@ export const PROJECTS: readonly Project[] = [
     context: 'Adaptcore · Production · 3+ business clients',
     period: '09/2024 – 04/2025',
     summary:
-      'Bookings, menus, orders and role-based admin dashboards for hospitality businesses. I led the ' +
-      'front end from an empty repository through to a product paying customers use daily.',
+      'Bookings, menus, orders and role-based admin dashboards. I took the front end from an ' +
+      'empty repository to something three hospitality businesses now run their day on.',
     highlights: [
       'Led front-end development across bookings, menus, orders and admin dashboards in Angular, TypeScript, RxJS and SCSS.',
       'Specified and integrated 10+ REST endpoints with the backend team, enabling real-time booking updates and role-based admin controls.',
-      'Reduced page load times by 25% by fixing change-detection hot spots and refactoring deep component trees.',
-      'Cut post-release bug count by 15% by introducing structured debugging practice and mandatory review before every merge to main.',
+      'Reduced page load times by 25% by tracking down change-detection hot spots and refactoring deep component trees.',
+      'Cut post-release bugs by 15% by introducing structured debugging practice and making review mandatory before every merge to main.',
       'Ran bi-weekly knowledge-sharing sessions for 4 developers, shortening average feature delivery time.',
     ],
     stack: ['Angular', 'TypeScript', 'RxJS', 'SCSS', 'REST APIs', 'RBAC'],
@@ -418,15 +290,15 @@ export const PROJECTS: readonly Project[] = [
   {
     id: 'fullstack-nestjs',
     title: 'Full-Stack Application — Angular + NestJS + SQL',
-    context: 'Personal project · OOP and relational data',
+    context: 'Personal project',
     period: 'Ongoing',
     summary:
-      'Written specifically to exercise the parts of the stack this role names: class-based OOP ' +
-      'architecture, dependency injection, validated contracts and a properly normalised relational database.',
+      'An Angular client against a NestJS REST API and a relational database. Where I take an ' +
+      'architecture apart properly, on my own time, before it turns up in work code.',
     highlights: [
       'Structured the NestJS API around OOP fundamentals — encapsulated services, interface-driven providers and constructor injection throughout.',
       'Enforced request contracts with DTO classes and decorator-based validation, so malformed data never reaches the domain layer.',
-      'Designed a normalised relational schema and wrote optimised SQL: multi-table joins, indexes and aggregate reporting queries.',
+      'Designed a normalised relational schema and wrote the queries against it: multi-table joins, indexes and aggregate reporting.',
       'Implemented JWT authentication with role-based authorization guards on every protected route.',
     ],
     stack: ['Angular', 'NestJS', 'Node.js', 'TypeScript', 'PostgreSQL', 'MySQL', 'SQL', 'JWT', 'OOP'],
@@ -441,16 +313,16 @@ export const PROJECTS: readonly Project[] = [
   {
     id: 'this-portfolio',
     title: 'This Portfolio',
-    context: 'Built for this application · Angular 21',
+    context: 'Personal · Angular 21',
     period: '2026',
     summary:
-      'The page you are reading. Written from scratch in the newest Angular so the architecture ' +
-      'can be inspected rather than described.',
+      'The page you are reading. Built from scratch in the newest Angular, because I wanted to ' +
+      'use signals and zoneless change detection on something real rather than in a tutorial.',
     highlights: [
       'Angular 21 with standalone components, signal-based state and zoneless change detection — no NgModules, no zone.js.',
-      'Strict TypeScript, OnPush on every component, and a core / shared / features boundary that maps one-to-one onto Nx libraries.',
-      'Unit tests written against the Jest API covering services, the scroll-reveal directive and contact-form validation.',
-      'Tailwind CSS v4 design tokens, mobile-first layout, IntersectionObserver choreography and full reduced-motion support.',
+      'Strict TypeScript, OnPush on every component, and a core / shared / features boundary that has held while the content changed underneath it.',
+      'Unit tests covering the content store, the scroll-reveal directive and contact-form validation.',
+      'Tailwind CSS v4 design tokens, mobile-first layout, one shared IntersectionObserver for the scroll choreography, and full reduced-motion support.',
     ],
     stack: [
       'Angular 21',
@@ -477,7 +349,7 @@ export const PROJECTS: readonly Project[] = [
     period: '09/2024 – 01/2025',
     summary:
       'Three full-stack builds covering component architecture, server-side rendering and static ' +
-      'generation — useful context for how Angular solves the same problems differently.',
+      'generation — taken alongside a full-time developer job.',
     highlights: [
       'Built 3 full-stack projects with component-based architecture, SSR and SSG rendering modes.',
       'Improved page performance by 30% through state-management and data-fetching optimisation.',
@@ -505,15 +377,15 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     period: '07/2025 – Present',
     current: true,
     summary:
-      'Front end of a promotions and campaigns platform with 100k+ active users, inside a dedicated ' +
-      'promotions team delivering against marketing launch dates.',
+      'Front end of a promotions and campaigns platform with 100k+ active users, inside a ' +
+      'dedicated promotions team where the launch date is set before the ticket is written.',
     achievements: [
-      'Built the Angular (v14+) front end for a promotions and campaigns platform with 100k+ active users, using TypeScript, RxJS and NgRx to manage real-time campaign state across multiple views.',
-      'Developed and integrated production REST APIs with Node.js to power campaign workflows, connecting front-end features to back-end services and data.',
-      'Delivered 20+ promotional campaign UIs end-to-end — from design hand-off to production — consistently meeting marketing launch deadlines.',
-      'Created 50+ responsive UI components (SCSS BEM, Flexbox, CSS Grid) with full cross-browser compatibility, translating design mock-ups into production-ready code.',
-      'Improved performance by applying lazy loading and OnPush change detection across 5 key modules, reducing initial page load time.',
-      'Maintained a clean, release-ready codebase in a 5-person team through consistent code review.',
+      'Build the Angular (v14+) front end for a promotions and campaigns platform with 100k+ active users, using TypeScript, RxJS and NgRx to keep real-time campaign state consistent across every view.',
+      'Ship 20+ promotional campaign UIs end-to-end — from design hand-off to production — on the dates marketing commits to.',
+      'Maintain a shared library of 50+ responsive UI components (SCSS BEM, Flexbox, CSS Grid) with full cross-browser compatibility, built directly from design mock-ups.',
+      'Write and integrate production REST APIs in Node.js to power campaign workflows, connecting front-end features to back-end services and data.',
+      'Cut initial page load time across 5 key modules by applying lazy loading and OnPush change detection.',
+      'Keep a 5-person team’s codebase release-ready through consistent review on every pull request.',
     ],
     stack: ['Angular v14+', 'TypeScript', 'RxJS', 'NgRx', 'SCSS / BEM', 'Node.js', 'REST APIs'],
   },
@@ -525,12 +397,13 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     period: '09/2024 – 04/2025',
     current: false,
     summary:
-      'Led the front end of a hotel and restaurant management platform used by 3+ hospitality businesses.',
+      'Led the front end of a hotel and restaurant management platform — from an empty repository ' +
+      'to a live product for 3+ hospitality businesses.',
     achievements: [
       'Led front-end development of a hotel and restaurant management platform (bookings, menus, orders, admin dashboards) used by 3+ hospitality businesses — built with Angular, TypeScript, RxJS and SCSS.',
       'Built and integrated 10+ RESTful API endpoints together with the backend, enabling core workflows including real-time booking updates and role-based admin controls.',
       'Reduced page load times by 25% by optimising Angular change detection and refactoring inefficient component trees.',
-      'Cut post-release bug count by 15% by introducing structured debugging practices and mandatory code reviews before every merge to main.',
+      'Cut post-release bug count by 15% by introducing structured debugging practices and making code review mandatory before every merge to main.',
       'Ran bi-weekly knowledge-sharing sessions for a team of 4 developers, shortening average feature delivery time.',
     ],
     stack: ['Angular', 'TypeScript', 'RxJS', 'SCSS', 'REST APIs', 'RBAC'],
@@ -549,8 +422,9 @@ export const EDUCATION: readonly EducationItem[] = [
     period: '09/2024 – 01/2025',
     kind: 'training',
     detail:
-      'Three full-stack projects covering component architecture, server-side rendering and static ' +
-      'site generation; 30% page-performance improvement through data-fetching optimisation.',
+      'Three full-stack projects covering component architecture, server-side rendering and ' +
+      'static site generation, with a 30% page-performance gain from data-fetching work. Taken ' +
+      'in parallel with a full-time developer job.',
   },
   {
     id: 'adi-js',
@@ -559,8 +433,9 @@ export const EDUCATION: readonly EducationItem[] = [
     period: '05/2024 – 08/2024',
     kind: 'training',
     detail:
-      '80+ hours of advanced JavaScript (ES6+): closures, async/await, Promises, prototypes and OOP — ' +
-      'the foundation under both my Angular and my Node.js work.',
+      '80+ hours on the parts of JavaScript that decide whether the rest makes sense: closures, ' +
+      'prototypes, Promises, async/await and OOP. Still the foundation under both my Angular and ' +
+      'my Node.js work.',
   },
   {
     id: 'msc',
@@ -568,9 +443,7 @@ export const EDUCATION: readonly EducationItem[] = [
     institution: 'Tbilisi State University',
     period: '09/2021 – 06/2023',
     kind: 'degree',
-    detail:
-      'Quantitative programme: econometrics, statistical modelling and applied mathematics — the ' +
-      'analytical half of what this role asks for.',
+    detail: 'Econometrics, statistical modelling and applied mathematics.',
   },
   {
     id: 'bsc',
@@ -607,6 +480,6 @@ export const CONTACT_CHANNELS: readonly ContactChannel[] = [
 /**
  * Optional backend for the contact form. Leave empty and the form falls back to
  * composing a pre-filled message in the visitor's own mail client — which is
- * both honest about there being no server and, for a recruiter, faster.
+ * both honest about there being no server and, for the sender, faster.
  */
 export const CONTACT_ENDPOINT = '';

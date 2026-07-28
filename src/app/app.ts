@@ -9,7 +9,6 @@ import { Education } from './features/education/education';
 import { Experience } from './features/experience/experience';
 import { Hero } from './features/hero/hero';
 import { Projects } from './features/projects/projects';
-import { RoleFit } from './features/role-fit/role-fit';
 import { Skills } from './features/skills/skills';
 import { Footer } from './layout/footer/footer';
 import { Navbar } from './layout/navbar/navbar';
@@ -24,7 +23,7 @@ import { Navbar } from './layout/navbar/navbar';
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [About, Contact, Education, Experience, Footer, Hero, Navbar, Projects, RoleFit, Skills],
+  imports: [About, Contact, Education, Experience, Footer, Hero, Navbar, Projects, Skills],
   templateUrl: './app.html',
 })
 export class App {

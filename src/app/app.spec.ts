@@ -38,11 +38,6 @@ describe('App', () => {
     }
   });
 
-  it('names the target role so the page reads as tailored, not generic', () => {
-    expect(element.textContent).toContain('Angular Developer');
-    expect(element.textContent).toContain('Bank of Georgia');
-  });
-
   it('exposes the CV as a downloadable asset', () => {
     const link = element.querySelector<HTMLAnchorElement>('a[download]');
 
@@ -58,5 +53,42 @@ describe('App', () => {
 
   it('wraps the page content in a single main landmark', () => {
     expect(element.querySelectorAll('main')).toHaveLength(1);
+  });
+
+  it('stays a portfolio — it never argues its fit against a job posting', () => {
+    const copy = (element.textContent ?? '').toLowerCase();
+
+    // Phrases, not bare words: "match" and "requirement" have innocent uses.
+    for (const phrase of [
+      'vacancy',
+      'job posting',
+      'the role asks',
+      'the posting',
+      'match score',
+      '% match',
+      'role fit',
+      'requirements are covered',
+    ]) {
+      expect(copy).not.toContain(phrase);
+    }
+  });
+
+  it('shows rather than tells — no bare character adjectives in the copy', () => {
+    const copy = (element.textContent ?? '').toLowerCase();
+
+    // Every CV claims these. They persuade nobody, so the page has to earn them.
+    for (const cliche of [
+      'hard-working',
+      'hardworking',
+      'detail-oriented',
+      'goal-oriented',
+      'results-driven',
+      'team player',
+      'passionate about',
+      'fast learner',
+      'think outside',
+    ]) {
+      expect(copy).not.toContain(cliche);
+    }
   });
 });

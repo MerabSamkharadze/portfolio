@@ -11,14 +11,14 @@ const LEVEL_TONE: Readonly<Record<SkillLevel, ChipTone>> = {
   production: 'accent',
   strong: 'neutral',
   working: 'quiet',
-  learning: 'outline',
+  familiar: 'outline',
 };
 
 const LEVEL_LABEL: Readonly<Record<SkillLevel, string>> = {
   production: 'In production',
   strong: 'Strong',
   working: 'Working knowledge',
-  learning: 'Learning',
+  familiar: 'Familiar',
 };
 
 @Component({
@@ -34,7 +34,7 @@ export class Skills {
   protected readonly primaryGroups = this.store.primarySkillGroups;
   protected readonly secondaryGroups = this.store.secondarySkillGroups;
 
-  protected readonly levels: readonly SkillLevel[] = ['production', 'strong', 'working', 'learning'];
+  protected readonly levels: readonly SkillLevel[] = ['production', 'strong', 'working', 'familiar'];
 
   protected toneFor(level: SkillLevel): ChipTone {
     return LEVEL_TONE[level];

@@ -1,9 +1,12 @@
-<section id="skills" class="scroll-mt-24 px-5 py-24 sm:px-6 sm:py-28 lg:py-32">
+<section
+  id="skills"
+  class="scroll-mt-24 border-y border-border/60 bg-card/25 px-5 py-24 sm:px-6 sm:py-28 lg:py-32"
+>
   <div class="mx-auto max-w-6xl">
     <app-section-heading
       eyebrow="Skills"
-      heading="Ordered by what the role asks for first"
-      lead="Angular, JavaScript, HTML/CSS and OOP lead because the posting leads with them. Every entry carries an honest level — no bar charts implying a precision nobody has."
+      heading="What I work with"
+      lead="Grouped by where it sits in the stack and labelled with how deep I actually am — no bar charts implying a precision nobody has."
     />
 
     <!-- Level legend -->
@@ -15,7 +18,7 @@
       }
     </ul>
 
-    <!-- Core groups the vacancy calls out explicitly -->
+    <!-- Core stack -->
     <div class="stagger mt-10 grid gap-5 md:grid-cols-2">
       @for (group of primaryGroups(); track group.id) {
         <article
@@ -51,7 +54,7 @@
       }
     </div>
 
-    <!-- Supporting groups -->
+    <!-- Everything else -->
     <div class="stagger mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
       @for (group of secondaryGroups(); track group.id) {
         <article

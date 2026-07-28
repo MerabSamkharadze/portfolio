@@ -34,7 +34,7 @@
           width="352"
           height="352"
           fetchpriority="high"
-          class="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          class="h-full w-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
         />
       </div>
     </div>
@@ -68,37 +68,24 @@
     </h1>
 
     <p
-      class="mx-auto mb-8 max-w-xl animate-slide-up text-pretty text-[15px] leading-relaxed text-muted-foreground opacity-0 sm:text-lg"
+      class="mx-auto mb-10 max-w-xl animate-slide-up text-pretty text-[15px] leading-relaxed text-muted-foreground opacity-0 sm:text-lg"
       style="animation-delay: 0.36s"
     >
       {{ profile().pitch }}
     </p>
 
-    <!-- Targeting badge -->
-    <p
-      class="mx-auto mb-9 flex max-w-md animate-slide-up flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-xl border border-primary/20 bg-primary/[0.06] px-4 py-3 text-xs opacity-0"
-      style="animation-delay: 0.44s"
-    >
-      <app-icon name="target" [size]="14" class="text-primary" />
-      <span class="text-muted-foreground">Written for the</span>
-      <span class="font-medium text-foreground">{{ profile().targetRole }}</span>
-      <span class="text-muted-foreground">role at</span>
-      <span class="font-medium text-primary">{{ profile().targetCompany }}</span>
-    </p>
-
     <!-- Calls to action -->
     <div
       class="flex animate-slide-up flex-col items-stretch justify-center gap-3 opacity-0 sm:flex-row sm:items-center"
-      style="animation-delay: 0.52s"
+      style="animation-delay: 0.46s"
     >
       <button
         type="button"
         class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground transition-all duration-200 hover:brightness-110 active:scale-[0.97]"
-        (click)="goTo('role-fit')"
+        (click)="goTo('projects')"
       >
-        <app-icon name="check" [size]="16" />
-        See how I match the role
-        <span class="font-mono text-xs opacity-70">{{ matchScore() }}%</span>
+        <app-icon name="layers" [size]="16" />
+        View my work
       </button>
 
       <a
@@ -114,7 +101,7 @@
     <!-- Stats -->
     <dl
       class="mx-auto mt-12 grid max-w-2xl animate-slide-up grid-cols-2 gap-3 opacity-0 sm:mt-14 sm:grid-cols-4 sm:gap-4"
-      style="animation-delay: 0.62s"
+      style="animation-delay: 0.56s"
     >
       @for (stat of stats(); track stat.label) {
         <div

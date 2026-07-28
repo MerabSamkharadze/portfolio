@@ -15,7 +15,6 @@ import type { IconName } from '../../shared/ui/icon/icon-set';
 export type SectionId =
   | 'top'
   | 'about'
-  | 'role-fit'
   | 'skills'
   | 'projects'
   | 'experience'
@@ -36,9 +35,6 @@ export interface Profile {
   readonly firstName: string;
   readonly lastName: string;
   readonly headline: string;
-  /** The exact title of the role this portfolio is tailored to. */
-  readonly targetRole: string;
-  readonly targetCompany: string;
   readonly pitch: string;
   readonly location: string;
   readonly email: string;
@@ -57,34 +53,16 @@ export interface Stat {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Role fit — the vacancy requirements mapped to concrete evidence             */
-/* -------------------------------------------------------------------------- */
-
-/**
- * `direct`       — daily production experience, no caveat.
- * `strong`       — solid, demonstrable experience.
- * `transferable` — proven in an adjacent technology that maps 1:1.
- * `growing`      — deliberately building right now; honest about the gap.
- */
-export type MatchStatus = 'direct' | 'strong' | 'transferable' | 'growing';
-
-export type RequirementWeight = 'required' | 'preferred';
-
-export interface RequirementMatch {
-  readonly id: string;
-  /** Requirement as written in the job posting. */
-  readonly requirement: string;
-  readonly weight: RequirementWeight;
-  readonly status: MatchStatus;
-  /** Specific, checkable proof — never a restatement of the requirement. */
-  readonly evidence: string;
-}
-
-/* -------------------------------------------------------------------------- */
 /* Skills                                                                      */
 /* -------------------------------------------------------------------------- */
 
-export type SkillLevel = 'production' | 'strong' | 'working' | 'learning';
+/**
+ * `production` — used daily on shipped work.
+ * `strong`     — solid, comfortable, reach for it without looking things up.
+ * `working`    — can be productive, still consulting the docs.
+ * `familiar`   — have used it; would need a ramp-up before relying on it.
+ */
+export type SkillLevel = 'production' | 'strong' | 'working' | 'familiar';
 
 export interface Skill {
   readonly name: string;
@@ -95,7 +73,7 @@ export interface SkillGroup {
   readonly id: string;
   readonly title: string;
   readonly icon: IconName;
-  /** Groups the vacancy calls out explicitly are rendered first and larger. */
+  /** Core groups render larger and first. */
   readonly emphasis: 'primary' | 'secondary';
   readonly caption: string;
   readonly skills: readonly Skill[];
