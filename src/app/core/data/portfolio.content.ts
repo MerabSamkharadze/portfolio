@@ -37,9 +37,10 @@ export const PROFILE: Profile = {
   lastName: 'Samkharadze',
   headline: 'Angular Developer',
   pitch:
-    'I build Angular front ends. Right now that means a promotions platform used by more than ' +
-    '100,000 people, and a cross-border health marketplace where five weeks of work left 45% of ' +
-    'the source mine. Two years in front-end development, the last year of it entirely in Angular.',
+    'I build Angular front ends for products that are already live: a promotions platform used by ' +
+    'more than 100,000 people, and a cross-border health marketplace where I joined a codebase ' +
+    'somebody else had started and have since written nearly half of it. On my own time I built ' +
+    'and shipped a bilingual job board — 291 commits, database schema through to SEO.',
   location: 'Tbilisi, Georgia',
   email: 'samkharadzemerab@gmail.com',
   phone: '+995 598 487 787',
@@ -53,7 +54,7 @@ export const PROFILE: Profile = {
 
 export const HERO_STATS: readonly Stat[] = [
   { value: '2+', label: 'Years in production' },
-  { value: '100k+', label: 'Active users' },
+  { value: '100k+', label: 'Platform users' },
   { value: '50+', label: 'Components shipped' },
   { value: '20+', label: 'On-schedule launches' },
 ];
@@ -63,11 +64,10 @@ export const HERO_STATS: readonly Stat[] = [
 /* -------------------------------------------------------------------------- */
 
 export const ABOUT_PARAGRAPHS: readonly string[] = [
-  'My day job is the front end of a promotions and campaigns platform with more than 100,000 ' +
-    'active users — leaderboards, prize wheels, quests, raffles. The launch date comes from ' +
-    'marketing, not from engineering, and it does not move. Twenty-plus campaigns so far, ' +
-    'delivered on the dates we committed to.',
-  'Most of that work is detail. Fifty-odd components that have to hold up in every supported ' +
+  'My day job is the front end of a promotions and campaigns platform — leaderboards, prize ' +
+    'wheels, quests, raffles. The launch date comes from marketing, not from engineering, and it ' +
+    'does not move. Twenty-plus campaigns so far, delivered on the dates we committed to.',
+  'Most of that work is detail. Fifty-plus components that have to hold up in every supported ' +
     'browser, sit close enough to the design hand-off that nobody sends them back, and stay quick ' +
     'on a mid-range phone. I go looking for the change-detection hot spots and the duplicate HTTP ' +
     'calls, because that is usually where the experience quietly leaks away.',
@@ -83,18 +83,17 @@ export const ABOUT_PARAGRAPHS: readonly string[] = [
   'I came to this from economics — a BSc and an MSc from Tbilisi State University — by way of two ' +
     'IT programmes and a lot of evenings. Those evenings still go somewhere: dasaqmdi.com is a ' +
     'bilingual job board I built and shipped on my own, 291 commits, from the PostgreSQL schema ' +
-    'and its row-level security policies through to the SEO layer. The front end is where I work, ' +
-    'but I would rather understand the whole path than guess at half of it. Next on the list is ' +
-    'going deeper into testing and architecture, because the codebases I want to be trusted with ' +
-    'are bigger than the ones I have now.',
+    'and its row-level security policies through to the SEO layer. The front end is where I work. ' +
+    'Next on the list is going deeper into testing and architecture, because the codebases I want ' +
+    'to be trusted with are bigger than the ones I have now.',
 ];
 
 export const ABOUT_HIGHLIGHTS: readonly string[] = [
-  'Treats the launch date as fixed and plans backwards from it',
-  'Audits an unfamiliar codebase in writing before changing a line of it',
-  'Would rather review a pull request twice than debug it in production',
-  'Proves where a bug lives before handing it to anyone else',
-  'Picks up whatever the work needs next — Node.js, SQL and WebSockets arrived that way',
+  'I plan backwards from the launch date, because it does not move',
+  'I write down what is wrong with a codebase before I change it',
+  'I would rather review a pull request twice than debug it in production',
+  'I prove where a bug lives before handing it to anyone else',
+  'I learn what the work needs next — Node.js, SQL and WebSockets all arrived that way',
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -167,7 +166,7 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
     title: 'Backend & APIs',
     icon: 'terminal',
     emphasis: 'primary',
-    caption: 'A supporting skill, not my title — enough to stop waiting on an endpoint.',
+    caption: 'Enough to write the endpoint myself when waiting for it is the slower option.',
     skills: [
       { name: 'API integration', level: 'production' },
       { name: 'Postman', level: 'production' },
@@ -263,13 +262,13 @@ export const PROJECTS: readonly Project[] = [
       'A marketplace connecting patients with doctors across borders: doctors publish procedures ' +
       'with prices and discounts, patients search by country, city, category and price, book, ' +
       'message and review. I joined three and a half months after the first commit, on a codebase ' +
-      'written entirely by someone else, and rewrote a large part of it.',
+      'written entirely by someone else.',
     highlights: [
       'Built the whole real-time chat: a WebSocket transport with subprotocol auth, backoff with jitter, a distinct “never connected” state, and a discriminated-union frame model — over an application layer doing optimistic send, clientId reconciliation, presence, typing, an offline outbox and gap healing over REST.',
-      'Proved a 1006 handshake failure was a backend bug by reproducing it with curl and a Node ws client: the server returned 101 without echoing the negotiated subprotocol, which the specification requires the client to reject.',
-      'Cut the /procedures blank screen from 7.9–9.4s to 0ms and requests before first paint from 6 to 1 — the last step was deleting two requests entirely rather than optimising them a fourth time, which removed ~90 lines and ~7s of backend work per load.',
+      'Proved a 1006 handshake failure was a backend bug by reproducing it with curl and a Node ws client: the server returned 101 without echoing the negotiated subprotocol, which the specification requires the client to reject. Browser DevTools alone could not have shown that.',
+      'Wrote a console measurement script rather than guessing at the /procedures load time. It showed two requests, costing 3397ms and 3728ms, that existed only to set the scale of a price slider. I had already made them cheaper three times before asking whether they were needed at all — they were not, so I deleted them and about 90 lines with them.',
       'Took the site from one @media rule to a four-tier responsive system with a shared breakpoints.scss and a matchMedia ResponsiveService, no Angular CDK, and desktop-down overrides so the working desktop layout was never put at risk.',
-      'Audited the codebase into a 551-line prioritised backlog and closed 48 items, including HttpParams misuse that silently dropped pagination, a filter the API never accepted, and a suite that went from 33 failing spec files to fully green.',
+      'Found bugs nobody had questioned in three months: HttpParams misuse that silently dropped pagination, a filter the API had never accepted, and an endpoint missing the trailing slash its own specification requires.',
     ],
     stack: [
       'Angular 21.2',
@@ -294,18 +293,17 @@ export const PROJECTS: readonly Project[] = [
   {
     id: 'promotions-platform',
     title: 'Promotions & Campaigns Platform',
-    context: 'Crocobet · Production · 100k+ active users',
+    context: 'Crocobet · Production',
     period: '07/2025 – Present',
     summary:
       'Everything a customer sees while a promotion is running — leaderboards, prize wheels, ' +
       'quests, raffles, progress campaigns. Real-time state, heavy traffic, and a marketing ' +
       'calendar that treats the launch date as a fact rather than a target.',
     highlights: [
-      'Build the Angular (v14+) front end and the shared component library behind 20+ campaign UIs, each taken from design hand-off to production.',
-      'Hold real-time campaign state together with NgRx and RxJS, so leaderboard, balance and progress data stay consistent across every view without redundant HTTP traffic.',
-      'Write and integrate production REST APIs in Node.js, wiring campaign features to the services and data behind them.',
-      'Cut initial page load across 5 core modules by introducing lazy-loaded feature modules and OnPush change detection.',
-      'Keep a 5-person team release-ready through review on every pull request and a disciplined feature-branch workflow.',
+      'Real-time campaign state held together with NgRx and RxJS, so leaderboard, balance and progress data stay consistent across every view without redundant HTTP traffic.',
+      'A shared component library in SCSS BEM, Flexbox and CSS Grid, so a campaign can be assembled from tested parts instead of rebuilt each time.',
+      'Lazy-loaded feature modules and OnPush change detection across the five heaviest modules, cutting what the browser has to do before the first paint.',
+      'Production REST APIs written in Node.js alongside the front-end feature, so the contract between client and service was designed once rather than negotiated twice.',
     ],
     stack: ['Angular v14+', 'TypeScript', 'RxJS', 'NgRx', 'SCSS (BEM)', 'Node.js', 'REST APIs', 'Git'],
     metrics: [
@@ -326,11 +324,9 @@ export const PROJECTS: readonly Project[] = [
       'Bookings, menus, orders and role-based admin dashboards, built in Next.js. I took the front ' +
       'end from an empty repository to something three hospitality businesses now run their day on.',
     highlights: [
-      'Led front-end development across bookings, menus, orders and admin dashboards in Next.js, React, TypeScript and SCSS.',
-      'Specified and integrated 10+ REST endpoints with the backend team, enabling real-time booking updates and role-based admin controls.',
-      'Reduced page load times by 25% by tracking down unnecessary re-renders and refactoring deep component trees.',
-      'Cut post-release bugs by 15% by introducing structured debugging practice and making review mandatory before every merge to main.',
-      'Ran bi-weekly knowledge-sharing sessions for 4 developers, shortening average feature delivery time.',
+      'Four surfaces out of one Next.js codebase: public booking, menu management, order handling and a role-gated admin dashboard.',
+      'Specified 10+ REST endpoints with the backend team rather than consuming whatever arrived, which is what made real-time booking updates and role-based controls possible at all.',
+      'Traced a 25% load-time improvement to unnecessary re-renders and component trees that had grown too deep — the cost was in the render path, not in the bundle.',
     ],
     stack: ['Next.js', 'React', 'TypeScript', 'SCSS', 'REST APIs', 'RBAC'],
     metrics: [
@@ -355,9 +351,9 @@ export const PROJECTS: readonly Project[] = [
     highlights: [
       'Search built for how this market actually types. Georgians write Georgian words in Latin letters and English words in Georgian letters, so a query expands through a bidirectional transliteration layer, then a curated alias table for what phonetics cannot reach (ვიუ transliterates to viu, which will never match vue), then a trigram category fallback that tells the user what it did.',
       'Replaced an unindexed five-column ILIKE chain with a weighted tsvector and a GIN index, using the simple text-search configuration because Postgres ships no Georgian one, and a trigger rather than a generated column because to_tsvector is only STABLE.',
-      'Put authorisation in the database: 53 row-level security policies across 14 tables, three roles, and cached queries that may only read an id sourced from the cookie-authenticated user earlier in the same request.',
+      'Put authorisation in the database rather than in route guards, so a page I forget to protect still cannot leak data. Cached queries may only read an id sourced from the cookie-authenticated user earlier in the same request.',
       'Tracked down a static-generation regression where a leaf component in the shared header silently turned 190 static pages dynamic — three interacting causes, invisible locally because the dev server is permissive about the exact rule being broken.',
-      '271 pages pre-rendered at build, 190 of them SEO landing pages (18 with hand-written copy), with a hand-written RS256 JWT client that notifies the Google Indexing API on publish — no SDK, so no bundle cost.',
+      'Notified search engines the moment a job is published: a hand-written RS256 JWT client for the Google Indexing API that signs, exchanges and caches its own token, plus IndexNow for Bing and Yandex. No SDK, so no bundle cost.',
     ],
     stack: [
       'Next.js 15',
@@ -440,16 +436,15 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     current: true,
     summary:
       'Front end of a cross-border HealthTech marketplace MVP. I joined a codebase another ' +
-      'developer had been building for three and a half months; five weeks later 13,740 of its ' +
-      '30,200 source lines are mine.',
+      'developer had been building for three and a half months, and have since written 45% of it.',
     achievements: [
-      'Delivered 81 commits in 5 weeks on an unfamiliar codebase — 207 files touched, 42 created from scratch, +15,783 / −3,347 lines — merged to main through reviewed pull requests.',
-      'Built the entire 1:1 doctor–patient chat over WebSockets: a ~290-line rxjs/webSocket transport with subprotocol authentication, exponential backoff with jitter and reconnect on visibilitychange, over a ~780-line application layer with optimistic send, clientId reconciliation, an offline outbox and REST gap healing.',
-      'Diagnosed a WebSocket handshake failing with close code 1006 by reproducing it outside the browser with curl and a Node ws client, proving the server accepted without echoing the negotiated subprotocol, and handed the backend developer the evidence.',
-      'Cut the /procedures blank screen from 7.9–9.4s to 0ms and requests before first paint from 6 to 1, after a console measurement script showed two requests costing 3397ms and 3728ms existed only to set the scale of a price slider.',
-      'Migrated a codebase containing exactly one @media rule to a four-tier responsive system, using desktop-down overrides so the working desktop layout was never at risk; an adversarial review after each tier found and fixed 27 defects.',
-      'Built a chain of functional HTTP interceptors that runs exactly one token refresh on a 401 and queues every other failed request behind a BehaviorSubject gate, plus proactive refresh scheduled from the JWT exp claim.',
-      'Took the test suite from 33 failing spec files to fully green — now 78 files and 104 tests — and closed 48 items from a prioritised 551-line bug backlog I wrote after auditing the code.',
+      'Delivered 81 commits in 5 weeks on a codebase I had not written — 207 files touched, 42 created from scratch, +15,783 / −3,347 lines — merged to main through reviewed pull requests.',
+      'Built the entire 1:1 doctor–patient chat over WebSockets, from the transport layer through to the scroll manager, inside those same five weeks.',
+      'Cut the /procedures blank screen from 7.9–9.4s to 0ms and requests before first paint from 6 to 1, removing roughly 7 seconds of backend work per page load.',
+      'Migrated a codebase containing exactly one @media rule to a four-tier responsive system; an adversarial review after each of six tiers found and fixed 27 defects.',
+      'Rebuilt the auth chain — functional HTTP interceptors, one refresh per 401 with the other failed requests queued behind it, and proactive refresh scheduled from the JWT exp claim.',
+      'Took the test suite from 33 failing spec files to fully green: 78 files, 104 tests.',
+      'Audited the code into a prioritised 551-line backlog and closed 48 items from it.',
     ],
     stack: [
       'Angular 21',
@@ -469,15 +464,15 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
     period: '07/2025 – Present',
     current: true,
     summary:
-      'Front end of a promotions and campaigns platform with 100k+ active users, inside a ' +
-      'dedicated promotions team where the launch date is set before the ticket is written.',
+      'Front end of a promotions and campaigns platform, inside a dedicated promotions team where ' +
+      'the launch date is set before the ticket is written.',
     achievements: [
-      'Build the Angular (v14+) front end for a promotions and campaigns platform with 100k+ active users, using TypeScript, RxJS and NgRx to keep real-time campaign state consistent across every view.',
-      'Ship 20+ promotional campaign UIs end-to-end — from design hand-off to production — on the dates marketing commits to.',
-      'Maintain a shared library of 50+ responsive UI components (SCSS BEM, Flexbox, CSS Grid) with full cross-browser compatibility, built directly from design mock-ups.',
-      'Write and integrate production REST APIs in Node.js to power campaign workflows, connecting front-end features to back-end services and data.',
-      'Cut initial page load time across 5 key modules by applying lazy loading and OnPush change detection.',
-      'Keep a 5-person team’s codebase release-ready through consistent review on every pull request.',
+      'Owned the Angular (v14+) front end of a platform with 100k+ active users, built with TypeScript, RxJS and NgRx.',
+      'Shipped 20+ promotional campaign UIs end-to-end, from design hand-off to production, on the dates marketing committed to.',
+      'Built and maintained a shared library of 50+ responsive UI components with full cross-browser compatibility, working directly from design mock-ups.',
+      'Cut initial page load time across 5 key modules with lazy loading and OnPush change detection.',
+      'Extended into the back end where that was faster than waiting: production REST APIs in Node.js powering campaign workflows.',
+      'Kept a 5-person team’s codebase release-ready through review on every pull request.',
     ],
     stack: ['Angular v14+', 'TypeScript', 'RxJS', 'NgRx', 'SCSS / BEM', 'Node.js', 'REST APIs'],
   },
@@ -492,10 +487,10 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
       'Led the front end of a hotel and restaurant management platform — from an empty repository ' +
       'to a live product for 3+ hospitality businesses.',
     achievements: [
-      'Led front-end development of a hotel and restaurant management platform (bookings, menus, orders, admin dashboards) used by 3+ hospitality businesses — built with Next.js, React, TypeScript and SCSS.',
-      'Built and integrated 10+ RESTful API endpoints together with the backend, enabling core workflows including real-time booking updates and role-based admin controls.',
+      'Took the front end from an empty repository to a live product for 3+ hospitality businesses — bookings, menus, orders and role-based admin dashboards, built with Next.js, React, TypeScript and SCSS.',
       'Reduced page load times by 25% by removing unnecessary re-renders and refactoring inefficient component trees.',
       'Cut post-release bug count by 15% by introducing structured debugging practices and making code review mandatory before every merge to main.',
+      'Built and integrated 10+ RESTful API endpoints with the backend team, enabling real-time booking updates and role-based admin controls.',
       'Ran bi-weekly knowledge-sharing sessions for a team of 4 developers, shortening average feature delivery time.',
     ],
     stack: ['Next.js', 'React', 'TypeScript', 'SCSS', 'REST APIs', 'RBAC'],
@@ -513,12 +508,11 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
       'application, the SEO layer and the deployment.',
     achievements: [
       'Designed and shipped the whole product alone on Next.js 15, React 19 and TypeScript in strict mode: 45 pages, 143 React components and 42 Server Actions, across 44,879 lines currently in the repository.',
-      'Authored the complete PostgreSQL schema on Supabase — 37 migrations, 53 row-level security policies across 14 tables, 8 triggers and 34 indexes — so authorisation lives in the database rather than in a route I might forget to guard.',
-      'Built a three-layer search resolver for a market where users mix scripts: bidirectional Georgian↔Latin transliteration with longest-match digraphs, a curated skill-alias table for what phonetics cannot reach, and trigram category fallback.',
-      'Replaced an unindexed five-column ILIKE chain with a weighted Postgres tsvector and a GIN index, maintained by a trigger rather than a generated column because to_tsvector is only STABLE.',
-      'Engineered the SEO layer: 271 pages pre-rendered at build, of which 190 are landing pages (18 with hand-written copy), plus transliterated canonical job URLs with 308 redirects, JobPosting and FAQPage structured data, and a hand-written RS256 JWT client for the Google Indexing API with no SDK dependency.',
-      'Held shared First Load JS to 102 kB across all routes by lazy-loading the authenticated header island behind a client-side cookie hint, route-scoping drag-and-drop, and using framer-motion strictly through LazyMotion.',
-      'Shipped 796 translation keys per locale with zero mismatches between Georgian and English, plus a Telegram notification bot, Gemini-backed bilingual job drafting, transactional email with per-company templates, and an admin audit log.',
+      'Authored the complete PostgreSQL schema on Supabase — 37 migrations, 53 row-level security policies across 14 tables, 8 triggers and 34 indexes — covering three roles: seeker, employer and administrator.',
+      'Pre-rendered 271 pages at build, 190 of them SEO landing pages (18 with hand-written copy), with transliterated canonical job URLs and 308 redirects that carried every previously indexed URL across for free.',
+      'Held shared First Load JS to 102 kB across all routes, and kept it there deliberately while the feature set grew.',
+      'Shipped 796 translation keys per locale with zero mismatches between Georgian and English.',
+      'Added a Telegram notification bot, Gemini-backed bilingual job drafting, transactional email with per-company templates, and an admin audit log.',
     ],
     stack: [
       'Next.js 15',
