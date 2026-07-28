@@ -1,0 +1,250 @@
+<section id="contact" class="scroll-mt-24 px-5 py-24 sm:px-6 sm:py-28 lg:py-32">
+  <div class="mx-auto max-w-6xl">
+    <app-section-heading
+      eyebrow="Contact"
+      heading="Let's talk about the role"
+      lead="The fastest route is the form — it reaches me directly. Phone and LinkedIn work just as well."
+    />
+
+    <div class="mt-14 grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-8">
+      <!-- Channels -->
+      <div appReveal class="flex flex-col gap-4">
+        <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+          @for (channel of channels(); track channel.label) {
+            <li>
+              @if (channel.href; as href) {
+                <a
+                  class="card-hover group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4"
+                  [href]="href"
+                  [attr.target]="channel.external ? '_blank' : null"
+                  [attr.rel]="channel.external ? 'noopener noreferrer' : null"
+                >
+                  <span
+                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary text-primary transition-transform duration-200 group-hover:scale-105"
+                  >
+                    <app-icon [name]="channel.icon" [size]="17" />
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                      {{ channel.label }}
+                    </span>
+                    <span
+                      class="block truncate text-sm text-foreground/85 transition-colors duration-200 group-hover:text-primary"
+                    >
+                      {{ channel.value }}
+                    </span>
+                  </span>
+                  @if (channel.external) {
+                    <app-icon
+                      name="arrowUpRight"
+                      [size]="14"
+                      class="ml-auto text-muted-foreground transition-colors group-hover:text-primary"
+                    />
+                  }
+                </a>
+              } @else {
+                <div class="flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4">
+                  <span
+                    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary text-primary"
+                  >
+                    <app-icon [name]="channel.icon" [size]="17" />
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                      {{ channel.label }}
+                    </span>
+                    <span class="block truncate text-sm text-foreground/85">{{ channel.value }}</span>
+                  </span>
+                </div>
+              }
+            </li>
+          }
+        </ul>
+
+        <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+          <button
+            type="button"
+            class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-border bg-card px-5 py-3.5 text-sm text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-foreground active:scale-[0.98]"
+            (click)="copyEmail()"
+          >
+            <app-icon [name]="copied() ? 'check' : 'copy'" [size]="16" />
+            {{ copied() ? 'Copied to clipboard' : 'Copy email address' }}
+          </button>
+
+          <a
+            class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-5 py-3.5 text-sm font-medium text-primary transition-all duration-200 hover:bg-primary/20 active:scale-[0.98]"
+            [href]="profile().cvUrl"
+            [attr.download]="'Merab_Samkharadze_CV.pdf'"
+          >
+            <app-icon name="download" [size]="16" />
+            Download CV (PDF)
+          </a>
+        </div>
+      </div>
+
+      <!-- Form -->
+      <div appReveal="120" class="rounded-2xl border border-border bg-card p-6 sm:p-8">
+        @if (result(); as sent) {
+          <!-- Success -->
+          <div class="flex min-h-[24rem] flex-col items-center justify-center text-center">
+            <span
+              class="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary"
+            >
+              <app-icon name="check" [size]="26" />
+            </span>
+            <h3 class="text-xl font-semibold">Message ready to send</h3>
+            <p class="mx-auto mt-3 max-w-sm text-pretty text-sm leading-relaxed text-muted-foreground">
+              @if (sent.delivered) {
+                Thanks — your message reached my inbox. I reply within one working day.
+              } @else {
+                This site is hosted statically, so there is no server to hand the message to. One click
+                below opens it, fully written, in your own mail client — nothing is lost.
+              }
+            </p>
+
+            <div class="mt-7 flex flex-col gap-3 sm:flex-row">
+              @if (!sent.delivered) {
+                <a
+                  class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:brightness-110 active:scale-[0.97]"
+                  [href]="sent.mailtoUrl"
+                >
+                  <app-icon name="send" [size]="16" />
+                  Open in mail client
+                </a>
+              }
+              <button
+                type="button"
+                class="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-6 py-3 text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
+                (click)="reset()"
+              >
+                Write another
+              </button>
+            </div>
+          </div>
+        } @else {
+          <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="space-y-5">
+            <div class="grid gap-5 sm:grid-cols-2">
+              <!-- Name -->
+              <div>
+                <label for="contact-name" class="mb-2 block text-xs font-medium text-muted-foreground">
+                  Your name
+                </label>
+                <input
+                  id="contact-name"
+                  type="text"
+                  formControlName="name"
+                  autocomplete="name"
+                  placeholder="Jane Doe"
+                  class="w-full rounded-lg border bg-background/60 px-4 py-3 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary/50 disabled:opacity-60"
+                  [class]="invalid('name') ? 'border-danger/60' : 'border-input'"
+                  [attr.aria-invalid]="invalid('name')"
+                />
+                @if (invalid('name')) {
+                  <p class="mt-1.5 text-xs text-danger">Please enter at least 2 characters.</p>
+                }
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label for="contact-email" class="mb-2 block text-xs font-medium text-muted-foreground">
+                  Email
+                </label>
+                <input
+                  id="contact-email"
+                  type="email"
+                  formControlName="email"
+                  autocomplete="email"
+                  placeholder="you@company.com"
+                  class="w-full rounded-lg border bg-background/60 px-4 py-3 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary/50 disabled:opacity-60"
+                  [class]="invalid('email') ? 'border-danger/60' : 'border-input'"
+                  [attr.aria-invalid]="invalid('email')"
+                />
+                @if (invalid('email')) {
+                  <p class="mt-1.5 text-xs text-danger">Please enter a valid email address.</p>
+                }
+              </div>
+            </div>
+
+            <!-- Subject -->
+            <div>
+              <label for="contact-subject" class="mb-2 block text-xs font-medium text-muted-foreground">
+                Subject
+              </label>
+              <input
+                id="contact-subject"
+                type="text"
+                formControlName="subject"
+                placeholder="What is this about?"
+                class="w-full rounded-lg border bg-background/60 px-4 py-3 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary/50 disabled:opacity-60"
+                [class]="invalid('subject') ? 'border-danger/60' : 'border-input'"
+                [attr.aria-invalid]="invalid('subject')"
+              />
+              <div class="mt-2.5 flex flex-wrap gap-2">
+                @for (preset of subjectPresets; track preset) {
+                  <button
+                    type="button"
+                    class="rounded-md border border-border bg-secondary/60 px-2.5 py-1 font-mono text-[10px] text-muted-foreground transition-colors duration-200 hover:border-primary/40 hover:text-primary disabled:opacity-50"
+                    [disabled]="submitting()"
+                    (click)="applyPreset(preset)"
+                  >
+                    {{ preset }}
+                  </button>
+                }
+              </div>
+              @if (invalid('subject')) {
+                <p class="mt-1.5 text-xs text-danger">Please add a short subject.</p>
+              }
+            </div>
+
+            <!-- Message -->
+            <div>
+              <div class="mb-2 flex items-baseline justify-between">
+                <label for="contact-message" class="block text-xs font-medium text-muted-foreground">
+                  Message
+                </label>
+                <span class="font-mono text-[10px] text-muted-foreground/70">
+                  {{ form.controls.message.value.length }} / {{ messageMinLength }} min
+                </span>
+              </div>
+              <textarea
+                id="contact-message"
+                formControlName="message"
+                rows="6"
+                placeholder="A sentence or two about the role and the team is plenty."
+                class="w-full resize-y rounded-lg border bg-background/60 px-4 py-3 text-sm leading-relaxed outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary/50 disabled:opacity-60"
+                [class]="invalid('message') ? 'border-danger/60' : 'border-input'"
+                [attr.aria-invalid]="invalid('message')"
+              ></textarea>
+              @if (invalid('message')) {
+                <p class="mt-1.5 text-xs text-danger">
+                  Please write at least {{ messageMinLength }} characters.
+                </p>
+              }
+            </div>
+
+            <button
+              type="submit"
+              class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground transition-all duration-200 hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
+              [disabled]="submitting()"
+            >
+              @if (submitting()) {
+                <span
+                  class="h-4 w-4 animate-spin rounded-full border-2 border-primary-foreground/30 border-t-primary-foreground"
+                  aria-hidden="true"
+                ></span>
+                Sending…
+              } @else {
+                <app-icon name="send" [size]="16" />
+                Send message
+              }
+            </button>
+
+            <p class="text-center text-[11px] leading-relaxed text-muted-foreground/70">
+              No tracking, no newsletter — the form only composes a message addressed to me.
+            </p>
+          </form>
+        }
+      </div>
+    </div>
+  </div>
+</section>

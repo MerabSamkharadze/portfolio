@@ -1,0 +1,86 @@
+<section id="skills" class="scroll-mt-24 px-5 py-24 sm:px-6 sm:py-28 lg:py-32">
+  <div class="mx-auto max-w-6xl">
+    <app-section-heading
+      eyebrow="Skills"
+      heading="Ordered by what the role asks for first"
+      lead="Angular, JavaScript, HTML/CSS and OOP lead because the posting leads with them. Every entry carries an honest level — no bar charts implying a precision nobody has."
+    />
+
+    <!-- Level legend -->
+    <ul appReveal class="mt-8 flex flex-wrap gap-2">
+      @for (level of levels; track level) {
+        <li>
+          <app-chip [tone]="toneFor(level)" compact>{{ labelFor(level) }}</app-chip>
+        </li>
+      }
+    </ul>
+
+    <!-- Core groups the vacancy calls out explicitly -->
+    <div class="stagger mt-10 grid gap-5 md:grid-cols-2">
+      @for (group of primaryGroups(); track group.id) {
+        <article
+          appReveal
+          class="card-hover group rounded-2xl border border-border bg-card p-6 sm:p-7"
+        >
+          <header class="mb-4 flex items-start gap-3.5">
+            <span
+              class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary"
+            >
+              <app-icon [name]="group.icon" [size]="18" />
+            </span>
+            <div class="min-w-0">
+              <h3 class="text-base font-semibold transition-colors duration-200 group-hover:text-primary">
+                {{ group.title }}
+              </h3>
+              <p class="mt-1 text-pretty text-xs leading-relaxed text-muted-foreground">
+                {{ group.caption }}
+              </p>
+            </div>
+          </header>
+
+          <ul class="flex flex-wrap gap-2">
+            @for (skill of group.skills; track skill.name) {
+              <li>
+                <app-chip [tone]="toneFor(skill.level)" [attr.title]="labelFor(skill.level)">
+                  {{ skill.name }}
+                </app-chip>
+              </li>
+            }
+          </ul>
+        </article>
+      }
+    </div>
+
+    <!-- Supporting groups -->
+    <div class="stagger mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      @for (group of secondaryGroups(); track group.id) {
+        <article
+          appReveal
+          class="card-hover group rounded-2xl border border-border bg-card/60 p-5 sm:p-6"
+        >
+          <header class="mb-4">
+            <h3
+              class="flex items-center gap-2.5 text-sm font-semibold transition-colors duration-200 group-hover:text-primary"
+            >
+              <app-icon [name]="group.icon" [size]="16" class="text-primary" />
+              {{ group.title }}
+            </h3>
+            <p class="mt-1.5 text-pretty text-[11px] leading-relaxed text-muted-foreground">
+              {{ group.caption }}
+            </p>
+          </header>
+
+          <ul class="flex flex-wrap gap-1.5">
+            @for (skill of group.skills; track skill.name) {
+              <li>
+                <app-chip [tone]="toneFor(skill.level)" compact [attr.title]="labelFor(skill.level)">
+                  {{ skill.name }}
+                </app-chip>
+              </li>
+            }
+          </ul>
+        </article>
+      }
+    </div>
+  </div>
+</section>

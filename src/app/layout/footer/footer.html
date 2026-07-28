@@ -1,0 +1,58 @@
+<footer class="px-5 pb-12 sm:px-6">
+  <div class="mx-auto max-w-5xl">
+    <div class="glow-line mx-auto mb-10 h-px w-48" aria-hidden="true"></div>
+
+    <div class="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left">
+      <div>
+        <p class="font-mono text-sm font-semibold tracking-wider text-primary">
+          MS<span class="animate-cursor-blink">_</span>
+        </p>
+        <p class="mt-2 text-xs text-muted-foreground">
+          © {{ year }} {{ profile().name }} · {{ profile().location }}
+        </p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a
+          class="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary"
+          [href]="'mailto:' + profile().email"
+          aria-label="Email Merab Samkharadze"
+        >
+          <app-icon name="mail" [size]="16" />
+        </a>
+        <a
+          class="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary"
+          [href]="profile().linkedIn"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn profile"
+        >
+          <app-icon name="linkedin" [size]="16" />
+        </a>
+        @if (profile().gitHub; as gitHub) {
+          <a
+            class="flex h-10 w-10 items-center justify-center rounded-lg border border-border bg-card text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary"
+            [href]="gitHub"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub profile"
+          >
+            <app-icon name="github" [size]="16" />
+          </a>
+        }
+        <button
+          type="button"
+          class="no-print flex h-10 items-center gap-2 rounded-lg border border-border bg-card px-4 text-xs text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary"
+          (click)="backToTop()"
+        >
+          <app-icon name="arrowUpRight" [size]="14" />
+          Back to top
+        </button>
+      </div>
+    </div>
+
+    <p class="mt-8 text-center font-mono text-[11px] leading-relaxed text-muted-foreground/60">
+      Built with Angular 21 · standalone components, signals, zoneless change detection · Tailwind CSS v4
+    </p>
+  </div>
+</footer>

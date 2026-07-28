@@ -1,0 +1,57 @@
+<section id="about" class="scroll-mt-24 px-5 py-24 sm:px-6 sm:py-28 lg:py-32">
+  <div class="mx-auto max-w-6xl">
+    <app-section-heading
+      eyebrow="About"
+      heading="Front end that ships, back end when it has to"
+      lead="A short version of who you would be hiring — and why the fit is closer than the CV headline suggests."
+    />
+
+    <div class="mt-14 grid gap-10 lg:grid-cols-[1.55fr_1fr] lg:gap-14">
+      <!-- Narrative -->
+      <div class="space-y-6">
+        @for (paragraph of paragraphs(); track $index) {
+          <p
+            [appReveal]="$index * 90"
+            class="text-pretty text-[15px] leading-[1.85] text-muted-foreground sm:text-base"
+          >
+            {{ paragraph }}
+          </p>
+        }
+
+        <div appReveal="280" class="glow-line h-px w-full"></div>
+
+        <div appReveal="320" class="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+          <span class="flex items-center gap-2 text-muted-foreground">
+            <app-icon name="mapPin" [size]="15" class="text-primary" />
+            {{ profile().location }}
+          </span>
+          @for (language of languages(); track language.name) {
+            <span class="flex items-center gap-2 text-muted-foreground">
+              <app-icon name="globe" [size]="15" class="text-primary" />
+              {{ language.name }} · {{ language.level }}
+            </span>
+          }
+        </div>
+      </div>
+
+      <!-- What that means in practice -->
+      <aside appReveal="160" class="lg:pt-2">
+        <div class="rounded-2xl border border-border bg-card p-6 sm:p-7">
+          <h3 class="mb-5 flex items-center gap-2.5 text-sm font-semibold">
+            <app-icon name="sparkles" [size]="16" class="text-primary" />
+            What that means day to day
+          </h3>
+
+          <ul class="stagger space-y-4">
+            @for (highlight of highlights(); track highlight) {
+              <li appReveal class="flex gap-3 text-sm leading-relaxed text-muted-foreground">
+                <app-icon name="check" [size]="15" class="mt-0.5 text-primary" />
+                <span>{{ highlight }}</span>
+              </li>
+            }
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
