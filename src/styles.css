@@ -1,38 +1,67 @@
 /* ============================================================================
    Global stylesheet — design tokens + primitives
-   Tailwind v4 (CSS-first configuration). Palette and motion language ported
-   from the `showcase-studio` reference design: deep slate canvas + amber accent.
+   Tailwind v4 (CSS-first configuration). Motion language ported from the
+   `showcase-studio` reference design; palette is a deep slate canvas with a
+   single accent — #ff5d2a — and a full ramp derived from it.
    ========================================================================== */
 
 @import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Accent channels, kept raw so any rule can dial its own alpha:
+   `hsl(var(--accent) / 0.3)`. Change these three numbers and the whole
+   identity moves — ramp, gradients, glows, focus ring and all.
+   #ff5d2a === hsl(14 100% 58%)
+   ------------------------------------------------------------------------- */
+:root {
+  --accent-h: 14;
+  --accent-s: 100%;
+  --accent-l: 58%;
+  --accent: var(--accent-h) var(--accent-s) var(--accent-l);
+}
 
 /* ---------------------------------------------------------------------------
    Design tokens — every value below becomes a Tailwind utility.
    e.g. `--color-primary` -> bg-primary / text-primary / border-primary
    ------------------------------------------------------------------------- */
 @theme {
-  /* Surfaces */
+  /* Surfaces — neutrals carry a trace of the accent hue so nothing reads cold */
   --color-background: hsl(220 14% 6%);
-  --color-foreground: hsl(40 10% 90%);
+  --color-foreground: hsl(20 10% 90%);
   --color-card: hsl(220 12% 9%);
-  --color-card-foreground: hsl(40 10% 90%);
+  --color-card-foreground: hsl(20 10% 90%);
   --color-secondary: hsl(220 10% 14%);
-  --color-secondary-foreground: hsl(40 10% 80%);
+  --color-secondary-foreground: hsl(20 10% 80%);
   --color-muted: hsl(220 10% 14%);
   --color-muted-foreground: hsl(220 10% 50%);
 
-  /* Accent */
-  --color-primary: hsl(40 90% 56%);
+  /* ---- Accent ramp — #ff5d2a and its gradations ------------------------- */
+  --color-primary-50: hsl(14 100% 96%);
+  --color-primary-100: hsl(14 100% 92%);
+  --color-primary-200: hsl(14 100% 84%);
+  --color-primary-300: hsl(14 100% 75%);
+  --color-primary-400: hsl(14 100% 66%);
+  --color-primary-500: hsl(14 100% 58%); /* #ff5d2a — the brand colour */
+  --color-primary-600: hsl(14 90% 50%);
+  --color-primary-700: hsl(14 86% 42%);
+  --color-primary-800: hsl(14 80% 33%);
+  --color-primary-900: hsl(14 74% 26%);
+  --color-primary-950: hsl(14 80% 15%);
+
+  /* Default step, so `bg-primary` stays the brand colour */
+  --color-primary: hsl(14 100% 58%);
   --color-primary-foreground: hsl(220 14% 6%);
-  --color-accent-warm: hsl(30 85% 65%);
+  /* Second gradient stop: same family, shifted warmer and lighter */
+  --color-accent-warm: hsl(28 100% 64%);
 
   /* Lines & focus */
   --color-border: hsl(220 10% 18%);
   --color-input: hsl(220 10% 18%);
-  --color-ring: hsl(40 90% 56%);
+  --color-ring: hsl(14 100% 58%);
 
-  /* Feedback */
-  --color-danger: hsl(0 72% 62%);
+  /* Feedback — danger pushed toward crimson so form errors stay clearly
+     distinguishable from the orange-red accent */
+  --color-danger: hsl(352 82% 62%);
   --color-success: hsl(152 55% 48%);
 
   /* Typography */
@@ -50,7 +79,9 @@
   --animate-cursor-blink: cursor-blink 1.1s step-end infinite;
   --animate-float: float 7s ease-in-out infinite;
   --animate-spin-slow: spin 9s linear infinite;
-  --animate-marquee: marquee 38s linear infinite;
+  /* The track travels ~7250px per loop; 90s puts that at ~80px/s — slow
+     enough to actually read a chip as it passes. */
+  --animate-marquee: marquee 90s linear infinite;
 }
 
 @keyframes slide-up {
@@ -113,9 +144,18 @@
     overflow-x: hidden;
   }
 
+  /* Tailwind v4's preflight dropped the pointer cursor on buttons, so anything
+     clickable that is not an <a> loses the affordance. Restore it here rather
+     than sprinkling `cursor-pointer` across every template. */
+  button:not(:disabled),
+  [role='button']:not(:disabled),
+  summary {
+    cursor: pointer;
+  }
+
   ::selection {
-    background: hsl(40 90% 56% / 0.3);
-    color: hsl(40 10% 95%);
+    background: hsl(var(--accent) / 0.3);
+    color: hsl(20 10% 95%);
   }
 
   :focus-visible {
@@ -138,7 +178,7 @@
     border-radius: 999px;
   }
   *::-webkit-scrollbar-thumb:hover {
-    background: hsl(40 90% 56% / 0.5);
+    background: hsl(var(--accent) / 0.5);
   }
 }
 
@@ -146,13 +186,13 @@
    Custom utilities
    ------------------------------------------------------------------------- */
 @utility text-gradient {
-  background-image: linear-gradient(135deg, hsl(40 90% 56%), hsl(30 85% 65%));
+  background-image: linear-gradient(135deg, hsl(var(--accent)), hsl(28 100% 64%));
   background-clip: text;
   color: transparent;
 }
 
 @utility glow-line {
-  background: linear-gradient(90deg, transparent, hsl(40 90% 56% / 0.45), transparent);
+  background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.45), transparent);
 }
 
 @utility card-hover {
@@ -163,8 +203,8 @@
 
   &:hover {
     transform: translateY(-3px);
-    border-color: hsl(40 90% 56% / 0.28);
-    box-shadow: 0 10px 36px hsl(40 90% 56% / 0.09);
+    border-color: hsl(var(--accent) / 0.3);
+    box-shadow: 0 10px 36px hsl(var(--accent) / 0.1);
   }
 }
 
@@ -191,8 +231,8 @@
 /* Faint blueprint grid used behind the hero */
 @utility grid-backdrop {
   background-image:
-    linear-gradient(hsl(40 90% 56% / 0.3) 1px, transparent 1px),
-    linear-gradient(90deg, hsl(40 90% 56% / 0.3) 1px, transparent 1px);
+    linear-gradient(hsl(var(--accent) / 0.3) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(var(--accent) / 0.3) 1px, transparent 1px);
   background-size: 80px 80px;
 }
 
