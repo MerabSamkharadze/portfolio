@@ -72,6 +72,11 @@ export const ABOUT_PARAGRAPHS: readonly string[] = [
     'browser, sit close enough to the design hand-off that nobody sends them back, and stay quick ' +
     'on a mid-range phone. I go looking for the change-detection hot spots and the duplicate HTTP ' +
     'calls, because that is usually where the experience quietly leaks away.',
+  'In parallel I work remotely on MedSocial, a cross-border HealthTech marketplace. I joined a ' +
+    'codebase another developer had been building for three and a half months. Five weeks later ' +
+    '45% of the source is mine: the entire real-time chat over WebSockets, a responsive migration ' +
+    'of a site that had exactly one @media rule in it, and a listings page that went from a ' +
+    'nine-second blank screen to none. Reading somebody else’s code carefully is most of that job.',
   'Before this I led the front end of a hotel and restaurant management platform, from an empty ' +
     'repository to something three businesses now run their day on. That is where I learned how ' +
     'many bugs are really process problems: I made review mandatory before every merge to main, ' +
@@ -85,9 +90,10 @@ export const ABOUT_PARAGRAPHS: readonly string[] = [
 
 export const ABOUT_HIGHLIGHTS: readonly string[] = [
   'Treats the launch date as fixed and plans backwards from it',
+  'Audits an unfamiliar codebase in writing before changing a line of it',
   'Would rather review a pull request twice than debug it in production',
-  'Reaches into the back end when the front end is not the problem',
-  'Picks up whatever the work needs next — Node.js and SQL arrived that way',
+  'Proves where a bug lives before handing it to anyone else',
+  'Picks up whatever the work needs next — Node.js, SQL and WebSockets arrived that way',
 ];
 
 /* -------------------------------------------------------------------------- */
@@ -112,8 +118,9 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
       { name: 'HttpClient & Interceptors', level: 'production' },
       { name: 'SPA architecture', level: 'production' },
       { name: 'Angular CLI', level: 'production' },
-      { name: 'Standalone Components', level: 'strong' },
-      { name: 'Signals', level: 'strong' },
+      { name: 'Standalone Components', level: 'production' },
+      { name: 'Signals', level: 'production' },
+      { name: 'PrimeNG', level: 'strong' },
       { name: 'Zoneless', level: 'working' },
     ],
   },
@@ -162,6 +169,7 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
     skills: [
       { name: 'API integration', level: 'production' },
       { name: 'Postman', level: 'production' },
+      { name: 'WebSockets', level: 'strong' },
       { name: 'Node.js', level: 'strong' },
       { name: 'NestJS', level: 'strong' },
       { name: 'REST API design', level: 'strong' },
@@ -197,6 +205,7 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
       { name: 'SOLID', level: 'strong' },
       { name: 'Modular structure', level: 'strong' },
       { name: 'Unit testing', level: 'strong' },
+      { name: 'Vitest', level: 'strong' },
       { name: 'Design patterns', level: 'working' },
       { name: 'Angular TestBed', level: 'working' },
     ],
@@ -236,6 +245,43 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
 /* -------------------------------------------------------------------------- */
 
 export const PROJECTS: readonly Project[] = [
+  {
+    id: 'medsocial',
+    title: 'MedSocial — Cross-Border HealthTech Marketplace',
+    context: 'Remote · Live MVP · Backend: Django REST Framework + Channels',
+    period: '06/2026 – Present',
+    summary:
+      'A marketplace connecting patients with doctors across borders: doctors publish procedures ' +
+      'with prices and discounts, patients search by country, city, category and price, book, ' +
+      'message and review. I joined three and a half months after the first commit, on a codebase ' +
+      'written entirely by someone else, and rewrote a large part of it.',
+    highlights: [
+      'Built the whole real-time chat: a WebSocket transport with subprotocol auth, backoff with jitter, a distinct “never connected” state, and a discriminated-union frame model — over an application layer doing optimistic send, clientId reconciliation, presence, typing, an offline outbox and gap healing over REST.',
+      'Proved a 1006 handshake failure was a backend bug by reproducing it with curl and a Node ws client: the server returned 101 without echoing the negotiated subprotocol, which the specification requires the client to reject.',
+      'Cut the /procedures blank screen from 7.9–9.4s to 0ms and requests before first paint from 6 to 1 — the last step was deleting two requests entirely rather than optimising them a fourth time, which removed ~90 lines and ~7s of backend work per load.',
+      'Took the site from one @media rule to a four-tier responsive system with a shared breakpoints.scss and a matchMedia ResponsiveService, no Angular CDK, and desktop-down overrides so the working desktop layout was never put at risk.',
+      'Audited the codebase into a 551-line prioritised backlog and closed 48 items, including HttpParams misuse that silently dropped pagination, a filter the API never accepted, and a suite that went from 33 failing spec files to fully green.',
+    ],
+    stack: [
+      'Angular 21.2',
+      'TypeScript 5.9 (strict)',
+      'Signals',
+      'RxJS 7.8',
+      'WebSockets',
+      'PrimeNG 21.1',
+      'SCSS',
+      'Vitest 4',
+      'date-fns',
+    ],
+    metrics: [
+      { value: '45%', label: 'Of the source is mine' },
+      { value: '81', label: 'Commits in 5 weeks' },
+      { value: '6 → 1', label: 'Requests before paint' },
+      { value: '33 → 0', label: 'Failing spec files' },
+    ],
+    links: [{ label: 'Visit medsocial.online', href: 'https://medsocial.online/home', icon: 'arrowUpRight' }],
+    featured: true,
+  },
   {
     id: 'promotions-platform',
     title: 'Promotions & Campaigns Platform',
@@ -311,38 +357,6 @@ export const PROJECTS: readonly Project[] = [
     featured: true,
   },
   {
-    id: 'this-portfolio',
-    title: 'This Portfolio',
-    context: 'Personal · Angular 21',
-    period: '2026',
-    summary:
-      'The page you are reading. Built from scratch in the newest Angular, because I wanted to ' +
-      'use signals and zoneless change detection on something real rather than in a tutorial.',
-    highlights: [
-      'Angular 21 with standalone components, signal-based state and zoneless change detection — no NgModules, no zone.js.',
-      'Strict TypeScript, OnPush on every component, and a core / shared / features boundary that has held while the content changed underneath it.',
-      'Unit tests covering the content store, the scroll-reveal directive and contact-form validation.',
-      'Tailwind CSS v4 design tokens, mobile-first layout, one shared IntersectionObserver for the scroll choreography, and full reduced-motion support.',
-    ],
-    stack: [
-      'Angular 21',
-      'Signals',
-      'Zoneless',
-      'Standalone APIs',
-      'TypeScript (strict)',
-      'Tailwind CSS v4',
-      'Reactive Forms',
-      'Vitest',
-    ],
-    metrics: [
-      { value: '0', label: 'NgModules' },
-      { value: '100%', label: 'Standalone' },
-      { value: 'A11y', label: 'Reduced-motion aware' },
-    ],
-    links: [],
-    featured: true,
-  },
-  {
     id: 'react-next',
     title: 'Full-Stack Projects — React & Next.js',
     context: 'TBC IT Academy · 3 projects',
@@ -369,6 +383,36 @@ export const PROJECTS: readonly Project[] = [
 /* -------------------------------------------------------------------------- */
 
 export const EXPERIENCE: readonly ExperienceItem[] = [
+  {
+    id: 'medsocial',
+    role: 'Front-End Developer',
+    company: 'MedSocial',
+    location: 'Remote',
+    period: '06/2026 – Present',
+    current: true,
+    summary:
+      'Front end of a cross-border HealthTech marketplace MVP. I joined a codebase another ' +
+      'developer had been building for three and a half months; five weeks later 13,740 of its ' +
+      '30,200 source lines are mine.',
+    achievements: [
+      'Delivered 81 commits in 5 weeks on an unfamiliar codebase — 207 files touched, 42 created from scratch, +15,783 / −3,347 lines — merged to main through reviewed pull requests.',
+      'Built the entire 1:1 doctor–patient chat over WebSockets: a ~290-line rxjs/webSocket transport with subprotocol authentication, exponential backoff with jitter and reconnect on visibilitychange, over a ~780-line application layer with optimistic send, clientId reconciliation, an offline outbox and REST gap healing.',
+      'Diagnosed a WebSocket handshake failing with close code 1006 by reproducing it outside the browser with curl and a Node ws client, proving the server accepted without echoing the negotiated subprotocol, and handed the backend developer the evidence.',
+      'Cut the /procedures blank screen from 7.9–9.4s to 0ms and requests before first paint from 6 to 1, after a console measurement script showed two requests costing 3397ms and 3728ms existed only to set the scale of a price slider.',
+      'Migrated a codebase containing exactly one @media rule to a four-tier responsive system, using desktop-down overrides so the working desktop layout was never at risk; an adversarial review after each tier found and fixed 27 defects.',
+      'Built a chain of functional HTTP interceptors that runs exactly one token refresh on a 401 and queues every other failed request behind a BehaviorSubject gate, plus proactive refresh scheduled from the JWT exp claim.',
+      'Took the test suite from 33 failing spec files to fully green — now 78 files and 104 tests — and closed 48 items from a prioritised 551-line bug backlog I wrote after auditing the code.',
+    ],
+    stack: [
+      'Angular 21',
+      'TypeScript 5.9 (strict)',
+      'RxJS',
+      'WebSockets',
+      'PrimeNG',
+      'SCSS',
+      'Vitest',
+    ],
+  },
   {
     id: 'crocobet',
     role: 'Front-End / Full-Stack Developer',

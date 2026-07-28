@@ -3,7 +3,7 @@
     <app-section-heading
       eyebrow="Projects"
       heading="Selected work"
-      lead="Two platforms in production, a full-stack build of my own, and the site you are reading. Numbers where I have them."
+      lead="Three products in production and a full-stack build of my own. Numbers where I have them."
     />
 
     <div class="stagger mt-14 grid gap-6 lg:grid-cols-2">
@@ -31,9 +31,27 @@
             </p>
           </header>
 
-          <p class="mb-6 text-pretty text-sm leading-relaxed text-muted-foreground">
+          <p class="mb-5 text-pretty text-sm leading-relaxed text-muted-foreground">
             {{ project.summary }}
           </p>
+
+          @if (project.links.length) {
+            <ul class="mb-6 flex flex-wrap gap-2">
+              @for (link of project.links; track link.href) {
+                <li>
+                  <a
+                    class="inline-flex items-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-3.5 py-2 text-xs font-medium text-primary transition-all duration-200 hover:bg-primary/20 active:scale-[0.97]"
+                    [href]="link.href"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <app-icon [name]="link.icon" [size]="13" />
+                    {{ link.label }}
+                  </a>
+                </li>
+              }
+            </ul>
+          }
 
           <!-- Outcomes -->
           @if (project.metrics.length) {

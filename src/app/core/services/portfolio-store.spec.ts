@@ -88,11 +88,19 @@ describe('PortfolioStore', () => {
     });
   });
 
-  it('lists the current role first in the experience timeline', () => {
+  it('opens the experience timeline with the most recent role', () => {
     const [first] = store.experience();
 
     expect(first.current).toBe(true);
-    expect(first.company).toBe('Crocobet');
+    expect(first.company).toBe('MedSocial');
+  });
+
+  it('keeps every project link absolute and https, so none 404 on a static host', () => {
+    for (const project of store.projects()) {
+      for (const link of project.links) {
+        expect(link.href.startsWith('https://')).toBe(true);
+      }
+    }
   });
 
   it('orders education newest first', () => {
