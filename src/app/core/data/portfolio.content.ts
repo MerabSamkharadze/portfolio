@@ -37,10 +37,9 @@ export const PROFILE: Profile = {
   lastName: 'Samkharadze',
   headline: 'Angular Developer',
   pitch:
-    'Two years ago I shipped my first Angular feature. Today I build the front end of a ' +
-    'promotions platform used by more than 100,000 people — twenty-plus campaigns delivered, on ' +
-    'the dates the business committed to. Angular and TypeScript on the client; Node.js and SQL ' +
-    'when the answer sits behind the API.',
+    'I build Angular front ends. Right now that means a promotions platform used by more than ' +
+    '100,000 people, and a cross-border health marketplace where five weeks of work left 45% of ' +
+    'the source mine. Two years in front-end development, the last year of it entirely in Angular.',
   location: 'Tbilisi, Georgia',
   email: 'samkharadzemerab@gmail.com',
   phone: '+995 598 487 787',
@@ -77,15 +76,17 @@ export const ABOUT_PARAGRAPHS: readonly string[] = [
     '45% of the source is mine: the entire real-time chat over WebSockets, a responsive migration ' +
     'of a site that had exactly one @media rule in it, and a listings page that went from a ' +
     'nine-second blank screen to none. Reading somebody else’s code carefully is most of that job.',
-  'Before this I led the front end of a hotel and restaurant management platform, from an empty ' +
-    'repository to something three businesses now run their day on. That is where I learned how ' +
-    'many bugs are really process problems: I made review mandatory before every merge to main, ' +
-    'and post-release bugs fell 15%.',
+  'Before Angular I spent eight months in Next.js, leading the front end of a hotel and restaurant ' +
+    'management platform from an empty repository to something three businesses now run their day ' +
+    'on. That is where I learned how many bugs are really process problems: I made review ' +
+    'mandatory before every merge to main, and post-release bugs fell 15%.',
   'I came to this from economics — a BSc and an MSc from Tbilisi State University — by way of two ' +
-    'IT programmes and a lot of evenings. The back end followed for a practical reason: I got ' +
-    'tired of waiting on an endpoint I could have written myself. Next on the list is going ' +
-    'deeper into testing and architecture, because the codebases I want to be trusted with are ' +
-    'bigger than the ones I have now.',
+    'IT programmes and a lot of evenings. Those evenings still go somewhere: dasaqmdi.com is a ' +
+    'bilingual job board I built and shipped on my own, 291 commits, from the PostgreSQL schema ' +
+    'and its row-level security policies through to the SEO layer. The front end is where I work, ' +
+    'but I would rather understand the whole path than guess at half of it. Next on the list is ' +
+    'going deeper into testing and architecture, because the codebases I want to be trusted with ' +
+    'are bigger than the ones I have now.',
 ];
 
 export const ABOUT_HIGHLIGHTS: readonly string[] = [
@@ -156,7 +157,8 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
       { name: 'CSS Grid', level: 'production' },
       { name: 'Mobile-first / Responsive', level: 'production' },
       { name: 'Cross-browser support', level: 'production' },
-      { name: 'Tailwind CSS', level: 'strong' },
+      { name: 'Tailwind CSS', level: 'production' },
+      { name: 'SEO & structured data', level: 'strong' },
       { name: 'Accessibility (WCAG)', level: 'working' },
     ],
   },
@@ -165,7 +167,7 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
     title: 'Backend & APIs',
     icon: 'terminal',
     emphasis: 'primary',
-    caption: 'Enough back end to finish the job without waiting on anyone.',
+    caption: 'A supporting skill, not my title — enough to stop waiting on an endpoint.',
     skills: [
       { name: 'API integration', level: 'production' },
       { name: 'Postman', level: 'production' },
@@ -182,12 +184,15 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
     title: 'Databases',
     icon: 'database',
     emphasis: 'secondary',
-    caption: 'Schemas I design, queries I write and then tune.',
+    caption: 'Schemas I design, policies I write, queries I then tune.',
     skills: [
+      { name: 'PostgreSQL', level: 'production' },
       { name: 'SQL', level: 'strong' },
       { name: 'Relational schema design', level: 'strong' },
+      { name: 'Row-level security', level: 'strong' },
+      { name: 'Migrations', level: 'strong' },
       { name: 'Joins & Indexing', level: 'strong' },
-      { name: 'PostgreSQL', level: 'strong' },
+      { name: 'Full-text search', level: 'strong' },
       { name: 'MySQL', level: 'strong' },
       { name: 'Query optimisation', level: 'working' },
       { name: 'MS SQL / T-SQL', level: 'familiar' },
@@ -212,13 +217,16 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
   },
   {
     id: 'also',
-    title: 'Also work with',
+    title: 'Beyond Angular',
     icon: 'sparkles',
     emphasis: 'secondary',
-    caption: 'Enough to be useful on, not enough to claim expert in.',
+    caption: 'Two products shipped in Next.js — one for a client, one entirely my own.',
     skills: [
-      { name: 'React', level: 'strong' },
-      { name: 'Next.js (SSR / SSG)', level: 'strong' },
+      { name: 'React', level: 'production' },
+      { name: 'Next.js', level: 'production' },
+      { name: 'SSR / SSG / ISR', level: 'production' },
+      { name: 'Supabase', level: 'strong' },
+      { name: 'Zod', level: 'strong' },
       { name: 'Android Studio', level: 'familiar' },
       { name: 'Xcode', level: 'familiar' },
     ],
@@ -234,6 +242,7 @@ export const SKILL_GROUPS: readonly SkillGroup[] = [
       { name: 'Pull-request review', level: 'production' },
       { name: 'Agile teamwork', level: 'production' },
       { name: 'Figma / Zeplin hand-off', level: 'production' },
+      { name: 'Internationalisation (i18n)', level: 'production' },
       { name: 'npm / yarn', level: 'production' },
       { name: 'WebStorm / VS Code', level: 'production' },
     ],
@@ -311,19 +320,19 @@ export const PROJECTS: readonly Project[] = [
   {
     id: 'hospitality-platform',
     title: 'Hotel & Restaurant Management Platform',
-    context: 'Adaptcore · Production · 3+ business clients',
+    context: 'Adaptcore · Production · 3+ business clients · Next.js',
     period: '09/2024 – 04/2025',
     summary:
-      'Bookings, menus, orders and role-based admin dashboards. I took the front end from an ' +
-      'empty repository to something three hospitality businesses now run their day on.',
+      'Bookings, menus, orders and role-based admin dashboards, built in Next.js. I took the front ' +
+      'end from an empty repository to something three hospitality businesses now run their day on.',
     highlights: [
-      'Led front-end development across bookings, menus, orders and admin dashboards in Angular, TypeScript, RxJS and SCSS.',
+      'Led front-end development across bookings, menus, orders and admin dashboards in Next.js, React, TypeScript and SCSS.',
       'Specified and integrated 10+ REST endpoints with the backend team, enabling real-time booking updates and role-based admin controls.',
-      'Reduced page load times by 25% by tracking down change-detection hot spots and refactoring deep component trees.',
+      'Reduced page load times by 25% by tracking down unnecessary re-renders and refactoring deep component trees.',
       'Cut post-release bugs by 15% by introducing structured debugging practice and making review mandatory before every merge to main.',
       'Ran bi-weekly knowledge-sharing sessions for 4 developers, shortening average feature delivery time.',
     ],
-    stack: ['Angular', 'TypeScript', 'RxJS', 'SCSS', 'REST APIs', 'RBAC'],
+    stack: ['Next.js', 'React', 'TypeScript', 'SCSS', 'REST APIs', 'RBAC'],
     metrics: [
       { value: '25%', label: 'Faster loads' },
       { value: '15%', label: 'Fewer bugs' },
@@ -331,6 +340,45 @@ export const PROJECTS: readonly Project[] = [
       { value: '3+', label: 'Business clients' },
     ],
     links: [],
+    featured: true,
+  },
+  {
+    id: 'dasaqmdi',
+    title: 'dasaqmdi.com — Bilingual Job Board',
+    context: 'Personal product · Live · Sole author of 291 commits',
+    period: '03/2026 – 07/2026',
+    summary:
+      'A Georgian/English job board serving three roles from one codebase: seekers browse and ' +
+      'apply, employers run a five-stage applicant pipeline, admins moderate with a full audit ' +
+      'log. I built all of it — the PostgreSQL schema and its policies, the application, and the ' +
+      'SEO layer.',
+    highlights: [
+      'Search built for how this market actually types. Georgians write Georgian words in Latin letters and English words in Georgian letters, so a query expands through a bidirectional transliteration layer, then a curated alias table for what phonetics cannot reach (ვიუ transliterates to viu, which will never match vue), then a trigram category fallback that tells the user what it did.',
+      'Replaced an unindexed five-column ILIKE chain with a weighted tsvector and a GIN index, using the simple text-search configuration because Postgres ships no Georgian one, and a trigger rather than a generated column because to_tsvector is only STABLE.',
+      'Put authorisation in the database: 53 row-level security policies across 14 tables, three roles, and cached queries that may only read an id sourced from the cookie-authenticated user earlier in the same request.',
+      'Tracked down a static-generation regression where a leaf component in the shared header silently turned 190 static pages dynamic — three interacting causes, invisible locally because the dev server is permissive about the exact rule being broken.',
+      '271 pages pre-rendered at build, 190 of them SEO landing pages (18 with hand-written copy), with a hand-written RS256 JWT client that notifies the Google Indexing API on publish — no SDK, so no bundle cost.',
+    ],
+    stack: [
+      'Next.js 15',
+      'React 19',
+      'TypeScript (strict)',
+      'Supabase',
+      'PostgreSQL',
+      'Zod',
+      'Tailwind CSS',
+      'next-intl',
+      'Grammy',
+    ],
+    metrics: [
+      { value: '291', label: 'Commits, sole author' },
+      { value: '271', label: 'Pages pre-rendered' },
+      { value: '53', label: 'RLS policies' },
+      { value: '102 kB', label: 'Shared First Load JS' },
+    ],
+    links: [
+      { label: 'Visit dasaqmdi.com', href: 'https://www.dasaqmdi.com', icon: 'arrowUpRight' },
+    ],
     featured: true,
   },
   {
@@ -385,7 +433,7 @@ export const PROJECTS: readonly Project[] = [
 export const EXPERIENCE: readonly ExperienceItem[] = [
   {
     id: 'medsocial',
-    role: 'Front-End Developer',
+    role: 'Angular Developer',
     company: 'MedSocial',
     location: 'Remote',
     period: '06/2026 – Present',
@@ -415,7 +463,7 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
   },
   {
     id: 'crocobet',
-    role: 'Front-End / Full-Stack Developer',
+    role: 'Angular Developer',
     company: 'Crocobet',
     location: 'Tbilisi, Georgia',
     period: '07/2025 – Present',
@@ -435,7 +483,7 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
   },
   {
     id: 'adaptcore',
-    role: 'Front-End / Full-Stack Developer',
+    role: 'React / Next.js Developer',
     company: 'Adaptcore',
     location: 'Tbilisi, Georgia',
     period: '09/2024 – 04/2025',
@@ -444,13 +492,44 @@ export const EXPERIENCE: readonly ExperienceItem[] = [
       'Led the front end of a hotel and restaurant management platform — from an empty repository ' +
       'to a live product for 3+ hospitality businesses.',
     achievements: [
-      'Led front-end development of a hotel and restaurant management platform (bookings, menus, orders, admin dashboards) used by 3+ hospitality businesses — built with Angular, TypeScript, RxJS and SCSS.',
+      'Led front-end development of a hotel and restaurant management platform (bookings, menus, orders, admin dashboards) used by 3+ hospitality businesses — built with Next.js, React, TypeScript and SCSS.',
       'Built and integrated 10+ RESTful API endpoints together with the backend, enabling core workflows including real-time booking updates and role-based admin controls.',
-      'Reduced page load times by 25% by optimising Angular change detection and refactoring inefficient component trees.',
+      'Reduced page load times by 25% by removing unnecessary re-renders and refactoring inefficient component trees.',
       'Cut post-release bug count by 15% by introducing structured debugging practices and making code review mandatory before every merge to main.',
       'Ran bi-weekly knowledge-sharing sessions for a team of 4 developers, shortening average feature delivery time.',
     ],
-    stack: ['Angular', 'TypeScript', 'RxJS', 'SCSS', 'REST APIs', 'RBAC'],
+    stack: ['Next.js', 'React', 'TypeScript', 'SCSS', 'REST APIs', 'RBAC'],
+  },
+  {
+    id: 'dasaqmdi',
+    role: 'Solo Developer',
+    company: 'dasaqmdi.com',
+    location: 'Personal product · Live',
+    period: '03/2026 – 07/2026',
+    current: false,
+    summary:
+      'A bilingual Georgian/English job board serving seekers, employers and admins from one ' +
+      'codebase. Sole author of all 291 commits — the PostgreSQL schema and its policies, the ' +
+      'application, the SEO layer and the deployment.',
+    achievements: [
+      'Designed and shipped the whole product alone on Next.js 15, React 19 and TypeScript in strict mode: 45 pages, 143 React components and 42 Server Actions, across 44,879 lines currently in the repository.',
+      'Authored the complete PostgreSQL schema on Supabase — 37 migrations, 53 row-level security policies across 14 tables, 8 triggers and 34 indexes — so authorisation lives in the database rather than in a route I might forget to guard.',
+      'Built a three-layer search resolver for a market where users mix scripts: bidirectional Georgian↔Latin transliteration with longest-match digraphs, a curated skill-alias table for what phonetics cannot reach, and trigram category fallback.',
+      'Replaced an unindexed five-column ILIKE chain with a weighted Postgres tsvector and a GIN index, maintained by a trigger rather than a generated column because to_tsvector is only STABLE.',
+      'Engineered the SEO layer: 271 pages pre-rendered at build, of which 190 are landing pages (18 with hand-written copy), plus transliterated canonical job URLs with 308 redirects, JobPosting and FAQPage structured data, and a hand-written RS256 JWT client for the Google Indexing API with no SDK dependency.',
+      'Held shared First Load JS to 102 kB across all routes by lazy-loading the authenticated header island behind a client-side cookie hint, route-scoping drag-and-drop, and using framer-motion strictly through LazyMotion.',
+      'Shipped 796 translation keys per locale with zero mismatches between Georgian and English, plus a Telegram notification bot, Gemini-backed bilingual job drafting, transactional email with per-company templates, and an admin audit log.',
+    ],
+    stack: [
+      'Next.js 15',
+      'React 19',
+      'TypeScript (strict)',
+      'Supabase',
+      'PostgreSQL',
+      'Zod',
+      'Tailwind CSS',
+      'next-intl',
+    ],
   },
 ];
 
