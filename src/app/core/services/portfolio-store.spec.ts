@@ -1,12 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 
+import { portfolioContent } from '@core/content';
+import { providePortfolioTesting } from '@core/testing';
+import { PORTFOLIO_CONTENT } from '@core/tokens';
+
 import { PortfolioStore } from './portfolio-store';
 
 describe('PortfolioStore', () => {
   let store: PortfolioStore;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: providePortfolioTesting(),
+    });
     store = TestBed.inject(PortfolioStore);
   });
 
@@ -16,6 +22,20 @@ describe('PortfolioStore', () => {
     expect(profile.name).toBe('Merab Samkharadze');
     expect(profile.headline).toBe('Angular Developer');
     expect(profile.email).toContain('@');
+  });
+
+  it('reads its content from the injection token rather than an import', () => {
+    TestBed.resetTestingModule();
+    TestBed.configureTestingModule({
+      providers: [
+        {
+          provide: PORTFOLIO_CONTENT,
+          useValue: { ...portfolioContent, profile: { ...portfolioContent.profile, name: 'Fake' } },
+        },
+      ],
+    });
+
+    expect(TestBed.inject(PortfolioStore).profile().name).toBe('Fake');
   });
 
   describe('navigation', () => {
@@ -70,6 +90,14 @@ describe('PortfolioStore', () => {
         expect(project.highlights.length).toBeGreaterThan(0);
       }
     });
+
+    it('keeps every project link absolute and https, so none 404 on a static host', () => {
+      for (const project of store.projects()) {
+        for (const link of project.links) {
+          expect(link.href.startsWith('https://')).toBe(true);
+        }
+      }
+    });
   });
 
   describe('technologyMarquee', () => {
@@ -88,19 +116,12 @@ describe('PortfolioStore', () => {
     });
   });
 
-  it('opens the experience timeline with the most recent role', () => {
-    const [first] = store.experience();
+  it('leads the experience timeline with the main role, not the newest one', () => {
+    const companies = store.experience().map((role) => role.company);
 
-    expect(first.current).toBe(true);
-    expect(first.company).toBe('MedSocial');
-  });
-
-  it('keeps every project link absolute and https, so none 404 on a static host', () => {
-    for (const project of store.projects()) {
-      for (const link of project.links) {
-        expect(link.href.startsWith('https://')).toBe(true);
-      }
-    }
+    // Deliberately not chronological — see the note in experience.content.ts.
+    expect(companies).toEqual(['Crocobet', 'MedSocial', 'Adaptcore', 'dasaqmdi.com']);
+    expect(store.experience()[0].current).toBe(true);
   });
 
   it('orders education newest first', () => {

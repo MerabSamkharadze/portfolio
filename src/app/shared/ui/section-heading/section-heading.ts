@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
-import { Reveal } from '../../directives/reveal';
+import { Reveal } from '@shared/directives';
 
 /**
  * The shared section header: a mono eyebrow, the heading, and an optional lead

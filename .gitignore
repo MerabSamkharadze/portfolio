@@ -61,6 +61,13 @@ pnpm-debug.log*
 secrets.json
 
 # ---------------------------------------------------------------------------
+# Local assistant instructions & private notes — personal contact details and
+# candid self-assessments live here; they must never reach a public repository
+# ---------------------------------------------------------------------------
+CLAUDE.md
+.claude/
+
+# ---------------------------------------------------------------------------
 # Deployment artefacts
 # ---------------------------------------------------------------------------
 .vercel

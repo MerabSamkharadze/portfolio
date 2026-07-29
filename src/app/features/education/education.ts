@@ -1,21 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import type { EducationKind } from '../../core/models/portfolio.model';
-import { PortfolioStore } from '../../core/services/portfolio-store';
-import { Reveal } from '../../shared/directives/reveal';
-import { Icon } from '../../shared/ui/icon/icon';
-import type { IconName } from '../../shared/ui/icon/icon-set';
-import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
+import { PortfolioStore } from '@core/services';
+import { Reveal } from '@shared/directives';
+import { SectionHeading } from '@shared/ui';
 
-const KIND_ICON: Readonly<Record<EducationKind, IconName>> = {
-  degree: 'graduationCap',
-  training: 'code',
-};
+import { EducationCard } from './education-card/education-card';
 
 @Component({
   selector: 'app-education',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon, Reveal, SectionHeading],
+  imports: [EducationCard, Reveal, SectionHeading],
   templateUrl: './education.html',
   host: { class: 'block' },
 })
@@ -23,8 +17,4 @@ export class Education {
   private readonly store = inject(PortfolioStore);
 
   protected readonly items = this.store.education;
-
-  protected iconFor(kind: EducationKind): IconName {
-    return KIND_ICON[kind];
-  }
 }

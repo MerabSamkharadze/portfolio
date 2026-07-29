@@ -1,0 +1,20 @@
+<article class="card-hover rounded-2xl border border-border bg-card/50 p-6 sm:p-7">
+  <div class="flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+    <div class="lg:max-w-2xl">
+      <div class="mb-2 flex flex-wrap items-center gap-3">
+        <h3 class="text-base font-semibold">{{ project().title }}</h3>
+        <span class="font-mono text-[11px] text-muted-foreground">{{ project().period }}</span>
+      </div>
+
+      <p class="mb-3 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
+        {{ project().context }}
+      </p>
+
+      <p class="text-pretty text-sm leading-relaxed text-muted-foreground">
+        {{ project().summary }}
+      </p>
+    </div>
+
+    <app-tech-list class="shrink-0" [items]="project().stack" />
+  </div>
+</article>

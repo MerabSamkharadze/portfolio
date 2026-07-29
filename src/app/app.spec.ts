@@ -1,7 +1,8 @@
 import { provideHttpClient } from '@angular/common/http';
 import { TestBed, type ComponentFixture } from '@angular/core/testing';
 
-import { NAV_ITEMS } from './core/data/portfolio.content';
+import { NAV_ITEMS } from '@core/content';
+import { providePortfolioTesting } from '@core/testing';
 import { App } from './app';
 
 describe('App', () => {
@@ -11,7 +12,7 @@ describe('App', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideHttpClient()],
+      providers: [provideHttpClient(), ...providePortfolioTesting()],
     });
 
     fixture = TestBed.createComponent(App);

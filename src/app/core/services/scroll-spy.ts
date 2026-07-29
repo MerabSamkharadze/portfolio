@@ -1,6 +1,6 @@
 import { DOCUMENT, DestroyRef, Injectable, inject, signal } from '@angular/core';
 
-import type { SectionId } from '../models/portfolio.model';
+import type { SectionId } from '@core/models';
 
 /** How long after a nav click we ignore the observer, so the highlight does not flicker. */
 const CLICK_SETTLE_MS = 800;
@@ -67,9 +67,7 @@ export class ScrollSpy {
   /** Smoothly scrolls a section into view and pins the nav highlight to it. */
   scrollTo(sectionId: SectionId): void {
     const target =
-      sectionId === 'top'
-        ? this.document.documentElement
-        : this.document.getElementById(sectionId);
+      sectionId === 'top' ? this.document.documentElement : this.document.getElementById(sectionId);
 
     if (!target) {
       return;

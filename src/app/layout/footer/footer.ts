@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { PortfolioStore } from '../../core/services/portfolio-store';
-import { ScrollSpy } from '../../core/services/scroll-spy';
-import { Icon } from '../../shared/ui/icon/icon';
+import { PortfolioStore, ScrollSpy } from '@core/services';
+import { Icon } from '@shared/ui';
 
 @Component({
   selector: 'app-footer',

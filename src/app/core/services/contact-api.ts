@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { type Observable, catchError, map, of, timer } from 'rxjs';
 
-import { CONTACT_ENDPOINT, PROFILE } from '../data/portfolio.content';
-import type { ContactMessage, ContactResult } from '../models/portfolio.model';
+import type { ContactMessage, ContactResult } from '@core/models';
+import { PORTFOLIO_CONFIG, PORTFOLIO_CONTENT } from '@core/tokens';
 
 /** Perceived-latency floor, so the pending state is readable rather than a flash. */
 const MIN_PENDING_MS = 700;
@@ -11,24 +11,26 @@ const MIN_PENDING_MS = 700;
 /**
  * Delivers a contact-form message.
  *
- * With `CONTACT_ENDPOINT` configured the message is POSTed to that backend.
- * Without one — the default for a statically hosted portfolio — the service
- * still succeeds and returns a fully pre-filled `mailto:` URL, so the visitor
- * can finish the send from their own client in one click. No message is
- * silently dropped in either path.
+ * With an endpoint configured the message is POSTed to that backend. Without
+ * one — the default for a statically hosted site — the service still succeeds
+ * and returns a fully pre-filled `mailto:` URL, so the visitor can finish the
+ * send from their own client in one click. No message is silently dropped in
+ * either path.
  */
 @Injectable({ providedIn: 'root' })
 export class ContactApi {
   private readonly http = inject(HttpClient);
+  private readonly endpoint = inject(PORTFOLIO_CONFIG).contactEndpoint;
+  private readonly recipient = inject(PORTFOLIO_CONTENT).profile.email;
 
   send(message: ContactMessage): Observable<ContactResult> {
-    const mailtoUrl = buildMailtoUrl(message);
+    const mailtoUrl = buildMailtoUrl(this.recipient, message);
 
-    if (!CONTACT_ENDPOINT) {
+    if (!this.endpoint) {
       return timer(MIN_PENDING_MS).pipe(map(() => ({ delivered: false, mailtoUrl })));
     }
 
-    return this.http.post<unknown>(CONTACT_ENDPOINT, message).pipe(
+    return this.http.post<unknown>(this.endpoint, message).pipe(
       map(() => ({ delivered: true, mailtoUrl })),
       catchError(() => of({ delivered: false, mailtoUrl })),
     );
@@ -36,7 +38,7 @@ export class ContactApi {
 }
 
 /** Composes an RFC 6068 `mailto:` URL with the subject and body pre-filled. */
-export function buildMailtoUrl(message: ContactMessage): string {
+export function buildMailtoUrl(recipient: string, message: ContactMessage): string {
   const body = [
     message.message,
     '',
@@ -48,5 +50,6 @@ export function buildMailtoUrl(message: ContactMessage): string {
   const params = new URLSearchParams({ subject: message.subject, body });
 
   // URLSearchParams encodes spaces as "+", which mail clients render literally.
-  return `mailto:${PROFILE.email}?${params.toString().replace(/\+/g, '%20')}`;
+  // A literal "+" in the input is already escaped to %2B, so this is safe.
+  return `mailto:${recipient}?${params.toString().replace(/\+/g, '%20')}`;
 }

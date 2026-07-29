@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import { PortfolioStore } from '../../core/services/portfolio-store';
-import { Reveal } from '../../shared/directives/reveal';
-import { Icon } from '../../shared/ui/icon/icon';
-import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
+import { PortfolioStore } from '@core/services';
+import { Reveal } from '@shared/directives';
+import { Icon, SectionHeading } from '@shared/ui';
 
 @Component({
   selector: 'app-about',

@@ -2,9 +2,9 @@ import { TestBed, type ComponentFixture } from '@angular/core/testing';
 import type { FormControl, FormGroup } from '@angular/forms';
 import { of } from 'rxjs';
 
-import type { ContactMessage, ContactResult } from '../../core/models/portfolio.model';
-import { ContactApi } from '../../core/services/contact-api';
-import { Contact } from './contact';
+import type { ContactMessage, ContactResult } from '@core/models';
+import { ContactApi } from '@core/services';
+import { ContactForm } from './contact-form';
 
 const VALID_MESSAGE: ContactMessage = {
   name: 'Nino Beridze',
@@ -25,8 +25,8 @@ interface ContactInternals {
   }>;
 }
 
-describe('Contact', () => {
-  let fixture: ComponentFixture<Contact>;
+describe('ContactForm', () => {
+  let fixture: ComponentFixture<ContactForm>;
   let sent: ContactMessage[];
 
   beforeEach(async () => {
@@ -41,11 +41,11 @@ describe('Contact', () => {
     };
 
     TestBed.configureTestingModule({
-      imports: [Contact],
+      imports: [ContactForm],
       providers: [{ provide: ContactApi, useValue: contactApiStub }],
     });
 
-    fixture = TestBed.createComponent(Contact);
+    fixture = TestBed.createComponent(ContactForm);
     fixture.detectChanges();
     await fixture.whenStable();
   });

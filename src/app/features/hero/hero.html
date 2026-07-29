@@ -3,7 +3,10 @@
   class="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden px-5 pb-16 pt-28 sm:px-6 sm:pt-24"
 >
   <!-- Blueprint grid -->
-  <div class="grid-backdrop pointer-events-none absolute inset-0 opacity-[0.035]" aria-hidden="true"></div>
+  <div
+    class="grid-backdrop pointer-events-none absolute inset-0 opacity-[0.035]"
+    aria-hidden="true"
+  ></div>
 
   <!-- Ambient glow -->
   <div
@@ -45,7 +48,9 @@
       style="animation-delay: 0.12s"
     >
       <span class="relative flex h-2 w-2">
-        <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/70"></span>
+        <span
+          class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/70"
+        ></span>
         <span class="relative inline-flex h-2 w-2 rounded-full bg-primary"></span>
       </span>
       {{ profile().availability }}
@@ -99,22 +104,12 @@
     </div>
 
     <!-- Stats -->
-    <dl
-      class="mx-auto mt-12 grid max-w-2xl animate-slide-up grid-cols-2 gap-3 opacity-0 sm:mt-14 sm:grid-cols-4 sm:gap-4"
+    <app-stat-grid
+      class="mx-auto mt-12 block max-w-2xl animate-slide-up opacity-0 sm:mt-14"
       style="animation-delay: 0.56s"
-    >
-      @for (stat of stats(); track stat.label) {
-        <div
-          class="card-hover rounded-xl border border-border bg-card/60 px-3 py-4 backdrop-blur-sm sm:px-4 sm:py-5"
-        >
-          <dt class="sr-only">{{ stat.label }}</dt>
-          <dd>
-            <span class="block font-mono text-2xl font-bold text-gradient sm:text-3xl">{{ stat.value }}</span>
-            <span class="mt-1.5 block text-[11px] leading-tight text-muted-foreground">{{ stat.label }}</span>
-          </dd>
-        </div>
-      }
-    </dl>
+      [stats]="stats()"
+      variant="hero"
+    />
   </div>
 
   <!-- Technology marquee -->

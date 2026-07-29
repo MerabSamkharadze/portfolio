@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { Reveal } from './reveal';
@@ -43,6 +43,7 @@ class StubIntersectionObserver implements IntersectionObserver {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [Reveal],
   template: `
     <p id="plain" appReveal>Plain</p>
@@ -69,7 +70,8 @@ describe('Reveal directive', () => {
 
   describe('with IntersectionObserver available', () => {
     beforeEach(() => {
-      window.IntersectionObserver = StubIntersectionObserver as unknown as typeof IntersectionObserver;
+      window.IntersectionObserver =
+        StubIntersectionObserver as unknown as typeof IntersectionObserver;
     });
 
     it('applies the reveal class but stays hidden until the element is in view', async () => {

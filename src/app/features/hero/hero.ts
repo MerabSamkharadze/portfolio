@@ -1,14 +1,13 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 
-import type { SectionId } from '../../core/models/portfolio.model';
-import { PortfolioStore } from '../../core/services/portfolio-store';
-import { ScrollSpy } from '../../core/services/scroll-spy';
-import { Icon } from '../../shared/ui/icon/icon';
+import type { SectionId } from '@core/models';
+import { PortfolioStore, ScrollSpy } from '@core/services';
+import { Icon, StatGrid } from '@shared/ui';
 
 @Component({
   selector: 'app-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon],
+  imports: [Icon, StatGrid],
   templateUrl: './hero.html',
   host: { class: 'block' },
 })

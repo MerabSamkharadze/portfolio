@@ -1,30 +1,20 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
-import type { SkillLevel } from '../../core/models/portfolio.model';
-import { PortfolioStore } from '../../core/services/portfolio-store';
-import { Reveal } from '../../shared/directives/reveal';
-import { Chip, type ChipTone } from '../../shared/ui/chip/chip';
-import { Icon } from '../../shared/ui/icon/icon';
-import { SectionHeading } from '../../shared/ui/section-heading/section-heading';
+import { PortfolioStore } from '@core/services';
+import { Reveal } from '@shared/directives';
+import { Chip, SectionHeading } from '@shared/ui';
 
-const LEVEL_TONE: Readonly<Record<SkillLevel, ChipTone>> = {
-  production: 'accent',
-  strong: 'neutral',
-  working: 'quiet',
-  familiar: 'outline',
-};
-
-const LEVEL_LABEL: Readonly<Record<SkillLevel, string>> = {
-  production: 'In production',
-  strong: 'Strong',
-  working: 'Working knowledge',
-  familiar: 'Familiar',
-};
+import {
+  SKILL_LEVELS,
+  SkillGroupCard,
+  skillLevelLabel,
+  skillLevelTone,
+} from './skill-group-card/skill-group-card';
 
 @Component({
   selector: 'app-skills',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Chip, Icon, Reveal, SectionHeading],
+  imports: [Chip, Reveal, SectionHeading, SkillGroupCard],
   templateUrl: './skills.html',
   host: { class: 'block' },
 })
@@ -34,13 +24,7 @@ export class Skills {
   protected readonly primaryGroups = this.store.primarySkillGroups;
   protected readonly secondaryGroups = this.store.secondarySkillGroups;
 
-  protected readonly levels: readonly SkillLevel[] = ['production', 'strong', 'working', 'familiar'];
-
-  protected toneFor(level: SkillLevel): ChipTone {
-    return LEVEL_TONE[level];
-  }
-
-  protected labelFor(level: SkillLevel): string {
-    return LEVEL_LABEL[level];
-  }
+  protected readonly levels = SKILL_LEVELS;
+  protected readonly toneFor = skillLevelTone;
+  protected readonly labelFor = skillLevelLabel;
 }

@@ -1,42 +1,32 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 
-import {
-  ABOUT_HIGHLIGHTS,
-  ABOUT_PARAGRAPHS,
-  CONTACT_CHANNELS,
-  EDUCATION,
-  EXPERIENCE,
-  HERO_STATS,
-  LANGUAGES,
-  NAV_ITEMS,
-  PROFILE,
-  PROJECTS,
-  SKILL_GROUPS,
-} from '../data/portfolio.content';
+import { PORTFOLIO_CONTENT } from '@core/tokens';
+
+/** Levels considered established enough to appear in the hero marquee. */
+const MARQUEE_LEVELS = new Set(['production', 'strong']);
 
 /**
  * Read-only façade over the portfolio content.
  *
- * Content is exposed as signals rather than plain constants so the UI is already
- * wired for a future where it arrives from a CMS or an HTTP resource — swapping
- * the source would not touch a single template.
+ * The content arrives through DI rather than an import, so this store has no
+ * opinion about where the words live. Everything is exposed as a signal, which
+ * means a future move to an HTTP resource would not touch a single template.
  */
 @Injectable({ providedIn: 'root' })
 export class PortfolioStore {
-  private readonly skillSource = signal(SKILL_GROUPS);
-  private readonly projectSource = signal(PROJECTS);
+  private readonly content = inject(PORTFOLIO_CONTENT);
 
-  readonly profile = signal(PROFILE).asReadonly();
-  readonly navItems = signal(NAV_ITEMS).asReadonly();
-  readonly heroStats = signal(HERO_STATS).asReadonly();
-  readonly aboutParagraphs = signal(ABOUT_PARAGRAPHS).asReadonly();
-  readonly aboutHighlights = signal(ABOUT_HIGHLIGHTS).asReadonly();
-  readonly experience = signal(EXPERIENCE).asReadonly();
-  readonly education = signal(EDUCATION).asReadonly();
-  readonly languages = signal(LANGUAGES).asReadonly();
-  readonly contactChannels = signal(CONTACT_CHANNELS).asReadonly();
-  readonly skillGroups = this.skillSource.asReadonly();
-  readonly projects = this.projectSource.asReadonly();
+  readonly profile = signal(this.content.profile).asReadonly();
+  readonly navItems = signal(this.content.navItems).asReadonly();
+  readonly heroStats = signal(this.content.heroStats).asReadonly();
+  readonly aboutParagraphs = signal(this.content.aboutParagraphs).asReadonly();
+  readonly aboutHighlights = signal(this.content.aboutHighlights).asReadonly();
+  readonly skillGroups = signal(this.content.skillGroups).asReadonly();
+  readonly projects = signal(this.content.projects).asReadonly();
+  readonly experience = signal(this.content.experience).asReadonly();
+  readonly education = signal(this.content.education).asReadonly();
+  readonly languages = signal(this.content.languages).asReadonly();
+  readonly contactChannels = signal(this.content.contactChannels).asReadonly();
 
   /* ---------------------------------------------------------------------- */
   /* Derived views                                                           */
@@ -58,14 +48,16 @@ export class PortfolioStore {
 
   /** Flat, de-duplicated technology list — feeds the hero marquee. */
   readonly technologyMarquee = computed(() => {
-    const seen = new Set<string>();
+    const names = new Set<string>();
+
     for (const group of this.skillGroups()) {
       for (const skill of group.skills) {
-        if (skill.level === 'production' || skill.level === 'strong') {
-          seen.add(skill.name);
+        if (MARQUEE_LEVELS.has(skill.level)) {
+          names.add(skill.name);
         }
       }
     }
-    return [...seen];
+
+    return [...names];
   });
 }

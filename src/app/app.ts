@@ -1,23 +1,14 @@
 import { ChangeDetectionStrategy, Component, afterNextRender, inject } from '@angular/core';
 
-import type { SectionId } from './core/models/portfolio.model';
-import { PortfolioStore } from './core/services/portfolio-store';
-import { ScrollSpy } from './core/services/scroll-spy';
-import { About } from './features/about/about';
-import { Contact } from './features/contact/contact';
-import { Education } from './features/education/education';
-import { Experience } from './features/experience/experience';
-import { Hero } from './features/hero/hero';
-import { Projects } from './features/projects/projects';
-import { Skills } from './features/skills/skills';
-import { Footer } from './layout/footer/footer';
-import { Navbar } from './layout/navbar/navbar';
+import { PortfolioStore, ScrollSpy } from '@core/services';
+import { About, Contact, Education, Experience, Hero, Projects, Skills } from '@features/index';
+import { Footer, Navbar } from '@layout/index';
 
 /**
  * Application shell.
  *
- * A single-page composition — every section is a standalone component with its
- * own OnPush boundary. The only cross-cutting concern the shell owns is telling
+ * A single-page composition. Every section is a standalone component with its
+ * own OnPush boundary; the only cross-cutting concern the shell owns is telling
  * the scroll-spy which anchors exist, once they have actually been rendered.
  */
 @Component({
@@ -32,8 +23,7 @@ export class App {
 
   constructor() {
     afterNextRender(() => {
-      const sectionIds: SectionId[] = this.store.navItems().map((item) => item.id);
-      this.scrollSpy.watch(sectionIds);
+      this.scrollSpy.watch(this.store.navItems().map((item) => item.id));
     });
   }
 }

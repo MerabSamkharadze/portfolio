@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 
-import { PortfolioStore } from '../../core/services/portfolio-store';
-import { ScrollSpy } from '../../core/services/scroll-spy';
-import type { SectionId } from '../../core/models/portfolio.model';
-import { Icon } from '../../shared/ui/icon/icon';
+import { PortfolioStore, ScrollSpy } from '@core/services';
+import type { SectionId } from '@core/models';
+import { Icon } from '@shared/ui';
 
 @Component({
   selector: 'app-navbar',

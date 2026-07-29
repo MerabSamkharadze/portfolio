@@ -1,0 +1,74 @@
+<div class="flex flex-col gap-4">
+  <ul class="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
+    @for (channel of channels(); track channel.label) {
+      <li>
+        <!--
+          A channel is a link when it has an href and plain text when it does not.
+          The inner markup is identical either way, so it is projected once into
+          whichever wrapper applies rather than written out twice.
+        -->
+        @if (channel.href; as href) {
+          <a
+            class="card-hover group flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4"
+            [href]="href"
+            [attr.target]="channel.external ? '_blank' : null"
+            [attr.rel]="channel.external ? 'noopener noreferrer' : null"
+          >
+            <ng-container *ngTemplateOutlet="body; context: { $implicit: channel }" />
+
+            @if (channel.external) {
+              <app-icon
+                name="arrowUpRight"
+                [size]="14"
+                class="ml-auto text-muted-foreground transition-colors group-hover:text-primary"
+              />
+            }
+          </a>
+        } @else {
+          <div class="flex items-center gap-4 rounded-xl border border-border bg-card px-5 py-4">
+            <ng-container *ngTemplateOutlet="body; context: { $implicit: channel }" />
+          </div>
+        }
+      </li>
+    }
+  </ul>
+
+  <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+    <button
+      type="button"
+      class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-border bg-card px-5 py-3.5 text-sm text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-foreground active:scale-[0.98]"
+      (click)="copyEmail()"
+    >
+      <app-icon [name]="copied() ? 'check' : 'copy'" [size]="16" />
+      {{ copied() ? 'Copied to clipboard' : 'Copy email address' }}
+    </button>
+
+    <a
+      class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-5 py-3.5 text-sm font-medium text-primary transition-all duration-200 hover:bg-primary/20 active:scale-[0.98]"
+      [href]="profile().cvUrl"
+      [attr.download]="'Merab_Samkharadze_CV.pdf'"
+    >
+      <app-icon name="download" [size]="16" />
+      Download CV (PDF)
+    </a>
+  </div>
+</div>
+
+<ng-template #body let-channel>
+  <span
+    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary text-primary transition-transform duration-200 group-hover:scale-105"
+  >
+    <app-icon [name]="channel.icon" [size]="17" />
+  </span>
+
+  <span class="min-w-0">
+    <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+      {{ channel.label }}
+    </span>
+    <span
+      class="block truncate text-sm text-foreground/85 transition-colors duration-200 group-hover:text-primary"
+    >
+      {{ channel.value }}
+    </span>
+  </span>
+</ng-template>

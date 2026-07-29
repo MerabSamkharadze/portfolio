@@ -28,13 +28,13 @@ work out what it was doing wrong.
 
 **My contribution, measured with `git log` and `git blame`:**
 
-| Metric | Value |
-| --- | --- |
-| Commits | 81, over 5 weeks (2026-06-24 → 2026-07-28) |
-| Files touched in `src/` | 207 |
-| Files created from scratch | 42 |
-| Lines | +15,783 / −3,347 |
-| Share of current source | 13,740 of 30,200 lines — about 45% |
+| Metric                     | Value                                      |
+| -------------------------- | ------------------------------------------ |
+| Commits                    | 81, over 5 weeks (2026-06-24 → 2026-07-28) |
+| Files touched in `src/`    | 207                                        |
+| Files created from scratch | 42                                         |
+| Lines                      | +15,783 / −3,347                           |
+| Share of current source    | 13,740 of 30,200 lines — about 45%         |
 
 **The application as a whole** (my work and the other developer's combined): 58 components,
 18 core services, 78 spec files with 104 tests, and roughly 30,200 lines of `.ts`, `.html` and
@@ -102,9 +102,7 @@ One constraint is worth stating on its own. `procedure.scss` measured 11.97kB ag
 mobile list view with no CSS at all:
 
 ```ts
-effectiveLayout = computed(() =>
-  responsive.isMobileOrTablet() ? 'grid' : defaultLayout(),
-);
+effectiveLayout = computed(() => (responsive.isMobileOrTablet() ? 'grid' : defaultLayout()));
 ```
 
 Logic instead of styling. It added zero bytes.
@@ -227,7 +225,7 @@ ticks.
 
 The socket opened and closed immediately with close code 1006 and no useful reason. From the
 frontend side everything looked correct. I proved the cause outside the browser: with `curl` I
-showed that the server returned 101 *without* echoing the subprotocol, and Node's `ws` client said
+showed that the server returned 101 _without_ echoing the subprotocol, and Node's `ws` client said
 it plainly — "Server sent no subprotocol". The backend was calling `accept()` without returning the
 negotiated subprotocol, and the WebSocket specification requires the client to close the connection
 in that case. I handed the backend developer the evidence, they fixed it, and the handshake
@@ -290,13 +288,13 @@ into annotations, and adding a `page_size` query parameter.
 
 ### Result
 
-| Metric | Before | After |
-| --- | --- | --- |
-| Blank screen | 7.9–9.4s | 0ms |
-| Requests before first paint | 6 | 3 → 1 |
-| Backend work removed per page load | — | roughly 7 seconds |
-| Cost of changing the discount threshold | up to 25 requests | 0 |
-| Code deleted with the price-range requests | — | about 90 lines |
+| Metric                                     | Before            | After             |
+| ------------------------------------------ | ----------------- | ----------------- |
+| Blank screen                               | 7.9–9.4s          | 0ms               |
+| Requests before first paint                | 6                 | 3 → 1             |
+| Backend work removed per page load         | —                 | roughly 7 seconds |
+| Cost of changing the discount threshold    | up to 25 requests | 0                 |
+| Code deleted with the price-range requests | —                 | about 90 lines    |
 
 **Honest context:** these numbers were measured against a development dataset of 96 procedures, not
 at production scale. I did not fix the backend myself; I produced the diagnosis and the
