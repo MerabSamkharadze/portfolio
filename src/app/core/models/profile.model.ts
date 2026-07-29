@@ -10,7 +10,10 @@ export interface Profile {
   readonly phoneHref: string;
   readonly linkedIn: string;
   readonly gitHub: string | null;
+  /** The downloadable PDF. */
   readonly cvUrl: string;
+  /** Same CV as a page, for reading without downloading anything. */
+  readonly cvHtmlUrl: string;
   readonly photoUrl: string;
   readonly availability: string;
 }

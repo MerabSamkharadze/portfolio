@@ -33,24 +33,37 @@
     }
   </ul>
 
-  <div class="flex flex-col gap-3 sm:flex-row lg:flex-col">
+  <div class="flex flex-col gap-3">
     <button
       type="button"
-      class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-border bg-card px-5 py-3.5 text-sm text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-foreground active:scale-[0.98]"
+      class="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-5 py-3.5 text-sm text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-foreground active:scale-[0.98]"
       (click)="copyEmail()"
     >
       <app-icon [name]="copied() ? 'check' : 'copy'" [size]="16" />
       {{ copied() ? 'Copied to clipboard' : 'Copy email address' }}
     </button>
 
-    <a
-      class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-5 py-3.5 text-sm font-medium text-primary transition-all duration-200 hover:bg-primary/20 active:scale-[0.98]"
-      [href]="profile().cvUrl"
-      [attr.download]="'Merab_Samkharadze_CV.pdf'"
-    >
-      <app-icon name="download" [size]="16" />
-      Download CV (PDF)
-    </a>
+    <div class="grid grid-cols-2 gap-3">
+      <!-- Reading the CV should not require downloading a file first. -->
+      <a
+        class="inline-flex items-center justify-center gap-2 rounded-xl border border-border bg-card px-4 py-3.5 text-sm text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-foreground active:scale-[0.98]"
+        [href]="profile().cvHtmlUrl"
+        target="_blank"
+        rel="noopener"
+      >
+        <app-icon name="arrowUpRight" [size]="15" />
+        View CV
+      </a>
+
+      <a
+        class="inline-flex items-center justify-center gap-2 rounded-xl border border-primary/30 bg-primary/10 px-4 py-3.5 text-sm font-medium text-primary transition-all duration-200 hover:bg-primary/20 active:scale-[0.98]"
+        [href]="profile().cvUrl"
+        [attr.download]="'Merab_Samkharadze_CV.pdf'"
+      >
+        <app-icon name="download" [size]="15" />
+        Download
+      </a>
+    </div>
   </div>
 </div>
 

@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Merab Samkharadze — Angular Developer — CV</title>
+
+    <link rel="preload" href="/fonts/space-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
+
+    <style>
+      /* =====================================================================
+         Print-first CV sheet.
+         Screen shows a paper preview; print emits a clean A4 document.
+         Fonts are the same self-hosted files the portfolio uses.
+         ===================================================================== */
+
+      @font-face {
+        font-family: 'Space Grotesk';
+        font-style: normal;
+        font-weight: 300 700;
+        font-display: swap;
+        src: url('/fonts/space-grotesk-latin.woff2') format('woff2');
+      }
+      @font-face {
+        font-family: 'JetBrains Mono';
+        font-style: normal;
+        font-weight: 400 700;
+        font-display: swap;
+        src: url('/fonts/jetbrains-mono-latin.woff2') format('woff2');
+      }
+
+      :root {
+        /* primary-700 from the portfolio ramp: legible on white, prints well */
+        --accent: hsl(14 86% 42%);
+        --ink: #16161a;
+        --muted: #55555f;
+        --rule: #d9d9de;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      body {
+        margin: 0;
+        font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+        font-size: 9.2pt;
+        line-height: 1.32;
+        color: var(--ink);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* ---- Page geometry ------------------------------------------------ */
+      @page {
+        size: A4;
+        margin: 10mm 12mm;
+      }
+
+      @media screen {
+        body {
+          background: #e8e8ee;
+          padding: 28px 16px 60px;
+        }
+        .sheet {
+          width: 210mm;
+          min-height: 297mm;
+          margin: 0 auto;
+          padding: 10mm 12mm;
+          background: #fff;
+          box-shadow: 0 3px 28px rgb(0 0 0 / 18%);
+        }
+      }
+
+      @media print {
+        body {
+          background: #fff;
+          padding: 0;
+        }
+        .sheet {
+          width: auto;
+          min-height: 0;
+          margin: 0;
+          padding: 0;
+          box-shadow: none;
+        }
+        .no-print {
+          display: none !important;
+        }
+        a {
+          text-decoration: none;
+        }
+      }
+
+      /* ---- Screen-only guidance ----------------------------------------- */
+      .hint {
+        max-width: 210mm;
+        margin: 0 auto 18px;
+        padding: 12px 16px;
+        border: 1px solid #c9c9d2;
+        border-left: 3px solid var(--accent);
+        border-radius: 6px;
+        background: #fff;
+        font-size: 12px;
+        line-height: 1.6;
+        color: #3a3a44;
+      }
+      .hint strong {
+        color: var(--ink);
+      }
+      .hint kbd {
+        padding: 1px 5px;
+        border: 1px solid #c2c2cc;
+        border-bottom-width: 2px;
+        border-radius: 4px;
+        background: #f6f6f9;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+      }
+
+      /* ---- Header -------------------------------------------------------- */
+      header {
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 6px;
+        margin-bottom: 9px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 19.5pt;
+        font-weight: 700;
+        letter-spacing: -0.015em;
+        line-height: 1.05;
+      }
+
+      .role {
+        margin: 3px 0 0;
+        font-size: 10.5pt;
+        font-weight: 600;
+        color: var(--accent);
+      }
+
+      .stack-line {
+        margin: 2px 0 0;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 7.8pt;
+        color: var(--muted);
+      }
+
+      .contact {
+        margin: 6px 0 0;
+        font-size: 8.6pt;
+        color: var(--muted);
+      }
+      .contact a {
+        color: var(--muted);
+      }
+
+      /* ---- Sections ------------------------------------------------------ */
+      section {
+        margin-top: 4px;
+      }
+
+      h2 {
+        margin: 0 0 5px;
+        padding-bottom: 3px;
+        border-bottom: 1px solid var(--rule);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8.2pt;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--accent);
+        break-after: avoid;
+      }
+
+      p {
+        margin: 0 0 4px;
+        text-align: justify;
+        hyphens: auto;
+      }
+
+      strong {
+        font-weight: 600;
+      }
+
+      /* ---- Skills -------------------------------------------------------- */
+      .skills {
+        display: grid;
+        grid-template-columns: 25mm 1fr;
+        gap: 2px 8px;
+      }
+      .skills dt {
+        font-weight: 600;
+        font-size: 8.5pt;
+      }
+      .skills dd {
+        margin: 0;
+        font-size: 8.5pt;
+        color: #2c2c33;
+      }
+      .note {
+        color: var(--muted);
+        font-style: italic;
+      }
+
+      /* ---- Entries ------------------------------------------------------- */
+      .entry {
+        margin-bottom: 6px;
+        /* Entries may split across pages — forbidding it wastes the foot of a
+           page and pushes the CV to a third sheet. What must not happen is a
+           heading stranded alone, which the break-after rules below prevent. */
+        break-inside: auto;
+        orphans: 2;
+        widows: 2;
+      }
+      .entry:last-child {
+        margin-bottom: 0;
+      }
+
+      .entry-head {
+        break-after: avoid;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 10px;
+      }
+
+      .entry-title {
+        margin: 0;
+        font-size: 10.2pt;
+        font-weight: 700;
+      }
+      .entry-title .at {
+        font-weight: 500;
+        color: var(--muted);
+      }
+
+      .period {
+        flex: none;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 8pt;
+        font-weight: 500;
+        color: var(--accent);
+        white-space: nowrap;
+      }
+
+      .entry-meta {
+        break-after: avoid;
+        margin: 1px 0 3px;
+        font-size: 8.4pt;
+        font-style: italic;
+        color: var(--muted);
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 13px;
+      }
+      li {
+        break-inside: avoid;
+        margin-bottom: 1px;
+        text-align: justify;
+        hyphens: auto;
+      }
+      li::marker {
+        color: var(--accent);
+      }
+
+      code {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.9em;
+      }
+
+      .education dt {
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+        font-size: 9.4pt;
+        font-weight: 700;
+        break-inside: avoid;
+      }
+      .education dt .at {
+        font-weight: 500;
+        color: var(--muted);
+      }
+      .education dt .period {
+        margin-left: auto;
+      }
+      .education dd {
+        margin: 0 0 4px;
+        font-size: 8.6pt;
+        font-style: italic;
+        color: var(--muted);
+      }
+
+      .two-col {
+        columns: 2;
+        column-gap: 9mm;
+      }
+      .two-col li {
+        break-inside: avoid;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="hint no-print">
+      <strong>To export a PDF:</strong> press <kbd>Ctrl</kbd>+<kbd>P</kbd> (<kbd>⌘</kbd>+<kbd>P</kbd> on
+      Mac) → Destination <strong>Save as PDF</strong> → Paper size <strong>A4</strong> → Margins
+      <strong>Default</strong> → <strong>uncheck “Headers and footers”</strong> and check
+      <strong>“Background graphics”</strong>. This bar will not appear in the PDF.
+    </div>
+
+    <main class="sheet">
+      <header>
+        <h1>Merab Samkharadze</h1>
+        <p class="role">Angular Developer</p>
+        <p class="stack-line">
+          Angular · TypeScript · JavaScript (ES2015+) · RxJS / NgRx · HTML5 / CSS3 · SQL
+        </p>
+        <p class="contact">
+          +995 598 487 787 &nbsp;·&nbsp;
+          <a href="mailto:samkharadzemerab@gmail.com">samkharadzemerab@gmail.com</a> &nbsp;·&nbsp;
+          <a href="https://www.linkedin.com/in/merab-samkharadze-15301b131"
+            >linkedin.com/in/merab-samkharadze-15301b131</a
+          >
+          &nbsp;·&nbsp; Tbilisi, Georgia
+        </p>
+        <p class="contact">
+          Georgian (Native) &nbsp;·&nbsp; English (Professional working proficiency)
+        </p>
+      </header>
+
+      <section>
+        <h2>Professional Summary</h2>
+        <p>
+          Angular developer with <strong>2+ years of professional web development</strong>, currently
+          shipping Angular in <strong>two live products at the same time</strong> — a promotions
+          platform with <strong>100k+ active users</strong> and a cross-border Health Tech marketplace
+          — alongside a third product of my own in production. Daily work is enterprise-shaped:
+          Angular v14–v21 with RxJS, NgRx and Signals, standalone components, lazy loading and OnPush
+          change detection, on modern JavaScript (ES2015+) and TypeScript in strict mode, with
+          semantic HTML5 and SCSS/BEM front ends.
+        </p>
+        <p>
+          I own a <strong>50+ component shared library</strong> and work in
+          <strong>modular, monorepo-style architectures with enforced import boundaries</strong>. I
+          apply <strong>OOP and SOLID</strong> beyond the client layer — production REST APIs in
+          Node.js, a NestJS service layer, and <strong>SQL</strong> schemas I design, index and tune
+          myself. I keep unit-test suites green (<strong>104 tests</strong>) and review every pull
+          request before merge. Analytical by habit: I measure before I optimise, which is how I found
+          and removed <strong>7 seconds</strong> of pointless work from a page load and proved a
+          WebSocket failure was a server-side specification violation rather than a client bug.
+        </p>
+      </section>
+
+      <section>
+        <h2>Technical Skills</h2>
+        <dl class="skills">
+          <dt>Angular</dt>
+          <dd>
+            Angular v14–v21 · RxJS · NgRx · Signals · Standalone Components · Reactive Forms · Router
+            &amp; Lazy Loading · OnPush Change Detection · Dependency Injection · HttpClient &amp;
+            Functional Interceptors · Angular CLI · PrimeNG · SPA architecture · SSR / SSG
+            pre-rendering
+          </dd>
+
+          <dt>JavaScript &amp; TypeScript</dt>
+          <dd>
+            JavaScript ES2015+ and latest ECMAScript specifications · TypeScript (strict mode) ·
+            Promises &amp; async/await · Classes, Modules &amp; Prototypes · Closures · Generics &amp;
+            Utility Types · optional chaining / nullish coalescing · immutable data patterns
+          </dd>
+
+          <dt>Architecture &amp; Tooling</dt>
+          <dd>
+            OOP principles (encapsulation, abstraction, inheritance, polymorphism) · SOLID · design
+            patterns · modular / monorepo architecture with enforced import boundaries ·
+            component-driven development · DTO validation · code review · Nx workspace (monorepo) ·
+            Storybook <span class="note">(working knowledge)</span>
+          </dd>
+
+          <dt>Testing</dt>
+          <dd>
+            Jest · Vitest · Angular TestBed · unit testing · test-suite recovery and maintenance ·
+            Jest-compatible assertion &amp; spy API
+          </dd>
+
+          <dt>Databases &amp; SQL</dt>
+          <dd>
+            SQL · relational schema design · joins, indexing &amp; query optimisation · migrations ·
+            row-level security · full-text search (tsvector / GIN) · PostgreSQL · MySQL · MS SQL /
+            T-SQL <span class="note">(working knowledge)</span>
+          </dd>
+
+          <dt>Backend &amp; APIs</dt>
+          <dd>
+            REST API design &amp; integration · Node.js · NestJS · WebSockets · JWT &amp; role-based
+            authorisation · Postman
+          </dd>
+
+          <dt>HTML &amp; CSS</dt>
+          <dd>
+            Semantic HTML5 · CSS3 · SCSS · BEM · Flexbox · CSS Grid · mobile-first responsive design ·
+            cross-browser compatibility · Tailwind CSS · Figma / Zeplin hand-off · accessibility
+            (WCAG)
+          </dd>
+
+          <dt>Methodologies</dt>
+          <dd>
+            Agile teamwork · Git feature-branch flow · pull-request review · internationalisation
+            (i18n) · WebStorm / VS Code · npm / yarn
+          </dd>
+        </dl>
+      </section>
+
+      <section>
+        <h2>Work Experience</h2>
+
+        <article class="entry">
+          <div class="entry-head">
+            <p class="entry-title">Angular Developer <span class="at">— Crocobet</span></p>
+            <span class="period">07/2025 – Present</span>
+          </div>
+          <p class="entry-meta">
+            Tbilisi, Georgia · Promotions &amp; campaigns platform · 100k+ active users
+          </p>
+          <ul>
+            <li>
+              <strong>Own the Angular (v14+) front end</strong> of a platform with
+              <strong>100k+ active users</strong>, built with TypeScript, RxJS and NgRx for real-time
+              campaign state shared consistently across every view.
+            </li>
+            <li>
+              Shipped <strong>20+ campaign UIs</strong> end-to-end from design hand-off to production —
+              several running <strong>simultaneously</strong>, each on a launch date fixed before the
+              work started.
+            </li>
+            <li>
+              Built and maintain a <strong>shared library of 50+ responsive components</strong> in
+              SCSS BEM, Flexbox and CSS Grid with full cross-browser compatibility — a
+              component-driven library where each component is developed and reviewed in isolation
+              before it enters a campaign.
+            </li>
+            <li>
+              <strong>Cut initial load time across the 5 heaviest modules</strong> with lazy-loaded
+              feature modules and <strong>OnPush change detection</strong>.
+            </li>
+            <li>
+              Wrote the production REST APIs in Node.js behind campaign workflows where that was
+              faster than waiting for them, applying <strong>OOP and SOLID</strong> so the
+              client–service contract was designed once rather than negotiated twice.
+            </li>
+            <li>
+              Keep a 5-person team’s codebase release-ready through
+              <strong>code review on every pull request</strong> before merge.
+            </li>
+          </ul>
+        </article>
+
+        <article class="entry">
+          <div class="entry-head">
+            <p class="entry-title">Angular Developer <span class="at">— MedSocial</span></p>
+            <span class="period">06/2026 – Present</span>
+          </div>
+          <p class="entry-meta">
+            Remote · Cross-border Health Tech marketplace, run in parallel with the Crocobet role ·
+            medsocial.online
+          </p>
+          <ul>
+            <li>
+              Joined an <strong>Angular 21 / TypeScript-strict</strong> codebase another developer had
+              been building for 3.5 months and <strong>wrote 45% of the source in 5 weeks</strong> —
+              81 commits, 207 files touched, 42 created, all merged to main through
+              <strong>reviewed pull requests</strong>.
+            </li>
+            <li>
+              Built the entire 1:1 doctor–patient chat over <strong>WebSockets</strong>: transport
+              with subprotocol authentication and reconnect backoff, optimistic send, presence, typing
+              indicators, an offline outbox and gap healing over REST.
+            </li>
+            <li>
+              <strong>Cut the listings page from a 7.9–9.4s blank screen to 0ms</strong>, and requests
+              before first paint from 6 to 1, by measuring the load first and then deleting two calls
+              that cost 7 seconds and served no purpose.
+            </li>
+            <li>
+              Migrated a site containing a single <code>@media</code> rule to a four-tier responsive
+              system with shared breakpoints and a matchMedia service, reviewing each tier and fixing
+              <strong>27 defects</strong> before release.
+            </li>
+            <li>
+              Rebuilt the auth chain with <strong>functional HTTP interceptors</strong> — one token
+              refresh per 401 with the other failed requests queued behind it, plus proactive refresh
+              scheduled from the JWT <code>exp</code> claim.
+            </li>
+            <li>
+              <strong>Took the unit-test suite from 33 failing spec files to fully green — 78 files,
+                104 tests</strong>
+              (Vitest, Jest-compatible API), then audited the codebase into a prioritised 551-line
+              backlog and closed 48 items from it.
+            </li>
+          </ul>
+        </article>
+
+        <article class="entry">
+          <div class="entry-head">
+            <p class="entry-title">React / Next.js Developer <span class="at">— Adaptcore</span></p>
+            <span class="period">09/2024 – 04/2025</span>
+          </div>
+          <p class="entry-meta">Tbilisi, Georgia · Hotel &amp; restaurant management platform</p>
+          <ul>
+            <li>
+              Took the front end from an empty repository to a live product for
+              <strong>3+ business clients</strong> — bookings, menus, orders and role-based admin
+              dashboards in Next.js, React, TypeScript and SCSS.
+            </li>
+            <li>
+              <strong>Reduced page load times by 25%</strong> by removing unnecessary re-renders and
+              refactoring component trees that had grown too deep.
+            </li>
+            <li>
+              <strong>Cut post-release bugs by 15%</strong> by introducing structured debugging
+              practices and making <strong>code review mandatory</strong> before every merge to main.
+            </li>
+            <li>
+              Specified and integrated <strong>10+ REST endpoints</strong> with the backend team,
+              enabling real-time booking updates and role-based access control; ran bi-weekly
+              knowledge-sharing sessions for 4 developers.
+            </li>
+          </ul>
+        </article>
+      </section>
+
+      <section>
+        <h2>Projects</h2>
+
+        <article class="entry">
+          <p class="entry-title">dasaqmdi.com — Bilingual Job Board</p>
+          <p class="entry-meta">Live product · sole author of all 291 commits</p>
+          <ul>
+            <li>
+              Authored the complete <strong>PostgreSQL</strong> schema alone:
+              <strong>37 migrations, 53 row-level security policies across 14 tables</strong>, 8
+              triggers and 34 indexes, serving seeker, employer and administrator roles.
+            </li>
+            <li>
+              Replaced an unindexed five-column <code>ILIKE</code> chain with a weighted
+              <code>tsvector</code> and a <strong>GIN index</strong>, turning full-text search into an
+              indexed lookup.
+            </li>
+            <li>
+              Designed, built and shipped the whole product <strong>alongside full-time work</strong>:
+              45 pages, 143 components, 271 pages pre-rendered, shared First Load JS held at 102 kB.
+            </li>
+          </ul>
+        </article>
+
+        <article class="entry">
+          <p class="entry-title">Full-Stack Application — Angular + NestJS + SQL</p>
+          <p class="entry-meta">Personal project</p>
+          <ul>
+            <li>
+              Structured the NestJS API around <strong>OOP fundamentals</strong> — encapsulated
+              services, interface-driven providers, constructor injection, and
+              <strong>DTO classes</strong> with decorator-based validation guarding every request
+              contract — over a normalised relational schema with multi-table joins, indexes and
+              aggregate reporting, and <strong>JWT authentication with role-based guards</strong> on
+              every protected route.
+            </li>
+          </ul>
+        </article>
+
+        <article class="entry">
+          <p class="entry-title">Portfolio — Angular 21 <span class="at">— open source</span></p>
+          <ul>
+            <li>
+              Standalone components, signal-based state, zoneless change detection, strict TypeScript;
+              <strong>47 unit tests</strong>; ESLint rules that
+              <strong>enforce architectural import boundaries</strong> at build time; pre-rendered to
+              static HTML.
+            </li>
+          </ul>
+        </article>
+      </section>
+
+      <section>
+        <h2>Education &amp; Training</h2>
+        <dl class="education">
+          <dt>
+            React with Next.js Framework <span class="at">— TBC IT Academy, Tbilisi</span>
+            <span class="period">09/2024 – 01/2025</span>
+          </dt>
+          <dd>
+            3 full-stack projects; component architecture, SSR / SSG; +30% page performance. Taken
+            while working full time as a developer.
+          </dd>
+
+          <dt>
+            JavaScript &amp; Node.js (Advanced)
+            <span class="at">— Academy of Digital Industries, Tbilisi</span>
+            <span class="period">05/2024 – 08/2024</span>
+          </dt>
+          <dd>80+ hours: closures, prototypes, Promises, async/await, OOP.</dd>
+
+          <dt>
+            Master’s Degree, International Economics
+            <span class="at">— Tbilisi State University</span>
+            <span class="period">09/2021 – 06/2023</span>
+          </dt>
+          <dd>Econometrics, statistical modelling, applied mathematics.</dd>
+
+          <dt>
+            Bachelor’s Degree, Economics <span class="at">— Tbilisi State University</span>
+            <span class="period">09/2016 – 06/2021</span>
+          </dt>
+        </dl>
+      </section>
+
+      <section>
+        <h2>Key Competencies &amp; Soft Skills</h2>
+        <ul>
+          <li>
+            <strong>Handling multiple projects simultaneously</strong> — two live Angular products in
+            parallel (Crocobet and MedSocial), plus a product of my own shipped to production.
+            Nothing slipped in either.
+          </li>
+          <li>
+            <strong>Prioritisation &amp; organisation</strong> — 20+ campaigns delivered on dates
+            fixed before the work started; audited an unfamiliar codebase into a prioritised 551-line
+            backlog and closed 48 items from it in five weeks.
+          </li>
+          <li>
+            <strong>Analytical &amp; problem-solving</strong> — proved a WebSocket 1006 failure was a
+            server-side specification violation by reproducing it with <code>curl</code> and a Node
+            client when browser DevTools could not; wrote a measurement script rather than guessing,
+            which is how 7 seconds of pointless page load were found.
+          </li>
+          <li>
+            <strong>Independent initiative</strong> — wrote the Node.js REST APIs behind campaign
+            workflows myself where waiting would have been slower; introduced mandatory code review at
+            Adaptcore, cutting post-release bugs 15%.
+          </li>
+          <li>
+            <strong>Agile teamwork &amp; communication</strong> — review every pull request in a
+            5-person team, work directly from design hand-off, and ran bi-weekly knowledge-sharing
+            sessions for 4 developers.
+          </li>
+          <li>
+            <strong>Quick learner</strong> — moved from economics degrees into production development
+            via two specialist IT programmes, and reached 45% authorship of an unfamiliar Angular 21
+            codebase within five weeks.
+          </li>
+        </ul>
+      </section>
+
+    </main>
+  </body>
+</html>

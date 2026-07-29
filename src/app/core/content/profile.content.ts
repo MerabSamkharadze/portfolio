@@ -17,6 +17,7 @@ export const PROFILE: Profile = {
   linkedIn: 'https://www.linkedin.com/in/merab-samkharadze-15301b131',
   gitHub: null,
   cvUrl: 'Merab_Samkharadze_CV.pdf',
+  cvHtmlUrl: 'cv.html',
   photoUrl: 'profile.jpg',
   availability: 'Tbilisi, Georgia · Open to new opportunities',
 };

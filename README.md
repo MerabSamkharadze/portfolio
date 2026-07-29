@@ -8,7 +8,7 @@ standalone components, signal-based state, zoneless change detection, and a test
 [![Angular](https://img.shields.io/badge/Angular-21.2-DD0031?logo=angular&logoColor=white)](https://angular.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9%20strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-v4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![Vitest](https://img.shields.io/badge/Vitest-46%20tests-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev)
+[![Vitest](https://img.shields.io/badge/Vitest-47%20tests-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev)
 [![ESLint](https://img.shields.io/badge/ESLint-0%20warnings-4B32C3?logo=eslint&logoColor=white)](https://eslint.org)
 [![Zoneless](https://img.shields.io/badge/change%20detection-zoneless-ff5d2a)](https://angular.dev/guide/zoneless)
 [![NgModules](https://img.shields.io/badge/NgModules-0-ff5d2a)](https://angular.dev/guide/components/importing)
@@ -32,18 +32,26 @@ scale, and with what — and leaves the conclusion to the reader.
 
 |              |                                                        |
 | ------------ | ------------------------------------------------------ |
-| Bundle       | **81.9 kB** transferred · 325.7 kB raw                 |
+| Bundle       | **110.9 kB** transferred · 439.5 kB raw                |
 | Source       | 22 components, 1 directive, 4 services, 9 barrel files |
 | Largest file | 196 lines — no file in this repository exceeds 200     |
-| Tests        | **46** across 5 spec files                             |
+| Tests        | **47** across 5 spec files                             |
 | Lint         | **0** errors, 0 warnings                               |
 | NgModules    | **0**                                                  |
 | zone.js      | not installed                                          |
+
+> The bundle carries the Router and hydration because the page is pre-rendered. That is the trade:
+> ~29 kB more JavaScript in exchange for content that is visible before any of it runs.
 
 ---
 
 ## Technically interesting bits
 
+- **Pre-rendered to static HTML.** `outputMode: static` writes the finished page to disk at build
+  time, so the browser receives **21,184 characters of real content** instead of an empty shell it
+  has to fill in with JavaScript. Content is readable on the first paint, and search engines see the
+  page without executing anything. The scroll-reveal directive cooperates: it only hides elements
+  that are below the fold, so nothing ships with `opacity: 0` baked in.
 - **Zoneless change detection.** No `zone.js` in the bundle at all. Every update travels through a
   signal, and every component is `OnPush`.
 - **Content is typed data, not markup** — and it is _injected_, not imported. Copy lives in
@@ -103,7 +111,7 @@ npm start        # dev server → http://localhost:4200
 | Command                | What it does                                           |
 | ---------------------- | ------------------------------------------------------ |
 | `npm start`            | Dev server with live reload                            |
-| `npm test`             | Run the 46 unit tests once                             |
+| `npm test`             | Run the 47 unit tests once                             |
 | `npm run lint`         | ESLint over TypeScript **and** templates               |
 | `npm run lint:fix`     | The same, applying every safe fix                      |
 | `npm run format`       | Prettier over the repository                           |
@@ -217,7 +225,7 @@ the request fails.
 npm test
 ```
 
-44 tests across 5 files, covering:
+47 tests across 5 files, covering:
 
 - `PortfolioStore` — derived views, uniqueness of ids, marquee de-duplication, ordering
 - `ContactApi` — `mailto:` encoding (including the `+`-as-space trap), the endpoint-free fallback,
