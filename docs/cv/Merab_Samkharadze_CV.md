@@ -26,14 +26,14 @@ Angular v14–v21 · RxJS · NgRx · Signals · Standalone Components · Reactiv
 JavaScript ES2015+ and latest ECMAScript specifications · TypeScript (strict mode) · Promises & async/await · Classes, Modules & Prototypes · Closures · Generics & Utility Types · optional chaining / nullish coalescing · immutable data patterns
 
 **Architecture & Tooling**
-OOP principles (encapsulation, abstraction, inheritance, polymorphism) · SOLID · design patterns · **modular / monorepo architecture with enforced import boundaries** · component-driven development · DTO validation · code review · **Nx workspace (monorepo)** · **Storybook** *(working knowledge — see note)*
+OOP principles (encapsulation, abstraction, inheritance, polymorphism) · SOLID · design patterns · **modular / monorepo architecture with enforced import boundaries** · component-driven development · DTO validation · code review · **Nx workspace (monorepo)** · **Storybook** _(working knowledge — see note)_
 
 **Testing**
 **Jest** · **Vitest** · Angular TestBed · unit testing · test-suite recovery and maintenance · Jest-compatible assertion & spy API
 
 **Databases & SQL**
 SQL · relational schema design · joins, indexing & query optimisation · migrations · row-level security · full-text search (tsvector / GIN)
-· **PostgreSQL** · **MySQL** · **MS SQL / T-SQL** *(working knowledge)*
+· **PostgreSQL** · **MySQL** · **MS SQL / T-SQL** _(working knowledge)_
 
 **Backend & APIs**
 REST API design & integration · Node.js · NestJS · WebSockets · JWT & role-based authorisation · Postman
@@ -50,7 +50,7 @@ Agile teamwork · Git feature-branch flow · pull-request review · internationa
 
 ### Angular Developer — Crocobet
 
-*Tbilisi, Georgia · Promotions & campaigns platform · 100k+ active users*
+_Tbilisi, Georgia · Promotions & campaigns platform · 100k+ active users_
 **07/2025 – Present**
 
 - **Own the Angular (v14+) front end** of a platform with **100k+ active users**, built with TypeScript, RxJS and NgRx for real-time campaign state shared consistently across every view.
@@ -62,7 +62,7 @@ Agile teamwork · Git feature-branch flow · pull-request review · internationa
 
 ### Angular Developer — MedSocial
 
-*Remote · Cross-border Health Tech marketplace, run in parallel with the Crocobet role · medsocial.online*
+_Remote · Cross-border Health Tech marketplace, run in parallel with the Crocobet role · medsocial.online_
 **06/2026 – Present**
 
 - Joined an **Angular 21 / TypeScript-strict** codebase another developer had been building for 3.5 months and **wrote 45% of the source in 5 weeks** — 81 commits, 207 files touched, 42 created, all merged to main through **reviewed pull requests**.
@@ -74,7 +74,7 @@ Agile teamwork · Git feature-branch flow · pull-request review · internationa
 
 ### React / Next.js Developer — Adaptcore
 
-*Tbilisi, Georgia · Hotel & restaurant management platform*
+_Tbilisi, Georgia · Hotel & restaurant management platform_
 **09/2024 – 04/2025**
 
 - Took the front end from an empty repository to a live product for **3+ business clients** — bookings, menus, orders and role-based admin dashboards in Next.js, React, TypeScript and SCSS.
@@ -88,7 +88,7 @@ Agile teamwork · Git feature-branch flow · pull-request review · internationa
 
 ### dasaqmdi.com — Bilingual Job Board
 
-*Live product · sole author of all 291 commits*
+_Live product · sole author of all 291 commits_
 
 - Authored the complete **PostgreSQL** schema alone: **37 migrations, 53 row-level security policies across 14 tables**, 8 triggers and 34 indexes, serving seeker, employer and administrator roles.
 - Replaced an unindexed five-column `ILIKE` chain with a weighted `tsvector` and a **GIN index**, turning full-text search into an indexed lookup.
@@ -96,14 +96,14 @@ Agile teamwork · Git feature-branch flow · pull-request review · internationa
 
 ### Full-Stack Application — Angular + NestJS + SQL
 
-*Personal project*
+_Personal project_
 
 - Structured the NestJS API around **OOP fundamentals** — encapsulated services, interface-driven providers and constructor injection throughout — with **DTO classes** and decorator-based validation guarding every request contract.
 - Designed a normalised relational schema and wrote the queries against it: multi-table joins, indexes and aggregate reporting; **JWT authentication with role-based guards** on every protected route.
 
 ### Portfolio — Angular 21
 
-*Open source*
+_Open source_
 
 - Standalone components, signal-based state, zoneless change detection, strict TypeScript; **47 unit tests**; ESLint rules that **enforce architectural import boundaries** at build time; pre-rendered to static HTML.
 
