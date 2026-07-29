@@ -1,10 +1,17 @@
 import { provideHttpClient } from '@angular/common/http';
 import { TestBed, type ComponentFixture } from '@angular/core/testing';
+import { Router, provideRouter } from '@angular/router';
 
 import { NAV_ITEMS } from '@core/content';
 import { providePortfolioTesting } from '@core/testing';
-import { App } from './app';
 
+import { App } from './app';
+import { routes } from './app.routes';
+
+/**
+ * Mounts the shell *and* the routed page, so these assertions cover the page a
+ * visitor actually receives rather than either half in isolation.
+ */
 describe('App', () => {
   let fixture: ComponentFixture<App>;
   let element: HTMLElement;
@@ -12,10 +19,11 @@ describe('App', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideHttpClient(), ...providePortfolioTesting()],
+      providers: [provideRouter(routes), provideHttpClient(), ...providePortfolioTesting()],
     });
 
     fixture = TestBed.createComponent(App);
+    await TestBed.inject(Router).navigateByUrl('/');
     fixture.detectChanges();
     await fixture.whenStable();
     element = fixture.nativeElement;
@@ -56,10 +64,15 @@ describe('App', () => {
     expect(element.querySelectorAll('main')).toHaveLength(1);
   });
 
+  it('ships readable markup — nothing is hidden until JavaScript runs', () => {
+    // The page is pre-rendered, so no element may arrive with the reveal
+    // class already applied; the directive adds it only below the fold.
+    expect(element.querySelectorAll('.reveal:not(.is-visible)')).toHaveLength(0);
+  });
+
   it('stays a portfolio — it never argues its fit against a job posting', () => {
     const copy = (element.textContent ?? '').toLowerCase();
 
-    // Phrases, not bare words: "match" and "requirement" have innocent uses.
     for (const phrase of [
       'vacancy',
       'job posting',
@@ -77,7 +90,6 @@ describe('App', () => {
   it('shows rather than tells — no bare character adjectives in the copy', () => {
     const copy = (element.textContent ?? '').toLowerCase();
 
-    // Every CV claims these. They persuade nobody, so the page has to earn them.
     for (const cliche of [
       'hard-working',
       'hardworking',

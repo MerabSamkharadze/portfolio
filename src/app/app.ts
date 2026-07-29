@@ -1,20 +1,19 @@
 import { ChangeDetectionStrategy, Component, afterNextRender, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 
 import { PortfolioStore, ScrollSpy } from '@core/services';
-import { About, Contact, Education, Experience, Hero, Projects, Skills } from '@features/index';
 import { Footer, Navbar } from '@layout/index';
 
 /**
- * Application shell.
+ * Application shell: the chrome that surrounds whatever the router renders.
  *
- * A single-page composition. Every section is a standalone component with its
- * own OnPush boundary; the only cross-cutting concern the shell owns is telling
- * the scroll-spy which anchors exist, once they have actually been rendered.
+ * The only cross-cutting concern it owns is telling the scroll-spy which
+ * anchors exist, once they have actually been rendered.
  */
 @Component({
   selector: 'app-root',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [About, Contact, Education, Experience, Footer, Hero, Navbar, Projects, Skills],
+  imports: [Footer, Navbar, RouterOutlet],
   templateUrl: './app.html',
 })
 export class App {
