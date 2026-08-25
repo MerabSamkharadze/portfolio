@@ -12,7 +12,7 @@ const VARIANTS: Readonly<
   Record<StatGridVariant, { readonly cell: string; readonly value: string; readonly label: string }>
 > = {
   hero: {
-    cell: 'card-hover rounded-xl border border-border bg-card/60 px-3 py-4 backdrop-blur-sm sm:px-4 sm:py-5',
+    cell: 'card-hover surface-quiet rounded-xl border px-3 py-4 backdrop-blur-sm sm:px-4 sm:py-5',
     value: 'block font-mono text-2xl font-bold text-gradient sm:text-3xl',
     label: 'mt-1.5 block text-[11px] leading-tight text-muted-foreground',
   },

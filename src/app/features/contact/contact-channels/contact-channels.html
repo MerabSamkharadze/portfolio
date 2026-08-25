@@ -69,13 +69,13 @@
 
 <ng-template #body let-channel>
   <span
-    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary text-primary transition-transform duration-200 group-hover:scale-105"
+    class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-border bg-secondary text-foreground/70 transition-transform duration-200 group-hover:scale-105"
   >
     <app-icon [name]="channel.icon" [size]="17" />
   </span>
 
   <span class="min-w-0">
-    <span class="block font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+    <span class="block font-mono text-mono-label uppercase text-muted-foreground">
       {{ channel.label }}
     </span>
     <span

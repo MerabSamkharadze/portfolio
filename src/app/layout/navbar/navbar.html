@@ -21,9 +21,11 @@
     class="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-6"
     aria-label="Primary"
   >
+    <!-- Negative margin keeps the wordmark optically on the container edge
+         while the button itself grows to a 44px touch target. -->
     <button
       type="button"
-      class="font-mono text-sm font-semibold tracking-wider text-primary transition-opacity hover:opacity-80"
+      class="-ml-2.5 inline-flex h-11 items-center rounded-lg px-2.5 font-mono text-sm font-semibold tracking-wider text-primary transition-opacity hover:opacity-80"
       (click)="navigate('top')"
     >
       MS<span class="animate-cursor-blink">_</span>
@@ -60,7 +62,7 @@
 
       <button
         type="button"
-        class="rounded-lg p-2 text-foreground transition-transform active:scale-95 md:hidden"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-lg text-foreground transition-transform active:scale-95 md:hidden"
         [attr.aria-expanded]="mobileOpen()"
         aria-controls="mobile-menu"
         [attr.aria-label]="mobileOpen() ? 'Close menu' : 'Open menu'"

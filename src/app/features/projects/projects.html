@@ -1,4 +1,4 @@
-<section id="projects" class="scroll-mt-24 px-5 py-24 sm:px-6 sm:py-28 lg:py-32">
+<section id="projects" class="scroll-mt-24 px-5 py-16 sm:px-6 sm:py-20 lg:py-24">
   <div class="mx-auto max-w-6xl">
     <app-section-heading
       eyebrow="Projects"
@@ -6,10 +6,21 @@
       lead="Four products in production, one of them built entirely on my own. How each problem was actually solved — numbers where I have them."
     />
 
-    <ul class="stagger mt-14 grid gap-6 lg:grid-cols-2">
-      @for (project of featured(); track project.id) {
-        <li appReveal class="h-full">
+    <!--
+      Two write-ups short enough to sit side by side, paired first; the two
+      long ones each take the full row instead of stretching a short neighbour
+      over their own dead space. items-start keeps this pair itself from
+      stretching to match one another if their lengths still differ.
+    -->
+    <ul class="stagger mt-12 grid items-start gap-6 lg:grid-cols-2">
+      @for (project of pairedProjects(); track project.id) {
+        <li appReveal>
           <app-project-card [project]="project" />
+        </li>
+      }
+      @for (project of wideProjects(); track project.id) {
+        <li appReveal class="lg:col-span-2">
+          <app-project-card [project]="project" wide />
         </li>
       }
     </ul>

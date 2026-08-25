@@ -1,6 +1,6 @@
 <section
   id="skills"
-  class="scroll-mt-24 border-y border-border/60 bg-card/25 px-5 py-24 sm:px-6 sm:py-28 lg:py-32"
+  class="scroll-mt-24 border-y border-border/60 bg-card/25 px-5 py-16 sm:px-6 sm:py-20 lg:py-24"
 >
   <div class="mx-auto max-w-6xl">
     <app-section-heading
@@ -18,17 +18,17 @@
       }
     </ul>
 
-    <ul class="stagger mt-10 grid gap-5 md:grid-cols-2">
+    <ul class="stagger mt-8 grid items-start gap-5 md:grid-cols-2">
       @for (group of primaryGroups(); track group.id) {
-        <li appReveal class="h-full">
+        <li appReveal>
           <app-skill-group-card [group]="group" variant="primary" />
         </li>
       }
     </ul>
 
-    <ul class="stagger mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+    <ul class="stagger mt-6 grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-4">
       @for (group of secondaryGroups(); track group.id) {
-        <li appReveal class="h-full">
+        <li appReveal>
           <app-skill-group-card [group]="group" variant="secondary" />
         </li>
       }

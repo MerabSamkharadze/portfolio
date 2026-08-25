@@ -1,11 +1,11 @@
 <article
-  class="card-hover group flex h-full flex-col rounded-2xl border border-border"
-  [class]="isPrimary() ? 'bg-card p-6 sm:p-7' : 'bg-card/60 p-5 sm:p-6'"
+  class="card-hover group flex flex-col rounded-2xl border border-border"
+  [class]="isPrimary() ? 'bg-card p-6 sm:p-7' : 'surface-quiet p-5 sm:p-6'"
 >
   @if (isPrimary()) {
     <header class="mb-4 flex items-start gap-3.5">
       <span
-        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-primary/20 bg-primary/10 text-primary"
+        class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-secondary text-foreground/70"
       >
         <app-icon [name]="group().icon" [size]="18" />
       </span>
@@ -14,7 +14,7 @@
         <h3 class="text-base font-semibold transition-colors duration-200 group-hover:text-primary">
           {{ group().title }}
         </h3>
-        <p class="mt-1 text-pretty text-xs leading-relaxed text-muted-foreground">
+        <p class="mt-1 text-pretty text-caption leading-relaxed text-muted-foreground">
           {{ group().caption }}
         </p>
       </div>
@@ -24,10 +24,10 @@
       <h3
         class="flex items-center gap-2.5 text-sm font-semibold transition-colors duration-200 group-hover:text-primary"
       >
-        <app-icon [name]="group().icon" [size]="16" class="text-primary" />
+        <app-icon [name]="group().icon" [size]="16" class="text-foreground/60" />
         {{ group().title }}
       </h3>
-      <p class="mt-1.5 text-pretty text-[11px] leading-relaxed text-muted-foreground">
+      <p class="mt-1.5 text-pretty text-xs leading-relaxed text-muted-foreground">
         {{ group().caption }}
       </p>
     </header>

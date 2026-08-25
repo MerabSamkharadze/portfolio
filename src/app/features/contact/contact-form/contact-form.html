@@ -99,7 +99,7 @@
           @for (preset of subjectPresets; track preset) {
             <button
               type="button"
-              class="rounded-md border border-border bg-secondary/60 px-2.5 py-1 font-mono text-[10px] text-muted-foreground transition-colors duration-200 hover:border-primary/40 hover:text-primary disabled:opacity-50"
+              class="inline-flex min-h-11 items-center rounded-md border border-border bg-secondary/60 px-3 font-mono text-[10px] text-muted-foreground transition-colors duration-200 hover:border-primary/40 hover:text-primary disabled:opacity-50 sm:min-h-0 sm:px-2.5 sm:py-1"
               [disabled]="submitting()"
               (click)="applyPreset(preset)"
             >

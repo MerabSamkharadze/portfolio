@@ -3,9 +3,16 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 import type { SkillEmphasis, SkillGroup, SkillLevel } from '@core/models';
 import { Chip, type ChipTone, Icon } from '@shared/ui';
 
-/** How confident a level is, expressed in the shared chip vocabulary. */
+/**
+ * How confident a level is, expressed in the shared chip vocabulary.
+ *
+ * Stepped by weight, not by hue: `production` is the most common level on
+ * this page (most of the Angular group alone), so it is the boldest neutral,
+ * not the accent colour — orange stays reserved for CTAs, hover/active state
+ * and metric figures rather than being the default tone of a few dozen chips.
+ */
 const LEVEL_TONE: Readonly<Record<SkillLevel, ChipTone>> = {
-  production: 'accent',
+  production: 'bold',
   strong: 'neutral',
   working: 'quiet',
   familiar: 'outline',

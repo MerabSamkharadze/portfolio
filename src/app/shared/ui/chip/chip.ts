@@ -10,12 +10,15 @@ import {
  * Visual weight of a chip. Kept intentionally abstract — callers map their own
  * domain (skill level, requirement status) onto a tone, so the primitive never
  * learns about the domain.
+ *
+ * Steps down by weight, not by hue — every tone is neutral. The accent colour
+ * is reserved for CTAs, hover/active state and metric figures, never for a
+ * chip, so this vocabulary has no tone that reaches for it.
  */
-export type ChipTone = 'solid' | 'accent' | 'neutral' | 'quiet' | 'outline';
+export type ChipTone = 'bold' | 'neutral' | 'quiet' | 'outline';
 
 const TONE_CLASSES: Readonly<Record<ChipTone, string>> = {
-  solid: 'bg-primary text-primary-foreground border-transparent font-medium',
-  accent: 'bg-primary/10 text-primary border-primary/30',
+  bold: 'bg-secondary text-foreground border-transparent font-medium',
   neutral: 'bg-secondary text-secondary-foreground border-border',
   quiet: 'bg-transparent text-muted-foreground border-border',
   outline: 'bg-transparent text-muted-foreground border-dashed border-border',

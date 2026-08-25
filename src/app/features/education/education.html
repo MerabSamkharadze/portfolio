@@ -1,4 +1,4 @@
-<section id="education" class="scroll-mt-24 px-5 py-24 sm:px-6 sm:py-28 lg:py-32">
+<section id="education" class="scroll-mt-24 px-5 py-16 sm:px-6 sm:py-20 lg:py-24">
   <div class="mx-auto max-w-5xl">
     <app-section-heading
       eyebrow="Education & Training"
@@ -6,9 +6,9 @@
       lead="Two economics degrees from Tbilisi State University, then two specialist IT programmes. The second of those I took while already working full time as a developer."
     />
 
-    <ul class="stagger mt-14 grid gap-5 sm:grid-cols-2">
+    <ul class="stagger mt-12 grid items-start gap-5 sm:grid-cols-2">
       @for (item of items(); track item.id) {
-        <li appReveal class="h-full">
+        <li appReveal>
           <app-education-card [item]="item" />
         </li>
       }

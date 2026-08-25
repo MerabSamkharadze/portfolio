@@ -16,24 +16,21 @@ import { Reveal } from '@shared/directives';
     <div [class.text-center]="centered()" [class.mx-auto]="centered()">
       <p
         appReveal
-        class="mb-4 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.3em] text-primary"
+        class="mb-4 flex items-center gap-3 font-mono text-mono-label uppercase tracking-[0.08em] text-muted-foreground"
         [class.justify-center]="centered()"
       >
-        <span class="h-px w-6 bg-primary/50" [class.hidden]="centered()"></span>
+        <span class="h-px w-6 bg-border" [class.hidden]="centered()"></span>
         {{ eyebrow() }}
       </p>
 
-      <h2
-        appReveal="70"
-        class="text-balance text-3xl font-bold tracking-tight sm:text-4xl lg:text-[2.75rem] lg:leading-[1.1]"
-      >
+      <h2 appReveal="70" class="text-balance text-h1 font-bold">
         {{ heading() }}
       </h2>
 
       @if (lead(); as leadText) {
         <p
           appReveal="140"
-          class="mt-5 max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground"
+          class="mt-4 max-w-2xl text-pretty text-body-lg leading-relaxed text-muted-foreground"
           [class.mx-auto]="centered()"
         >
           {{ leadText }}
