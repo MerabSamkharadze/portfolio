@@ -1,13 +1,13 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 import type { ExperienceItem } from '@core/models';
-import { Icon, TechList } from '@shared/ui';
+import { CardShell, DisclosureList, TechList } from '@shared/ui';
 
-/** One role on the experience timeline, node included. */
+/** One role on the experience timeline, marker included. */
 @Component({
   selector: 'app-timeline-entry',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon, TechList],
+  imports: [CardShell, DisclosureList, TechList],
   templateUrl: './timeline-entry.html',
   host: { class: 'block' },
 })

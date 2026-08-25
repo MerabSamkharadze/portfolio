@@ -10,7 +10,7 @@
 
       <h3 class="text-xl font-semibold">Message ready to send</h3>
 
-      <p class="mx-auto mt-3 max-w-sm text-pretty text-sm leading-relaxed text-muted-foreground">
+      <p class="mx-auto mt-3 max-w-sm text-pretty text-body leading-relaxed text-muted-foreground">
         @if (sent.delivered) {
           Thanks — your message reached my inbox. I reply within one working day.
         } @else {
@@ -22,7 +22,7 @@
       <div class="mt-7 flex flex-col gap-3 sm:flex-row">
         @if (!sent.delivered) {
           <a
-            class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-all duration-200 hover:brightness-110 active:scale-[0.97]"
+            class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3 text-body font-medium text-primary-foreground transition-all duration-200 hover:brightness-110 active:scale-[0.97]"
             [href]="sent.mailtoUrl"
           >
             <app-icon name="send" [size]="16" />
@@ -32,7 +32,7 @@
 
         <button
           type="button"
-          class="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-6 py-3 text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
+          class="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-6 py-3 text-body text-muted-foreground transition-colors duration-200 hover:text-foreground"
           (click)="reset()"
         >
           Write another
@@ -43,7 +43,10 @@
     <form [formGroup]="form" (ngSubmit)="submit()" novalidate class="space-y-5">
       <div class="grid gap-5 sm:grid-cols-2">
         <div>
-          <label for="contact-name" class="mb-2 block text-xs font-medium text-muted-foreground">
+          <label
+            for="contact-name"
+            class="mb-2 block text-caption font-medium text-muted-foreground"
+          >
             Your name
           </label>
           <input
@@ -52,17 +55,20 @@
             formControlName="name"
             autocomplete="name"
             placeholder="Jane Doe"
-            class="w-full rounded-lg border bg-background/60 px-4 py-3 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary/50 disabled:opacity-60"
-            [class]="invalid('name') ? 'border-danger/60' : 'border-input'"
+            class="w-full rounded-lg border bg-background/60 px-4 py-3 text-body outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary disabled:opacity-60"
+            [class]="invalid('name') ? 'border-danger' : 'border-input'"
             [attr.aria-invalid]="invalid('name')"
           />
           @if (invalid('name')) {
-            <p class="mt-1.5 text-xs text-danger">Please enter at least 2 characters.</p>
+            <app-field-error>Please enter at least 2 characters.</app-field-error>
           }
         </div>
 
         <div>
-          <label for="contact-email" class="mb-2 block text-xs font-medium text-muted-foreground">
+          <label
+            for="contact-email"
+            class="mb-2 block text-caption font-medium text-muted-foreground"
+          >
             Email
           </label>
           <input
@@ -71,18 +77,21 @@
             formControlName="email"
             autocomplete="email"
             placeholder="you@company.com"
-            class="w-full rounded-lg border bg-background/60 px-4 py-3 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary/50 disabled:opacity-60"
-            [class]="invalid('email') ? 'border-danger/60' : 'border-input'"
+            class="w-full rounded-lg border bg-background/60 px-4 py-3 text-body outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary disabled:opacity-60"
+            [class]="invalid('email') ? 'border-danger' : 'border-input'"
             [attr.aria-invalid]="invalid('email')"
           />
           @if (invalid('email')) {
-            <p class="mt-1.5 text-xs text-danger">Please enter a valid email address.</p>
+            <app-field-error>Please enter a valid email address.</app-field-error>
           }
         </div>
       </div>
 
       <div>
-        <label for="contact-subject" class="mb-2 block text-xs font-medium text-muted-foreground">
+        <label
+          for="contact-subject"
+          class="mb-2 block text-caption font-medium text-muted-foreground"
+        >
           Subject
         </label>
         <input
@@ -90,8 +99,8 @@
           type="text"
           formControlName="subject"
           placeholder="What is this about?"
-          class="w-full rounded-lg border bg-background/60 px-4 py-3 text-sm outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary/50 disabled:opacity-60"
-          [class]="invalid('subject') ? 'border-danger/60' : 'border-input'"
+          class="w-full rounded-lg border bg-background/60 px-4 py-3 text-body outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary disabled:opacity-60"
+          [class]="invalid('subject') ? 'border-danger' : 'border-input'"
           [attr.aria-invalid]="invalid('subject')"
         />
 
@@ -99,7 +108,7 @@
           @for (preset of subjectPresets; track preset) {
             <button
               type="button"
-              class="inline-flex min-h-11 items-center rounded-md border border-border bg-secondary/60 px-3 font-mono text-[10px] text-muted-foreground transition-colors duration-200 hover:border-primary/40 hover:text-primary disabled:opacity-50 sm:min-h-0 sm:px-2.5 sm:py-1"
+              class="inline-flex min-h-11 items-center rounded-md border border-border bg-secondary px-3 font-mono text-mono-label text-muted-foreground transition-colors hover:border-primary/30 hover:text-primary disabled:opacity-50 lg:min-h-0 lg:px-2.5 lg:py-1.5"
               [disabled]="submitting()"
               (click)="applyPreset(preset)"
             >
@@ -109,16 +118,16 @@
         </div>
 
         @if (invalid('subject')) {
-          <p class="mt-1.5 text-xs text-danger">Please add a short subject.</p>
+          <app-field-error>Please add a short subject.</app-field-error>
         }
       </div>
 
       <div>
         <div class="mb-2 flex items-baseline justify-between">
-          <label for="contact-message" class="block text-xs font-medium text-muted-foreground">
+          <label for="contact-message" class="block text-caption font-medium text-muted-foreground">
             Message
           </label>
-          <span class="font-mono text-[10px] text-muted-foreground/70">
+          <span class="font-mono text-mono-label text-muted-foreground">
             {{ form.controls.message.value.length }} / {{ messageMinLength }} min
           </span>
         </div>
@@ -128,21 +137,21 @@
           formControlName="message"
           rows="6"
           placeholder="A sentence or two about the role and the team is plenty."
-          class="w-full resize-y rounded-lg border bg-background/60 px-4 py-3 text-sm leading-relaxed outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary/50 disabled:opacity-60"
-          [class]="invalid('message') ? 'border-danger/60' : 'border-input'"
+          class="w-full resize-y rounded-lg border bg-background/60 px-4 py-3 text-body leading-relaxed outline-none transition-colors duration-200 placeholder:text-muted-foreground/50 focus:border-primary disabled:opacity-60"
+          [class]="invalid('message') ? 'border-danger' : 'border-input'"
           [attr.aria-invalid]="invalid('message')"
         ></textarea>
 
         @if (invalid('message')) {
-          <p class="mt-1.5 text-xs text-danger">
+          <app-field-error>
             Please write at least {{ messageMinLength }} characters.
-          </p>
+          </app-field-error>
         }
       </div>
 
       <button
         type="submit"
-        class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-sm font-medium text-primary-foreground transition-all duration-200 hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
+        class="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-6 py-3.5 text-body font-medium text-primary-foreground transition-all duration-200 hover:brightness-110 active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
         [disabled]="submitting()"
       >
         @if (submitting()) {
@@ -157,7 +166,7 @@
         }
       </button>
 
-      <p class="text-center text-[11px] leading-relaxed text-muted-foreground/70">
+      <p class="text-center text-caption text-muted-foreground">
         No tracking, no newsletter — the form only composes a message addressed to me.
       </p>
     </form>

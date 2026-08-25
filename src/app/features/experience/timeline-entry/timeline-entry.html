@@ -1,64 +1,32 @@
-<div class="relative flex gap-6">
-  <!-- Timeline node — current roles get the accent, past roles stay neutral -->
+<div class="relative flex gap-5">
+  <!-- Marker: the current roles are filled, everything past is a hollow ring -->
   <span
-    class="relative z-10 hidden h-10 w-10 shrink-0 items-center justify-center rounded-full border sm:flex"
-    [class]="entry().current ? 'border-primary/30 bg-primary/10' : 'border-border bg-secondary'"
+    class="relative z-10 mt-5 hidden h-3 w-3 shrink-0 rounded-full border-2 sm:block"
+    [class]="entry().current ? 'border-primary bg-primary' : 'border-border bg-background'"
     aria-hidden="true"
   >
-    <app-icon
-      name="briefcase"
-      [size]="16"
-      [class]="entry().current ? 'text-primary' : 'text-foreground/60'"
-    />
-
     @if (entry().current) {
-      <span class="absolute -right-0.5 -top-0.5 flex h-3 w-3">
-        <span
-          class="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary/70"
-        ></span>
-        <span
-          class="relative inline-flex h-3 w-3 rounded-full border-2 border-background bg-primary"
-        ></span>
-      </span>
+      <span class="absolute -inset-1 animate-ping-once rounded-full bg-primary/40"></span>
     }
   </span>
 
-  <article class="card-hover group flex-1 rounded-2xl border border-border bg-card p-6 sm:p-8">
-    <header class="mb-4 flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
-      <div>
-        <h3 class="text-lg font-semibold transition-colors duration-200 group-hover:text-primary">
-          {{ entry().role }}
-        </h3>
-        <p class="mt-0.5 text-sm text-muted-foreground">
-          <span class="text-foreground/80">{{ entry().company }}</span>
-          · {{ entry().location }}
-        </p>
-      </div>
+  <app-card-shell class="flex-1" [surface]="entry().current ? 'raised' : 'base'">
+    <p data-slot="meta" class="font-mono text-mono-label uppercase text-muted-foreground">
+      {{ entry().company }} · {{ entry().location }} · {{ entry().period }}
+    </p>
 
-      <span
-        class="inline-flex shrink-0 items-center gap-2 self-start whitespace-nowrap rounded-md px-3 py-1 font-mono text-mono-label"
-        [class]="
-          entry().current ? 'bg-primary/10 text-primary' : 'bg-secondary text-secondary-foreground'
-        "
-      >
-        @if (entry().current) {
-          <span class="h-1.5 w-1.5 rounded-full bg-primary"></span>
-        }
-        {{ entry().period }}
-      </span>
-    </header>
+    <h3 data-slot="title" class="text-h3 font-semibold transition-colors group-hover:text-primary">
+      {{ entry().role }}
+    </h3>
 
-    <p class="mb-5 text-pretty text-sm leading-relaxed text-foreground/75">{{ entry().summary }}</p>
+    <p data-slot="claim" class="max-w-[68ch] text-pretty text-body-lg text-foreground">
+      {{ entry().summary }}
+    </p>
 
-    <ul class="space-y-3">
-      @for (achievement of entry().achievements; track $index) {
-        <li class="flex gap-3 text-caption leading-relaxed text-muted-foreground">
-          <span class="mt-1.5 shrink-0 text-foreground/40" aria-hidden="true">▸</span>
-          <span class="text-pretty">{{ achievement }}</span>
-        </li>
-      }
-    </ul>
+    <app-disclosure-list data-slot="detail" class="max-w-[68ch]" [items]="entry().achievements" />
 
-    <app-tech-list class="mt-6" [items]="entry().stack" divided />
-  </article>
+    <div data-slot="stack">
+      <app-tech-list [items]="entry().stack" />
+    </div>
+  </app-card-shell>
 </div>

@@ -10,13 +10,13 @@
     />
 
     <div class="relative mt-12">
-      <!-- Timeline spine, hidden on mobile where the nodes are not rendered -->
+      <!-- Timeline spine, hidden on mobile where the markers are not rendered -->
       <span
-        class="absolute bottom-2 left-[19px] top-2 hidden w-px bg-gradient-to-b from-transparent via-border to-transparent sm:block"
+        class="absolute bottom-0 left-[5px] top-0 hidden w-px bg-gradient-to-b from-transparent via-border to-transparent sm:block"
         aria-hidden="true"
       ></span>
 
-      <ol class="space-y-8">
+      <ol class="space-y-5">
         @for (role of roles(); track role.id) {
           <li appReveal>
             <app-timeline-entry [entry]="role" />

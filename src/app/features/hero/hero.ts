@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 
 import type { SectionId } from '@core/models';
 import { PortfolioStore, ScrollSpy } from '@core/services';
-import { Icon, StatGrid } from '@shared/ui';
+import { Icon, MetricRow } from '@shared/ui';
 
 @Component({
   selector: 'app-hero',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon, StatGrid],
+  imports: [Icon, MetricRow],
   templateUrl: './hero.html',
   host: { class: 'block' },
 })

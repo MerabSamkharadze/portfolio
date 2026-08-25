@@ -90,14 +90,12 @@
   --color-muted-foreground: hsl(220 10% 54%);
 
   /* ---- Accent ramp — #ff5d2a and its gradations ------------------------- */
-  --color-primary-50: hsl(14 100% 96%);
   --color-primary-100: hsl(14 100% 92%);
   --color-primary-200: hsl(14 100% 84%);
   --color-primary-300: hsl(14 100% 75%);
   --color-primary-400: hsl(14 100% 66%);
   --color-primary-500: hsl(14 100% 58%); /* #ff5d2a — the brand colour */
   --color-primary-600: hsl(14 90% 50%);
-  --color-primary-700: hsl(14 86% 42%);
   --color-primary-800: hsl(14 80% 33%);
   --color-primary-900: hsl(14 74% 26%);
   --color-primary-950: hsl(14 80% 15%);
@@ -110,58 +108,72 @@
 
   /* Lines & focus */
   --color-border: hsl(220 10% 18%);
-  --color-input: hsl(220 10% 18%);
+  /*
+    Form-field borders are a WCAG 1.4.11 target: 3:1 against whatever sits on
+    either side of them. At 18% this measured 1.34:1 against the field fill —
+    the outline was decorative rather than perceivable. 42% measures 3.34:1
+    against the fill and 3.23:1 against the card behind it. (30% only reaches
+    2.11:1, which is why this is not the rounder number it looks like it
+    should be.) Kept separate from --color-border, which draws decorative
+    hairlines that the rule does not cover.
+  */
+  --color-input: hsl(220 10% 42%);
   --color-ring: hsl(14 100% 58%);
 
-  /* Feedback — danger pushed toward crimson so form errors stay clearly
-     distinguishable from the orange-red accent */
-  --color-danger: hsl(352 82% 62%);
+  /*
+    Feedback. Danger sat at hue 352 — only 22° from the 14° accent, so an
+    error read as a slightly different shade of the brand colour. Moved to
+    344 and lifted to 71% lightness: a rose red that separates from the
+    accent on hue, lightness and blue channel at once (rgb 248,115,150 against
+    the accent's 255,91,41). Colour still is not the only channel — see the
+    FieldError component, which adds an icon and a tinted panel.
+  */
+  --color-danger: hsl(344 90% 71%);
   --color-success: hsl(152 55% 48%);
 
   /* Typography */
   --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  /* ---- Type scale — named steps, fluid where the jump across breakpoints
-     was previously a hard 2-3 step cut. Every section heading, card title and
-     label pulls from here instead of one-off `text-[Npx]` values. --------- */
-  --text-display: clamp(2.75rem, 2.05rem + 3.1vw, 6rem);
-  --text-display--line-height: 0.95;
+  /* ---- Type scale — seven steps, and there is no eighth ----------------
+     Every piece of text on the page resolves to one of these. 12px is the
+     floor: nothing renders smaller, so `text-[10px]` has nowhere left to go.
+     The metric numeral is the one exception and it is not a text step — it
+     uses Tailwind's own `text-2xl` (24px), because it is a figure, not copy.
+     --------------------------------------------------------------------- */
+  --text-display: clamp(2.5rem, 7vw, 4.5rem); /* 40 → 72 */
+  --text-display--line-height: 1;
   --text-display--letter-spacing: -0.02em;
 
-  --text-h1: clamp(1.875rem, 1.6rem + 1.2vw, 2.75rem);
-  --text-h1--line-height: 1.1;
-  --text-h1--letter-spacing: -0.01em;
+  --text-h2: clamp(1.75rem, 4vw, 2.5rem); /* 28 → 40 */
+  --text-h2--line-height: 1.1;
+  --text-h2--letter-spacing: -0.01em;
 
-  --text-h2: clamp(1.0625rem, 1rem + 0.3vw, 1.25rem);
-  --text-h2--line-height: 1.35;
+  --text-h3: 1.25rem; /* 20 */
+  --text-h3--line-height: 1.35;
 
-  --text-h3: 0.9375rem;
-  --text-h3--line-height: 1.4;
+  --text-body-lg: 1rem; /* 16 */
+  --text-body-lg--line-height: 1.65;
 
-  --text-body-lg: clamp(1rem, 0.94rem + 0.3vw, 1.125rem);
-  --text-body-lg--line-height: 1.7;
+  --text-body: 0.875rem; /* 14 */
+  --text-body--line-height: 1.6;
 
-  --text-body: 0.9375rem;
-  --text-body--line-height: 1.7;
+  --text-caption: 0.75rem; /* 12 */
+  --text-caption--line-height: 1.4;
 
-  --text-caption: 0.8125rem;
-  --text-caption--line-height: 1.5;
-
-  /* Base size for every date, tag and context string. Deliberately NOT wide
-     letter-spacing here — that only reads well on short, uppercase eyebrow
-     labels, not on longer mono phrases like "TBC IT Academy · 3 projects".
-     Eyebrows add `tracking-[0.08em]` on top of this where they're used. */
-  --text-mono-label: 0.6875rem;
+  --text-mono-label: 0.75rem; /* 12 */
   --text-mono-label--line-height: 1.3;
-  --text-mono-label--letter-spacing: 0.01em;
+  --text-mono-label--letter-spacing: 0.08em;
 
   /* Radii */
   --radius-lg: 0.5rem;
   --radius-xl: 0.75rem;
   --radius-2xl: 1rem;
 
-  /* Motion */
+  /* Motion — three durations, one curve */
+  --duration-micro: 160ms; /* hover, press, colour */
+  --duration-reveal: 240ms; /* scroll entrance */
+  --duration-disclosure: 200ms; /* "+N more" expand */
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
   /* Tailwind's own default for every unlabelled `transition-*` utility —
      without this, only the utilities below that name --ease-out-expo
@@ -169,6 +181,7 @@
   --default-transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
   --animate-slide-up: slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   --animate-cursor-blink: cursor-blink 1.1s step-end infinite;
+  --animate-ping-once: ping-once 1.4s var(--ease-out-expo) 0.6s 1 both;
   --animate-float: float 7s ease-in-out infinite;
   --animate-spin-slow: spin 9s linear infinite;
   /* The track travels ~7250px per loop; 90s puts that at ~80px/s — slow
@@ -204,6 +217,20 @@
   }
   50% {
     transform: translateY(-18px) scale(1.04);
+  }
+}
+
+/* A single pulse on the current-role marker: it draws the eye once on entry
+   and then stops, rather than blinking for as long as the page is open. */
+@keyframes ping-once {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  70%,
+  100% {
+    transform: scale(2);
+    opacity: 0;
   }
 }
 
@@ -287,24 +314,99 @@
   background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.45), transparent);
 }
 
-/* One surface, one definition — replaces four different ad-hoc opacities
-   (bg-card/60, /50, /40, /25) that were standing in for "secondary card"
-   across skill, project and timeline components. */
+/* ---------------------------------------------------------------------------
+   Card anatomy — one shape for every card on the page.
+
+   The six slots always render in the same order regardless of the order the
+   caller writes them, because `order` decides position and the DOM does not.
+   A card that has nothing for a slot simply omits the element, so a missing
+   slot costs no space: the rhythm below lives on the slots themselves, never
+   on a wrapper that would survive an empty slot.
+   ------------------------------------------------------------------------- */
+@utility card-shell {
+  display: flex;
+  flex-direction: column;
+  border-width: 1px;
+  border-radius: var(--radius-2xl);
+  padding: 1.25rem; /* 20 */
+  transition:
+    transform var(--duration-micro) var(--ease-out-expo),
+    border-color var(--duration-micro) var(--ease-out-expo);
+
+  @media (width >= 640px) {
+    padding: 1.5rem; /* 24 */
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+  }
+
+  & > [data-slot='meta'] {
+    order: 1;
+  }
+  & > [data-slot='title'] {
+    order: 2;
+    margin-top: 0.5rem; /* 8 */
+  }
+  & > [data-slot='claim'] {
+    order: 3;
+    margin-top: 0.75rem; /* 12 */
+  }
+  & > [data-slot='metrics'] {
+    order: 4;
+    margin-top: 1.25rem; /* 20 */
+  }
+  & > [data-slot='detail'] {
+    order: 5;
+    margin-top: 1.5rem; /* 24 */
+  }
+  /* `auto` rather than a fixed step: it is what pins the stack to the bottom
+     edge so cards in one row end level with each other. */
+  & > [data-slot='stack'] {
+    order: 6;
+    margin-top: auto;
+    padding-top: 1.25rem; /* 20 */
+  }
+  & > [data-slot='detail'] + [data-slot='stack'] {
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* Whichever slot happens to come first opens the card flush. */
+  & > [data-slot]:first-child {
+    margin-top: 0;
+  }
+}
+
+/* Three surfaces, separated by border and fill rather than by shadow —
+   `card` against `background` is only 1.06:1, so depth has to come from the
+   edge. */
 @utility surface-quiet {
-  background-color: color-mix(in oklab, var(--color-card) 55%, transparent);
-  border-color: color-mix(in oklab, var(--color-border) 70%, transparent);
+  background-color: transparent;
+  border-color: var(--color-border);
+}
+
+@utility surface-base {
+  background-color: var(--color-card);
+  border-color: var(--color-border);
+}
+
+@utility surface-raised {
+  background-color: var(--color-card);
+  border-color: var(--color-border);
+
+  &:hover {
+    border-color: hsl(var(--accent) / 0.3);
+  }
 }
 
 @utility card-hover {
   transition:
-    transform 0.3s var(--ease-out-expo),
-    box-shadow 0.3s var(--ease-out-expo),
-    border-color 0.3s var(--ease-out-expo);
+    transform var(--duration-micro) var(--ease-out-expo),
+    border-color var(--duration-micro) var(--ease-out-expo);
 
   &:hover {
-    transform: translateY(-3px);
+    transform: translateY(-2px);
     border-color: hsl(var(--accent) / 0.3);
-    box-shadow: 0 10px 36px hsl(var(--accent) / 0.1);
   }
 }
 
@@ -348,8 +450,8 @@
   opacity: 0;
   transform: translateY(10px);
   transition:
-    opacity 0.32s var(--ease-out-expo),
-    transform 0.32s var(--ease-out-expo);
+    opacity var(--duration-reveal) var(--ease-out-expo),
+    transform var(--duration-reveal) var(--ease-out-expo);
   transition-delay: var(--reveal-delay, 0ms);
   will-change: opacity, transform;
 }

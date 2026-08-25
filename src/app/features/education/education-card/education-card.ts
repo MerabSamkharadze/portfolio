@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 
 import type { EducationItem, EducationKind } from '@core/models';
-import { Icon, type IconName } from '@shared/ui';
+import { CardShell, Icon, type IconName } from '@shared/ui';
 
 const KIND_ICON: Readonly<Record<EducationKind, IconName>> = {
   degree: 'graduationCap',
@@ -11,7 +11,7 @@ const KIND_ICON: Readonly<Record<EducationKind, IconName>> = {
 @Component({
   selector: 'app-education-card',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon],
+  imports: [CardShell, Icon],
   templateUrl: './education-card.html',
   host: { class: 'block h-full' },
 })

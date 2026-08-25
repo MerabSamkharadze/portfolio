@@ -25,9 +25,9 @@ export const ABOUT_PARAGRAPHS: readonly string[] = [
 ];
 /** The "How I work" card — behaviour, not achievement. */
 export const ABOUT_HIGHLIGHTS: readonly string[] = [
-  'I plan backwards from the launch date, because it does not move',
-  'I write down what is wrong with a codebase before I change it',
-  'I would rather review a pull request twice than debug it in production',
-  'I prove where a bug lives before handing it to anyone else',
-  'I learn what the work needs next — Node.js, SQL and WebSockets all arrived that way',
+  '**I plan backwards from the launch date**, because it does not move',
+  '**I write down what is wrong with a codebase** before I change it',
+  '**I would rather review a pull request twice** than debug it in production',
+  '**I prove where a bug lives** before handing it to anyone else',
+  '**I learn what the work needs next** — Node.js, SQL and WebSockets all arrived that way',
 ];

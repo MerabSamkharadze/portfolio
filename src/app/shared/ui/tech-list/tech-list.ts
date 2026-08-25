@@ -1,18 +1,14 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  booleanAttribute,
-  computed,
-  input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 import { Chip } from '../chip/chip';
 
 /**
- * The row of technology chips that closes a project card or an experience entry.
+ * The STACK slot: the technologies a piece of work was built with.
  *
  * It exists because the same list appeared in three templates with three
  * slightly different sets of utility classes — which is how a design drifts.
+ * The rule and the spacing above it belong to the card shell now, so this
+ * renders the chips and nothing else.
  */
 @Component({
   selector: 'app-tech-list',
@@ -20,10 +16,10 @@ import { Chip } from '../chip/chip';
   imports: [Chip],
   host: { class: 'block' },
   template: `
-    <ul class="flex flex-wrap gap-1.5" [class]="ruleClass()">
+    <ul class="flex flex-wrap gap-2">
       @for (item of items(); track item) {
         <li>
-          <app-chip tone="quiet" compact>{{ item }}</app-chip>
+          <app-chip tone="quiet">{{ item }}</app-chip>
         </li>
       }
     </ul>
@@ -31,10 +27,4 @@ import { Chip } from '../chip/chip';
 })
 export class TechList {
   readonly items = input.required<readonly string[]>();
-  /** Adds the hairline rule that separates the stack from the copy above it. */
-  readonly divided = input(false, { transform: booleanAttribute });
-
-  protected readonly ruleClass = computed(() =>
-    this.divided() ? 'border-t border-border/60 pt-5' : '',
-  );
 }

@@ -23,14 +23,14 @@ import { Reveal } from '@shared/directives';
         {{ eyebrow() }}
       </p>
 
-      <h2 appReveal="70" class="text-balance text-h1 font-bold">
+      <h2 appReveal="50" class="text-balance text-h2 font-bold">
         {{ heading() }}
       </h2>
 
       @if (lead(); as leadText) {
         <p
-          appReveal="140"
-          class="mt-4 max-w-2xl text-pretty text-body-lg leading-relaxed text-muted-foreground"
+          appReveal="100"
+          class="mt-4 max-w-[68ch] text-pretty text-body-lg text-muted-foreground"
           [class.mx-auto]="centered()"
         >
           {{ leadText }}

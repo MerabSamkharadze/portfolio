@@ -1,6 +1,6 @@
 <section
   id="skills"
-  class="scroll-mt-24 border-y border-border/60 bg-card/25 px-5 py-16 sm:px-6 sm:py-20 lg:py-24"
+  class="scroll-mt-24 border-y border-border/60 bg-card/25 px-5 py-16 sm:px-6 lg:py-24"
 >
   <div class="mx-auto max-w-6xl">
     <app-section-heading
@@ -9,27 +9,14 @@
       lead="Grouped by where it sits in the stack and labelled with how deep I actually am — no bar charts implying a precision nobody has."
     />
 
-    <!-- Legend: the same chip vocabulary the cards below use -->
-    <ul appReveal class="mt-8 flex flex-wrap gap-2">
-      @for (level of levels; track level) {
-        <li>
-          <app-chip [tone]="toneFor(level)" compact>{{ labelFor(level) }}</app-chip>
-        </li>
-      }
-    </ul>
-
-    <ul class="stagger mt-8 grid items-start gap-5 md:grid-cols-2">
-      @for (group of primaryGroups(); track group.id) {
-        <li appReveal>
-          <app-skill-group-card [group]="group" variant="primary" />
-        </li>
-      }
-    </ul>
-
-    <ul class="stagger mt-6 grid items-start gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      @for (group of secondaryGroups(); track group.id) {
-        <li appReveal>
-          <app-skill-group-card [group]="group" variant="secondary" />
+    <!--
+      One card type, one grid. The depth label that used to live in a `title`
+      tooltip is now a heading inside each card, so it reads on a phone.
+    -->
+    <ul class="stagger mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      @for (group of skillGroups(); track group.id) {
+        <li appReveal class="h-full">
+          <app-skill-group-card [group]="group" />
         </li>
       }
     </ul>

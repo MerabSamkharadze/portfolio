@@ -1,4 +1,4 @@
-<section id="about" class="scroll-mt-24 px-5 py-16 sm:px-6 sm:py-20 lg:py-24">
+<section id="about" class="scroll-mt-24 px-5 py-16 sm:px-6 lg:py-24">
   <div class="mx-auto max-w-6xl">
     <app-section-heading
       eyebrow="About"
@@ -6,28 +6,25 @@
       lead="Where I am now, how I got here, and where I am pointed next."
     />
 
-    <div class="mt-12 grid gap-10 lg:grid-cols-[1.55fr_1fr] lg:gap-14">
-      <!-- Narrative -->
-      <div class="space-y-6">
+    <div class="mt-12 grid gap-12 lg:grid-cols-[1.55fr_1fr]">
+      <!-- Narrative, held to a readable measure -->
+      <div class="max-w-[68ch] space-y-6">
         @for (paragraph of paragraphs(); track $index) {
-          <p
-            [appReveal]="$index * 90"
-            class="text-pretty text-body-lg leading-[1.75] text-muted-foreground"
-          >
+          <p [appReveal]="$index * 50" class="text-pretty text-body-lg text-muted-foreground">
             {{ paragraph }}
           </p>
         }
 
-        <div appReveal="280" class="glow-line h-px w-full"></div>
+        <div appReveal class="glow-line h-px w-full"></div>
 
-        <div appReveal="320" class="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+        <div appReveal class="flex flex-wrap items-center gap-x-6 gap-y-3 text-body">
           <span class="flex items-center gap-2 text-muted-foreground">
-            <app-icon name="mapPin" [size]="15" class="text-muted-foreground/80" />
+            <app-icon name="mapPin" [size]="14" />
             {{ profile().location }}
           </span>
           @for (language of languages(); track language.name) {
             <span class="flex items-center gap-2 text-muted-foreground">
-              <app-icon name="globe" [size]="15" class="text-muted-foreground/80" />
+              <app-icon name="globe" [size]="14" />
               {{ language.name }} · {{ language.level }}
             </span>
           }
@@ -35,27 +32,23 @@
       </div>
 
       <!--
-        What that means in practice. The narrative column runs much longer
-        than this card, so on large screens the card sticks under the header
-        instead of finishing early and leaving the rest of its column empty
-        next to the still-scrolling text.
+        The narrative runs far longer than this card, so on a wide screen the
+        card rides down with it instead of finishing early and leaving the rest
+        of its column empty.
       -->
-      <aside appReveal="160" class="lg:pt-2">
-        <div class="rounded-2xl border border-border bg-card p-6 sm:p-7 lg:sticky lg:top-24">
-          <h3 class="mb-5 flex items-center gap-2.5 text-sm font-semibold">
-            <app-icon name="sparkles" [size]="16" class="text-muted-foreground/80" />
+      <aside appReveal>
+        <app-card-shell class="lg:sticky lg:top-24" surface="base">
+          <h3 data-slot="title" class="flex items-center gap-2 text-h3 font-semibold">
+            <app-icon name="sparkles" [size]="16" />
             How I work
           </h3>
 
-          <ul class="stagger space-y-4">
+          <ul data-slot="detail" class="space-y-3">
             @for (highlight of highlights(); track highlight) {
-              <li appReveal class="flex gap-3 text-sm leading-relaxed text-muted-foreground">
-                <app-icon name="check" [size]="15" class="mt-0.5 shrink-0 text-foreground/50" />
-                <span>{{ highlight }}</span>
-              </li>
+              <li><app-lead-bullet [text]="highlight" /></li>
             }
           </ul>
-        </div>
+        </app-card-shell>
       </aside>
     </div>
   </div>

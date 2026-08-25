@@ -1,6 +1,10 @@
+export { CardShell, type CardSurface } from './card-shell/card-shell';
 export { Chip, type ChipTone } from './chip/chip';
+export { DisclosureList } from './disclosure-list/disclosure-list';
+export { FieldError } from './field-error/field-error';
 export { Icon } from './icon/icon';
 export { ICONS, type IconName } from './icon/icon-set';
+export { LeadBullet } from './lead-bullet/lead-bullet';
+export { MetricRow } from './metric-row/metric-row';
 export { SectionHeading } from './section-heading/section-heading';
-export { StatGrid } from './stat-grid/stat-grid';
 export { TechList } from './tech-list/tech-list';

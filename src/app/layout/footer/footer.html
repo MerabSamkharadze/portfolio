@@ -6,10 +6,10 @@
       class="flex flex-col items-center gap-6 text-center sm:flex-row sm:justify-between sm:text-left"
     >
       <div>
-        <p class="font-mono text-sm font-semibold tracking-wider text-primary">
+        <p class="font-mono text-body font-semibold tracking-wider text-primary">
           MS<span class="animate-cursor-blink">_</span>
         </p>
-        <p class="mt-2 text-xs text-muted-foreground">
+        <p class="mt-2 text-caption text-muted-foreground">
           © {{ year }} {{ profile().name }} · {{ profile().location }}
         </p>
       </div>
@@ -44,7 +44,7 @@
         }
         <button
           type="button"
-          class="no-print flex h-11 items-center gap-2 rounded-lg border border-border bg-card px-4 text-xs text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary"
+          class="no-print flex h-11 items-center gap-2 rounded-lg border border-border bg-card px-4 text-caption text-muted-foreground transition-all duration-200 hover:border-primary/40 hover:text-primary"
           (click)="backToTop()"
         >
           <app-icon name="arrowUpRight" [size]="14" />

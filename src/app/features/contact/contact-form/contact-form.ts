@@ -11,7 +11,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import type { ContactMessage, ContactResult } from '@core/models';
 import { ContactApi } from '@core/services';
-import { Icon } from '@shared/ui';
+import { FieldError, Icon } from '@shared/ui';
 
 type SubmitStatus = 'idle' | 'pending' | 'done';
 
@@ -32,7 +32,7 @@ const SUBJECT_PRESETS: readonly string[] = [
 @Component({
   selector: 'app-contact-form',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon, ReactiveFormsModule],
+  imports: [FieldError, Icon, ReactiveFormsModule],
   templateUrl: './contact-form.html',
   host: { class: 'block' },
 })

@@ -1,6 +1,6 @@
 <!-- Skip link: first tab stop, invisible until focused -->
 <a
-  class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground"
+  class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-body focus:font-medium focus:text-primary-foreground"
   href="#about"
 >
   Skip to content
@@ -25,19 +25,19 @@
          while the button itself grows to a 44px touch target. -->
     <button
       type="button"
-      class="-ml-2.5 inline-flex h-11 items-center rounded-lg px-2.5 font-mono text-sm font-semibold tracking-wider text-primary transition-opacity hover:opacity-80"
+      class="-ml-2.5 inline-flex h-11 items-center rounded-lg px-2.5 font-mono text-body font-semibold tracking-wider text-primary transition-opacity hover:opacity-80"
       (click)="navigate('top')"
     >
       MS<span class="animate-cursor-blink">_</span>
     </button>
 
     <!-- Desktop -->
-    <ul class="hidden items-center gap-7 md:flex">
+    <ul class="hidden items-center gap-3 md:flex">
       @for (item of navItems(); track item.id) {
         <li>
           <button
             type="button"
-            class="link-underline text-sm transition-colors duration-200"
+            class="link-underline inline-flex min-h-11 min-w-11 items-center justify-center px-2 text-body transition-colors duration-200"
             [class.text-foreground]="activeSection() === item.id"
             [class.text-muted-foreground]="activeSection() !== item.id"
             [attr.data-active]="activeSection() === item.id"
@@ -52,7 +52,7 @@
 
     <div class="flex items-center gap-2">
       <a
-        class="hidden items-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-4 py-2 text-xs font-medium text-primary transition-all duration-200 hover:bg-primary/20 active:scale-[0.97] sm:inline-flex"
+        class="hidden min-h-11 items-center gap-2 rounded-lg border border-primary/30 bg-primary/10 px-4 text-caption font-medium text-primary transition-all duration-200 hover:bg-primary/20 active:scale-[0.97] sm:inline-flex"
         [href]="profile().cvUrl"
         [attr.download]="'Merab_Samkharadze_CV.pdf'"
       >
@@ -85,7 +85,7 @@
         <li>
           <button
             type="button"
-            class="block w-full rounded-lg px-4 py-3 text-left text-sm transition-colors duration-200"
+            class="block w-full rounded-lg px-4 py-3 text-left text-body transition-colors duration-200"
             [class]="
               activeSection() === item.id
                 ? 'bg-primary/10 text-primary font-medium'
@@ -99,7 +99,7 @@
       }
       <li class="pt-2">
         <a
-          class="flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-medium text-primary-foreground"
+          class="flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-3 text-body font-medium text-primary-foreground"
           [href]="profile().cvUrl"
           [attr.download]="'Merab_Samkharadze_CV.pdf'"
         >

@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { PortfolioStore } from '@core/services';
 import { Reveal } from '@shared/directives';
-import { Icon, SectionHeading } from '@shared/ui';
+import { CardShell, Icon, LeadBullet, SectionHeading } from '@shared/ui';
 
 @Component({
   selector: 'app-about',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [Icon, Reveal, SectionHeading],
+  imports: [CardShell, Icon, LeadBullet, Reveal, SectionHeading],
   templateUrl: './about.html',
   host: { class: 'block' },
 })
